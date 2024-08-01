@@ -1,0 +1,53 @@
+{% extends 'teacher_template/base_template.html' %}
+
+{% block custom_css %}
+<style>
+    .macroplanner-list-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    .macroplanner-list-container h2 {
+        color: #333;
+        margin-top: 0;
+        margin-bottom: 20px;
+    }
+    .macroplanner-list {
+        list-style-type: none;
+        padding: 0;
+    }
+    .macroplanner-item {
+        margin-bottom: 20px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+    }
+    .macroplanner-item strong {
+        color: #007bff;
+    }
+    .macroplanner-item a {
+        color: #007bff;
+        text-decoration: none;
+    }
+    .macroplanner-item a:hover {
+        text-decoration: underline;
+    }
+</style>
+{% endblock custom_css %}
+
+{% block main_content %}
+<div class="macroplanner-list-container">
+    <h2>Gradewise Macroplanner</h2>
+    <ul class="macroplanner-list">
+        {% for macroplanner in macroplanners %}
+        <li class="macroplanner-item">
+            <strong>Grade:</strong> {{ macroplanner.grade }} <br>
+            <strong></strong> <a href="{{ macroplanner.macroplanner.url }}" target="_blank">View Planner</a>
+        </li>
+        {% empty %}
+        <li>No macroplanners uploaded yet.</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock main_content %}

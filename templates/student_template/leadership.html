@@ -1,0 +1,53 @@
+{% extends 'student_template/base_template.html' %}
+
+{% block main_content %}
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title"><b>My Rank - {{user_rank}}</b></h3><br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title"><b>Top 3 Scorer</b></h3>
+                        </div>
+                        <div class="card-body">
+                            <h4>Grade: {{ user_grade }}</h4>
+                            <div class="table-responsive mx-auto ">
+                                <table class="table table-bordered table-striped">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th class="name-column">Name</th>
+                                            <th class="pr-3   grade-column">Result</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for student in top_students_by_grade %}
+                                        <tr>
+                                            <td class="name-column">{{ student.user.user_profile_student.first_name }}</td>
+                                            <td class="pr-3 grade-column" >{{ student.score|floatformat:2 }}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+{% endblock main_content %}

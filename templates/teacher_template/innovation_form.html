@@ -1,0 +1,124 @@
+{% extends 'teacher_template/base_template.html' %}
+
+{% block page_title %}
+    Innovation Club
+{% endblock page_title %}
+
+{% block main_content %}
+    {% load static %}
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Fill Club Details</h3>
+                        </div>
+                        <div class="card-body">
+                            <form method="post">
+                                {% csrf_token %}
+                                <div class="form-group row">
+                                    <label for="id_date" class="col-sm-2 col-form-label">Date</label>
+                                    <div class="col-sm-10">
+                                        {{ form.date }}
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="id_project_name" class="col-sm-2 col-form-label">Project Name</label>
+                                    <div class="col-sm-10">
+                                        {{ form.project_name }}
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="id_school" class="col-sm-2 col-form-label">School</label>
+                                    <div class="col-sm-10">
+                                        {{ form.school }}
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="id_grade" class="col-sm-2 col-form-label">Grade</label>
+                                    <div class="col-sm-4">
+                                        {{ form.grade }}
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="id_section" class="col-sm-2 col-form-label">Section</label>
+                                    <div class="col-sm-4">
+                                        {{ form.section }}
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="id_name" class="col-sm-2 col-form-label">Student's Name</label>
+                                    <div class="col-sm-10">
+                                        {{ form.name }}
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="id_progress" class="col-sm-2 col-form-label">Progress</label>
+                                    <div class="col-sm-10">
+                                        {{ form.progress }}
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-10 offset-sm-2">
+                                        <button type="submit" class="btn btn-primary">Save</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function() {
+            const schoolField = document.getElementById('id_school');
+            const gradeField = document.getElementById('id_grade');
+            const sectionField = document.getElementById('id_section');
+            const nameField = document.getElementById('id_name');
+
+            function loadSections() {
+                const schoolId = schoolField.value;
+                const gradeId = gradeField.value;
+                const url = '{% url "users:load_sections" %}?school=' + encodeURIComponent(schoolId) + '&grade=' + encodeURIComponent(gradeId);
+
+                fetch(url)
+                    .then(response => response.json())
+                    .then(data => {
+                        let options = '<option value="">---------</option>';
+                        data.forEach(section => {
+                            options += `<option value="${section}">${section}</option>`;
+                        });
+                        sectionField.innerHTML = options;
+                        nameField.innerHTML = '<option value="">---------</option>'; // Clear students when section changes
+                    });
+            }
+
+            function loadStudents() {
+                const schoolId = schoolField.value;
+                const gradeId = gradeField.value;
+                const sectionId = sectionField.value;
+                const url = '{% url "users:load_students" %}?school=' + encodeURIComponent(schoolId) + '&grade=' + encodeURIComponent(gradeId) + '&section=' + encodeURIComponent(sectionId);
+
+                fetch(url)
+                    .then(response => response.json())
+                    .then(data => {
+                        let options = '<option value="">---------</option>';
+                        data.forEach(student => {
+                            options += `<option value="${student.user_id}">${student.first_name} ${student.middle_name} ${student.last_name}</option>`;
+                        });
+                        nameField.innerHTML = options;
+                    });
+            }
+
+            schoolField.addEventListener('change', loadSections);
+            gradeField.addEventListener('change', loadSections);
+            sectionField.addEventListener('change', loadStudents);
+        });
+    </script>
+{% endblock main_content %}
+
+{% block custom_js %}
+{% endblock custom_js %}

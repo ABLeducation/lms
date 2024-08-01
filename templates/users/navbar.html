@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <nav class="navbar sticky-top navbar-expand-lg navbar-dark ">
+        <div class="container-fluid">
+          <a class="navbar-brand rounded-circle pb-2" href="/"><img src="/static/Images/skool.png"
+              alt="ABL Education"></a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mx-2 mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/" style="font-size:20px;"><i class="fa fa-home fa-fw" aria-hidden="true"></i></a>
+              </li>
+              <li class="nav-item dropdown mx-2" >
+                <a class="nav-link active dropdown-toggle" href="" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="font-size:20px;" >
+                  Courses
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown" >
+                  <li><a class="dropdown-item" href="{% url 'curriculum:standard_list' %}" style="font-size:20px;">STEM</a></li>
+                  <li><hr class="dropdown-divider" ></li>
+                  <li><a class="dropdown-item" href="{% url 'curriculum:coding'%}" style="font-size:20px;">Coding</a></li>
+                  <li><a class="dropdown-item" href="{% url 'curriculum:ai'%}" style="font-size:20px;">Artificial Intelligence</a>
+                  </li>
+                  {% if user.email == 'teachers.training@thinnkware.com' %}
+                  <li><a class="dropdown-item" href="{% url 'curriculum:training_level'%}" style="font-size:20px;">Training Module</a></li>
+                  {% endif %}
+                </ul>
+              </li>
+              <li class="nav-item dropdown mx-4" >
+                <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="font-size:20px;" >
+                  Explore
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown" >
+                  <li><a class="dropdown-item" href="http://ableducation.com/" target="_blank" style="font-size:20px;">ABL Education</a></li>
+                  <li><a class="dropdown-item" href="https://ablkart.com/" target="_blank" style="font-size:20px;">ABL Kart</a></li>
+                  <li><a class="dropdown-item" href="https://kreativityleague.com/" target="_blank" style="font-size:20px;">Kreativity League</a></li>
+                </ul>
+              </li>
+              {% if user.is_superuser %}
+              <li class="nav-item ">
+                <a class="nav-link" href="{% url 'admin:index'%}" style="font-size:20px;"><i class="fa fa-unlock"></i></span> </a>
+              </li>
+              {% endif %}
+              {% if user.is_superuser %}
+              <li class="nav-item ">
+                <a class="nav-link active" href="{% url 'ebook:grade_list'%}" style="font-size:20px;">E-book</a>
+              </li>
+              {% endif %}
+            </ul>
+            <ul class="navbar-nav ms-auto" id="auth">
+                {% if user.is_authenticated %}
+                <li class="nav-item dropdown" role="button">
+                    <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="font-size:20px;" >
+                  {{user.username}}
+                    </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown" >
+                    {% if user.is_student %}
+                  <li><a class="dropdown-item" href="{% url 'users:student_home' %}" style="font-size:20px;">My dashboard</a></li>
+                  {% elif user.is_school %}
+                  <li><a class="dropdown-item" href="{% url 'users:school_home' %}" style="font-size:20px;">School dashboard</a></li>
+                  {% elif user.is_principal %}
+                  <li><a class="dropdown-item" href="{% url 'users:principal_home' %}" style="font-size:20px;">My dashboard</a></li>
+                  {% elif user.is_teacher %}
+                  <li><a class="dropdown-item" href="{% url 'users:teacher_home' %}" style="font-size:20px;">My dashboard</a></li>
+                    {% endif %}
+                  <li><a class="dropdown-item" href="/logout" style="font-size:20px;">Logout</a></li>
+                </ul>
+              </li>
+              {% else %}
+              <li class="nav-item ">
+                <a class="nav-link active" href="{% url 'users:user_login' %}" style="font-size:20px;"><i class="fa fa-sign-in mx-2" ></i>Login</a>
+              </li>
+              <li class="nav-item ">
+                <a class="nav-link active" href="/register" style="font-size:20px;"><i class="fa fa-regular fa-pencil mx-2"></i>Register</span> </a>
+              </li>
+              {% endif %}
+            </ul>
+          </div>
+        </div>
+    </nav>
+</body>
+</html>

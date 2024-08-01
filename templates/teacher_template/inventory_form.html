@@ -1,0 +1,35 @@
+{% extends 'teacher_template/base_template.html' %}
+
+{% block page_title %}
+    Create Inventory
+{% endblock page_title %}
+
+{% block main_content %}
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Create Inventory</h2>
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>Date</th>
+                            <th>School</th>
+                            <th>Bill of Materials</th>
+                        </tr>
+                        <tr>
+                            <td>{{ inventory_form.date }}</td>
+                            <td>{{ inventory_form.school }}</td>
+                            <td>{{ inventory_form.bill_of_materials }}</td>
+                        </tr>
+                    </table>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock main_content %}
+
+{% block custom_js %}{% endblock custom_js %}

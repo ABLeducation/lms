@@ -1,0 +1,62 @@
+{% extends 'teacher_template/base_template.html' %}
+
+{% block main_content %}
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card card-primary">
+          <div class="card-header">
+            <h3 class="card-title">Student's Activity</h3>
+          </div>
+          <div class="card-body">
+            <form method="GET" class="form-inline mb-3">
+              <div class="form-group mr-2">
+                <label for="grade" class="mr-2">Grade:</label>
+                {{ form.grade }}
+              </div>
+              <div class="form-group mr-2">
+                <label for="section" class="mr-2">Section:</label>
+                {{ form.section }}
+              </div>
+              <button type="submit" class="btn btn-primary">Filter</button>
+            </form>
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <thead class="thead-light">
+                  <tr>
+                    <th>Login DateTime</th>
+                    <th>Student Name</th>
+                    <th>Class</th>
+                    <th>Section</th>
+                    <th>Login Number</th>
+                    <th>Student Report</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for item in activities_with_user_id %}
+                  <tr>
+                    <td>{{ item.login_activity.login_datetime }}</td>
+                    <td>{{ item.login_activity.get_student_name }}</td>
+                    <td>{{ item.login_activity.get_grade }}</td>
+                    <td>{{ item.login_activity.get_section }}</td>
+                    <td>{{ item.login_activity.login_num }}</td>
+                    <td>
+                      <a href="{% url 'users:tstudent_activity' item.user_id %}">Get Report</a>
+                    </td>
+                  </tr>
+                  {% empty %}
+                  <tr>
+                    <td colspan="6">No activities found.</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock main_content %}

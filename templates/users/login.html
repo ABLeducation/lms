@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Login Form{% endblock %}
+{% block body %}
+<section id="login">
+    <div class="login-form">
+        <img alt="" class="avatar" src="/static/Images/user_avatar.png">
+        <h2>Login</h2>
+        <form action="{% url 'users:user_login' %}" method="post">
+        {% csrf_token %}
+            <!--<p>Email</p><input name="email" placeholder="Enter your mail id" type="text">-->
+            <input type="text" name="username" placeholder="Username or Email">
+            <p>Password</p><input name="password" placeholder="Enter your password" type="password">
+            <div class="input-group">
+                <div class="g-recaptcha" data-sitekey="6LeLgcEkAAAAAMu2Y7-64FZFdZZ6693CmBljwEEA"></div>
+            </div>
+            <input type="submit" value="Login">
+            <button class="btn" >
+                <a id="google" class="text-white" href="">
+                    Login with Google
+                </a>
+            </button>
+            <h6 class="text-center"><a class="text-white" href="{% url 'users:reset_password' %}">Reset Password?</a></h6>
+            <div class="mb-4 text-center">
+                <p>Don't have an account yet ? <a class="text-white" href="{% url 'users:register' %}"> Register Here</a></p>
+                <!--<h6><a class="text-white" href="{% url 'users:register' %}">Register Here</a></h6>-->
+            </div>
+        </form>
+    </div>
+</section>
+{% endblock %}

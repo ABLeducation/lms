@@ -1,0 +1,50 @@
+{% extends 'teacher_template/base_template.html' %}
+
+{% block main_content %}
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Inventory</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>List of Materials</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for inventory in inventory_list %}
+                                        <tr>
+                                            <td>{{ inventory.date }}</td>
+                                            <td>
+                                                {% if inventory.bill_of_materials %}
+                                                    <a href="{{ inventory.bill_of_materials.url }}" target="_blank">Download Bill of Materials</a>
+                                                {% else %}
+                                                    No Bill of Materials
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row d-flex justify-content-center mb-3">
+        {% if user.is_teacher %}
+        <a href="{% url 'users:inventory_form' %}">
+            <button type="button" class="btn btn-success btn-lg btn-bloc"> Add Data </button>
+        </a>
+        {% endif %}
+    </div>
+</section>
+{% endblock main_content %}

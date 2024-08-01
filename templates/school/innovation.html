@@ -1,0 +1,66 @@
+{% extends 'school/base_template.html' %}
+
+{% block page_title %}
+    Innovation Club
+{% endblock page_title %}
+
+{% block main_content %}
+
+{% load static %}
+
+<section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">Innovation Club</h3>
+                        </div>
+                        <div class="card-body">
+                           <div class="table-responsive">
+                                <table class="table">
+                                    <thead class="thead-light">
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Project Name</th>
+                                        <th>Name</th>
+                                        <th>Class</th>
+                                        <th>Section</th>
+                                        <th>Progress</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for date, records in innovations_by_date.items %}
+                                        {% for record in records %}
+                                            <tr>
+                                                {% if forloop.first %}
+                                                    <td rowspan="{{ records|length }}">{{ date }}</td>
+                                                {% endif %}
+                                                {% if forloop.first %}
+                                                    <td rowspan="{{ records|length }}">{{ record.project_name }}</td>
+                                                    <!-- <td rowspan="{{ records|length }}">{{ record.progress }}</td> -->
+                                                {% endif %}
+                                                <td>{{ record.name.first_name }} {{ record.name.last_name }}</td>
+                                                <td>{{ record.grade }}</td>
+                                                <td>{{ record.section }}</td>
+                                                {% if forloop.first %}
+                                                    <!-- <td rowspan="{{ records|length }}">{{ record.project_name }}</td> -->
+                                                    <td rowspan="{{ records|length }}">{{ record.progress }}</td>
+                                                {% endif %}
+                                            </tr>
+                                        {% endfor %}
+                                    {% endfor %}
+                                </table>
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+      </section>
+  {% endblock main_content %}
+
+{% block custom_js %}
+
+{% endblock custom_js %}

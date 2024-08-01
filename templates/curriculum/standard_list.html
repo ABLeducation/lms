@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Curriculum {% endblock %}
+
+{% block image_block %}
+<header class="info-header1">
+  <div id="page-intro" class="container-fluid d-flex align-items-center justify-content-center ">
+    <div class="row d-flex justify-content-center text-center">
+      <div class="col-md-10 text-white">
+        <!-- heading -->
+        <h2 class="display-4 font-weight-bold p-3" style="color:#ff5722;"> Grades </h2>
+        <h6>Grade wise & Level wise content based on STEM</h6>
+        <div class="row d-flex justify-content-center text-center">
+          <ul class="breadcrumb">
+            <li><a href="/">Home</a></li>
+            <li class="mx-2"><a class="text-white" href="{% url 'curriculum:standard_list' %}">Curriculum</a></li>
+            <li class="disabled-text mx-2">Standards</li>
+          </ul>
+        </div>
+
+        <!-- divider -->
+        <hr style="color:#ff5722;">
+        <h6 class="text-white my-4">Learn – Robotics, Scratch-Game Designing, MIT App Development,
+                                    Electronics circuit designing, 3D designing, Arduino Programming, Internet of
+                                    Things, Coding- Python, Machine Learning, Artificial Intelligence and Design
+                                    Thinking etc.</h6>
+    </div>
+</header>
+{% endblock %}
+
+{% block body %}
+<!-- section 1 for standards-->
+
+<section id="best-features" class="text-center">
+    <div  class=" container-fluid mt-5 mx-5 my-5">
+    <h1 class="text-center my-5  headingtxt">Dive Into Learning</h1>
+    <div class="row d-flex justify-content-evenly">
+        {% for grade_item in grades %}
+        <div class="col-md-4">
+            <div class="card card-std text-center w-75 my-2">
+                <div class="card-header cardgrade text-white ">
+                    <div class="row">
+                        <div class="col-6" >
+                            <i class="fa fa-book-reader fa-4x mt-2"></i>
+                        </div>
+                        <div class="col-6">
+                            <h3 class="display-3 fw-bolder">{{grade_item}}</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <center>
+                      {% if user.is_authenticated and user.is_student or user.is_superuser or user.is_teacher %}
+                        {% if grade|stringformat:"s" == grade_item|stringformat:"s" %}
+                        
+                          <a href="{% url 'curriculum:subject_list' slug=grade_item %}"> <button type="button" class="btn btncolor" id="btn1"><span class="fw-bolder cardtext1">Let's Get Started</span> &nbsp; <i
+                                    class="fas fa-arrow-right cardtext1" style="margin-top:5px ;"> </i> </button> </a>
+                        {% else %}
+                          <p>Access Denied</p>
+                        {% endif %}
+                      {% elif user.is_parent or user.is_school or user.is_principal %}
+                      <a href=""> <button type="button" class="btn btncolor" id="btn1"><span class="fw-bolder cardtext1">Track Progress</span> &nbsp; <i
+                        class="fas fa-arrow-right cardtext1" style="margin-top:5px ;"> </i> </button> </a>
+                    </center>
+                    {% else %}
+                    <div class="row">
+                      <div class="col col-md-6">
+                        <a href="{% url 'users:login' %}"> <button type="button" class="btn btncolor" id="btn3"><span class="fw-bolder cardtext1">Login</span></button></a>
+                      </div>
+                      <div class="col col-md-6">
+                        <a href="{% url 'users:register' %}"> <button type="button" class="btn btncolor" id="btn3"><span class="fw-bolder cardtext1">Register</span></button></a>
+                        </div>
+                      </div>
+                    {%endif%}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+  </div>
+</section>
+
+{%endblock%}

@@ -1,0 +1,59 @@
+{% extends "base1.html" %}
+{% load i18n %}
+{% load static %}
+{% block extra_css %}
+    <style xmlns="http://www.w3.org/1999/html">
+    </style>
+{% endblock %}
+{% block page_title %}
+ Standard
+{% endblock %}
+{% block content %}
+<!-- section 1 for standards-->
+
+<div class="container-fluid">
+  <div class="row">
+      <div class="col-12">
+          <div class="card">
+              <div class="card-body">
+                  <h5 class="card-title m-b-0">Student Registration Form</h5>
+              </div>
+              <table class="table">
+                  <thead>
+                  <tr>
+                      <th scope="col">S.No</th>
+                      <th scope="col">First Name</th>
+                      <th scope="col">Middle Name</th>
+                      <th scope="col">Last Name</th>
+                      <th scope="col">Email</th>
+                      <th scope="col">DOB</th>
+                      <th scope="col">Grade</th>
+                      <th scope="col">School</th>
+                      <th scope="col">Country</th>
+                      <th scope="col">State</th>
+                      <th scope="col">City</th>
+                  </tr>
+                  </thead>
+                  {% for student in student_obj %}
+                  <tbody>
+                  <tr>
+                      <th scope="row">{{forloop.counter}}</th>
+                      <td>{{student.first_name}}</td>
+                      <td>{{student.middle_name}}</td>
+                      <td>{{student.last_name}}</td>
+                      <td>{{student.email}}</td>
+                      <td>{{student.dob}}</td>
+                      <td>{{student.grade}}</td>
+                      <td>{{student.school}}</td>
+                      <td>{{student.country}}</td>
+                      <td>{{student.state}}</td>
+                      <td>{{student.city}}</td>
+                  </tr>
+                  </tbody>
+                  {% endfor %}
+              </table>
+          </div>
+      </div>
+  </div>
+</div>
+{%endblock%}

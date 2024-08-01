@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Sign Up{% endblock %}
+
+{% block body %}
+<section id="contact-body">
+    <div class="contact-form">
+        <h2>Welcome back</h2>
+        <p class="text-center my-2">How do you use LMS?</p>
+        <div class="row ">
+            <div class="d-grid gap-2 col-12 mx-auto" id="register">
+                <p>Personal</p>
+                <button class="btn btn-success"><a href="/student">Student</a></button>
+                <button class="btn btn-success"><a href="/parent">Parent</a></button>
+                <hr style=color:white;>
+                <p>In school</p>
+                <button class="btn btn-primary"><a href="/teacher">Teacher</a></button>
+                <button class="btn btn-primary"><a href="/principal">Principal</a></button>
+                <button class="btn btn-primary"><a href="/school">School</a></button>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

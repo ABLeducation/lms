@@ -1,0 +1,14 @@
+{% extends 'student_template/base_template.html' %}
+{% block page_title %}
+Notification
+{% endblock page_title %}
+{% block main_content %}
+    {% for notification in notifications %}
+    {% if not notification.read %}
+        <ul>
+            {% comment %} <h3><a href="{% url 'users:student_feedback'%}">{{ notification.message }}</a></h3> {% endcomment %}
+            <li><a href="{% url 'users:notification_read' notification.id %}">{{ notification.message }}</a></li>
+        </ul>
+    {% endif %}
+    {% endfor %}
+{% endblock main_content %}

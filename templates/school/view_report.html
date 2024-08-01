@@ -1,0 +1,138 @@
+{% extends 'school/base_template.html' %}
+
+{% block main_content %}
+
+{% load static %}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Report</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <form id="search-form" method="get">
+                                <div class="input-group">
+                                    <input id="search-input" type="text" name="search" class="form-control" placeholder="Search by name or ID" value="{{ search_query }}">
+                                    <div class="input-group-append">
+                                        <button type="submit" class="btn btn-primary">Search</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                        {% if search_query %}
+                        <div class="table-responsive">
+                            <table class="table" id="student-table">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Grade</th>
+                                        <th>Section</th>
+                                        <th>Report</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for student in students %}
+                                    <tr>
+                                        <td>{{ student.first_name }}</td>
+                                        <td>{{ student.grade }}</td>
+                                        <td>{{ student.section }}</td>
+                                        <td><a href="{% url 'users:student_detail_report' student.user_id %}" type="button" class="btn btn-primary">Get Report</a></td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        {% else %}
+                        <div class="table-responsive">
+                            <table class="table" id="student-table">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th>Grade</th>
+                                        <th>Sections</th>
+                                        <th>Student's Count</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for grade, entries in grade_section_data.items %}
+                                        <tr>
+                                            <td>{{ grade }}</td>
+                                            <td>
+                                                {% for entry in entries %}
+                                                    {{ entry.section }}{% if not forloop.last %}, {% endif %}
+                                                {% endfor %}
+                                            </td>
+                                            <td>
+                                                {% for entry in entries %}
+                                                    <a href="{% url 'users:student_report_gradewise' entry.grade entry.section %}" class="count-link" style="text-decoration: underline;margin-right: 30px;">{{ entry.total_number }}</a>{% if not forloop.last %} {% endif %}
+                                                {% endfor %}
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock main_content %}
+
+{% block js %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        function updateSections(grade) {
+            $.ajax({
+                url: "{% url 'get_sections' %}",
+                type: 'GET',
+                data: { grade: grade },
+                success: function (data) {
+                    var sectionSelect = $('#section-select');
+                    sectionSelect.empty();
+                    sectionSelect.append('<option value="">Select Section</option>');
+                    $.each(data.sections, function (index, section) {
+                        sectionSelect.append('<option value="' + section + '">' + section + '</option>');
+                    });
+                }
+            });
+        }
+
+        $('#grade-select').on('change', function () {
+            var selectedGrade = $(this).val();
+            if (selectedGrade) {
+                updateSections(selectedGrade);
+            } else {
+                $('#section-select').empty();
+                $('#section-select').append('<option value="">Select Section</option>');
+            }
+        });
+
+        $('#search-form').on('submit', function (e) {
+            e.preventDefault();
+            var searchQuery = $('#search-input').val();
+            updateTable(searchQuery);
+        });
+
+        var initialSearchQuery = '{{ search_query }}';
+        updateTable(initialSearchQuery);
+    });
+</script>
+{% endblock js %}
+
+{% block extra_css %}
+<style>
+    .count-link {
+        text-decoration: underline;
+        margin-right: 10px;
+    }
+</style>
+{% endblock extra_css %}

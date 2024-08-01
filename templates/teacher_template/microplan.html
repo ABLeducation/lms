@@ -1,0 +1,51 @@
+{% extends 'teacher_template/base_template.html' %}
+
+{% block custom_css %}
+<style>
+    .upload-form {
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+    }
+    .upload-form h2 {
+        margin-top: 0;
+        margin-bottom: 20px;
+        text-align: center;
+        color: #333;
+    }
+    .upload-form input[type="file"] {
+        margin-bottom: 20px;
+    }
+    .upload-form button[type="submit"] {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    .upload-form button[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+</style>
+{% endblock custom_css %}
+
+{% block main_content %}
+<div class="upload-form">
+    <h2>Upload Microplanner</h2>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary" >Upload</button>
+        </form>
+        <div class="card-footer my-2">
+            <p>Download Microplanner template:</p>
+            <a href="{% url 'users:download_microplanner_template' %}" class="btn btn-secondary">Download Microplanner Template</a>
+        </div>
+</div>
+
+{% endblock main_content %}

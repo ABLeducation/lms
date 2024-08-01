@@ -1,0 +1,153 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block title %}School Form{% endblock %}
+{% block body %}
+<section id="school-body">
+    <div class="school-form">
+        <img alt="" class="avatar" src="/static/Images/user_avatar.png">
+        <h2>Registration Form</h2>
+        <form action="{% url 'users:user_school' %}" method="post">
+        {% csrf_token %}
+        <!--{{form.as_p}}-->
+            {{ form.non_field_errors }}
+            <label for="{{ form.username.id_for_label }}">Username</label>
+            {{ form.username }}
+            {{ form.username.errors }}
+            <label for="{{ form.password1.id_for_label }}">Password</label>
+            {{ form.password1}}
+            {{ form.password1.errors }}
+            <label for="{{ form.password2.id_for_label }}">Confirm Password</label>
+            {{ form.password2}}
+            {{ form.password2.errors }}
+            <label for="{{ form.email.id_for_label }}">Email</label>
+                {{ form.email}}
+                {{ form.email.errors }}
+            <label for="{{ form.School_Name.id_for_label }}">School Name</label>
+            {{ form.School_Name}}
+            {{ form.School_Name.errors }}
+            <label for="{{ form.phone.id_for_label }}">Phone Number</label>
+            {{ form.phone}}
+            {{ form.phone.errors }}
+            <label for="{{ form.mobile.id_for_label }}">Mobile Number</label>
+            {{ form.mobile}}
+            {{ form.mobile.errors }}
+            <label for="{{ form.established.id_for_label }}">Year of establishment</label>
+            {{ form.established}}
+            {{ form.established.errors }}
+            <p>Country</p>
+            <select name="country" id="country" required>
+                <option></option>
+            </select>
+            <p>State</p>
+            <select name="state" id="state" required>
+                <option></option>
+            </select>
+            <p>City</p>
+            <select name="city" id="city" required>
+                <option></option>
+            </select>
+            <p>Pincode</p>
+            {{form.pin}}
+            
+            <input type="submit" value="Register">
+        </form>
+    </div>
+</body>
+{% endblock %}
+{% block js %}
+<script>
+    let auth_token;
+    $(document).ready(function(){
+        $.ajax({
+            type:'get',
+            url:'https://www.universal-tutorial.com/api/getaccesstoken',
+            success:function(data){
+                auth_token = data.auth_token
+                get_country(auth_token);
+            },
+            error:function(error){
+                ;
+            },
+            headers:{
+            "Accept":"application/json",
+            "api-token":"-rB5B-L1Qsy0_vV-dwaBb1JwGikR1dNmG2_sxFwA3tD6-SFhNuzT1VMOfchJbCcjCD8",
+            "user-email":"shahnawaz.1504ali@gmail.com"
+            }
+            })
+            $('#country').change(function(){
+                get_state();
+            })
+            $('#state').change(function(){
+                get_city();
+            })
+    });
+
+        function get_country(auth_token){
+            $.ajax({
+                type:'get',
+                url:'https://www.universal-tutorial.com/api/countries',
+                success:function(data){
+                    Object.keys(data).forEach(key => {
+                        $('#country').append('<option value="'+data[key].country_name+'">'+ data[key].country_name +'</option>');
+                        
+                    });     
+                },
+                error:function(error){
+                    ;
+                },
+                headers:{
+                "Authorization": "Bearer "+ auth_token,
+                "Accept":"application/json",
+                },
+                });
+            }
+
+            function get_state(){
+                let country_name = $('#country').val();
+                $.ajax({
+                    type:'get',
+                    url:'https://www.universal-tutorial.com/api/states/'+country_name,
+                    success:function(data){
+                        $('#state').empty();
+                        Object.keys(data).forEach(key => {
+                            $('#state').append('<option value="'+data[key].state_name+'">'+ data[key].state_name +'</option>');
+                            
+                        }); 
+                        
+                    },
+                    error:function(error){
+                        ;
+                    },
+                    headers:{
+                    "Authorization": "Bearer "+ auth_token,
+                    "Accept":"application/json",
+                    },
+                    });
+                }
+
+                function get_city(){
+                    let state = $('#state').val();
+                    console.log(state);
+                    $.ajax({
+                        type:'get',
+                        url:'https://www.universal-tutorial.com/api/cities/'+state,
+                        success:function(data){
+                            $('#city').empty();
+                            Object.keys(data).forEach(key => {
+                                $('#city').append('<option value="'+data[key].city_name+'">'+ data[key].city_name +'</option>');
+                                
+                            }); 
+                            
+                        },
+                        error:function(error){
+                            ;
+                        },
+                        headers:{
+                        "Authorization": "Bearer "+ auth_token,
+                        "Accept":"application/json",
+                        },
+                        });
+                    }
+    </script>
+{% endblock %}

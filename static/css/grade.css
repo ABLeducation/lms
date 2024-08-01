@@ -1,0 +1,76 @@
+#btn1:hover {
+    width: 100px;
+}
+
+#btn1 .fas {
+    position: absolute;
+    transform: translateX(-50%);
+    opacity: 0;
+}
+
+#btn1:hover .fas {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+#btn3:hover{
+    -ms-transform: scale(1.5); /* IE 9 */
+    -webkit-transform: scale(1.5); /* Safari 3-8 */
+    transform: scale(1.5); 
+}
+.ca{
+    border-radius: 30px;
+    
+}
+.cardfont{
+    font-family: Montserrat,Sans-serif;
+}
+
+.cardgrade{
+     background-image: linear-gradient(to top right,#382424eb 5% ,#00008B );
+}
+.cardgrad2{
+    background-image: linear-gradient(to top right,#4F4E48 5% ,#006400 );
+}
+.cardgrad3{
+    background-image: linear-gradient(to top right,#4F4E48 2% ,#CC5500 );
+}
+.cardgrad4{
+    background-image: linear-gradient(to top right,#4F4E48 5% ,rgb(255, 0, 0) );
+}
+.cardtext1{
+    font-size: 14px;
+    background: linear-gradient(to top right,#4F4E48 10% ,blue );
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+.cardtext2{
+    font-size: 14px;
+    background: linear-gradient(to top right,#4F4E48 10% ,green );
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+.cardtext3{
+    font-size: 14px;
+    background: linear-gradient(to top right,#4F4E48 10% ,rgb(254, 196, 121) );
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+.cardtext4{
+    font-size: 14px;
+    background: linear-gradient(to top right,#4F4E48 10% ,red );
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+.headingtxt{
+    margin-right: 90px;
+    background: linear-gradient(to top right,#4F4E48 10% ,rgb(208, 5, 5) );
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+     background-clip: text;
+}

@@ -1,0 +1,53 @@
+{% extends 'teacher_template/base_template.html' %}
+
+{% block custom_css %}
+<style>
+    .microplanner-list-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    .microplanner-list-container h2 {
+        color: #333;
+        margin-top: 0;
+        margin-bottom: 20px;
+    }
+    .microplanner-list {
+        list-style-type: none;
+        padding: 0;
+    }
+    .microplanner-item {
+        margin-bottom: 20px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+    }
+    .microplanner-item strong {
+        color: #007bff;
+    }
+    .microplanner-item a {
+        color: #007bff;
+        text-decoration: none;
+    }
+    .microplanner-item a:hover {
+        text-decoration: underline;
+    }
+</style>
+{% endblock custom_css %}
+
+{% block main_content %}
+<div class="microplanner-list-container">
+    <h2>Monthwise Microplanner</h2>
+    <ul class="microplanner-list">
+        {% for microplanner in microplanners %}
+        <li class="microplanner-item">
+            <strong>User:</strong> {{ microplanner.month }} <br>
+            <strong>File:</strong> <a href="{{ microplanner.microplanner.url }}" target="_blank">View Planner</a>
+        </li>
+        {% empty %}
+        <li>No microplanners uploaded yet.</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock main_content %}

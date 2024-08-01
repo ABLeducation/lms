@@ -1,0 +1,155 @@
+{% extends 'teacher_template/base_template.html' %}
+
+{% block main_content %}
+
+{% load static %}
+
+<section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-info">
+                    <div class="inner">
+                        <h3></h3>
+                        <p>Students</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-stats-bars"></i>
+                    </div>
+                    <a href="{% url 'users:tstudent_report' %}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <!--<div class="col-lg-3 col-6">-->
+                    <!-- small box -->
+                <!--    <div class="small-box bg-success">-->
+                <!--    <div class="inner">-->
+                <!--        <h3></h3>-->
+                <!--        <p>Student's Performance</p>-->
+                <!--    </div>-->
+                <!--    <div class="icon">-->
+                <!--        <i class="ion ion-stats-bars"></i>-->
+                <!--    </div>-->
+                <!--    <a href="" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>-->
+                <!--    </div>-->
+                <!--</div>-->
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-success">
+                    <div class="inner">
+                        <h3></h3>
+                        <p>Student Engagement Report</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-stats-bars"></i>
+                    </div>
+                    <a href="{% url 'users:student_login_activity' %}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-info">
+                    <div class="inner">
+                        <h3></h3>
+                        <p>Leader</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-stats-bars"></i>
+                    </div>
+                    <a href="{% url 'users:tleaderboard' %}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-success">
+                    <div class="inner">
+                        <h3></h3>
+                        <p>Subjects</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-stats-bars"></i>
+                    </div>
+                    <a href="{% url 'users:tsubject_list' %}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-info">
+                    <div class="inner">
+                        <h3></h3>
+                        <p>Innovation Club</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-stats-bars"></i>
+                    </div>
+                    <a href="{% url 'users:innovation2' %}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-success">
+                    <div class="inner">
+                        <h3></h3>
+                        <p>Competition</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-stats-bars"></i>
+                    </div>
+                    <a href="{% url 'users:competition2' %}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-info">
+                    <div class="inner">
+                        <h3></h3>
+                        <p>Inventory</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-stats-bars"></i>
+                    </div>
+                    <a href="{% url 'users:inventory2' %}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-success">
+                    <div class="inner">
+                        <h3></h3>
+                        <p>KreativityShow</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-stats-bars"></i>
+                    </div>
+                    <a href="{% url 'users:kreativityshow2' %}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-info">
+                    <div class="inner">
+                        <h3></h3>
+                        <p>Guest Session</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-stats-bars"></i>
+                    </div>
+                    <a href="{% url 'users:guestsession2' %}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </section>
+
+  {% endblock main_content %}
+
+  {% block custom_js %}
+
+  {% endblock custom_js %}

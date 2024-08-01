@@ -1,0 +1,198 @@
+{% extends 'principal_template/base_template.html' %}
+
+{% block main_content %}
+
+{% load static %}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Report</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <form id="search-form" method="get">
+                                <div class="input-group">
+                                    <input id="search-input" type="text" name="search" class="form-control"
+                                        placeholder="Search by name or ID" value="{{ search_query }}">
+                                    <div class="input-group-append">
+                                        <button type="submit" class="btn btn-primary">Search</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                        {% if search_query %}
+                        <div class="table-responsive">
+                            <table class="table" id="student-table">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Grade</th>
+                                        <th>Report</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for student in students %}
+                                    <tr>
+                                        <td>{{ student.first_name }}</td>
+                                        <td>{{ student.grade }}</td>
+                                        <td><a href="{% url 'users:pstudent_detail_report' student.user_id %}"type="button" class="btn btn-primary"> Get Report </a></td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        {% else %}
+
+                        <div class="table-responsive">
+                            <table class="table" id="student-table">
+                                <thead class="thead-light">
+                                <tr>
+                                    <th>Grade</th>
+                                    <th>Total Students</th>
+                                    <th>Get Report</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    {% for grade,students,count in students_gradewise %}
+                                    <tr>
+                                        <td>{{grade}}</td>
+                                        <td>{{count}}</td>  
+                                        <td><a href="{% url 'users:pstudent_report_gradewise' grade %}"type="button" class="btn btn-primary"> Get Report </a></td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock main_content %}
+
+{% comment %} {% block js %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // Function to update the table with search results
+        function updateTable(searchQuery) {
+            $.ajax({
+                url: window.location.pathname,
+                type: 'GET',
+                data: { search: searchQuery },
+                dataType: 'json',
+                success: function (data) {
+                    var tableBody = $('#student-table tbody');
+                    tableBody.empty();
+
+                    if (data.students.length === 0) {
+                        tableBody.append('<tr><td colspan="3">No results found</td></tr>');
+                    } else {
+                        $.each(data.students, function (index, student) {
+                            tableBody.append('<tr><td>' + student.grade + '</td><td>' + student.first_name + '</td><td>' + student.user_id + '</td></tr>');
+                        });
+                    }
+                }
+            });
+        }
+
+        // Handle form submission
+        $('#search-form').on('submit', function (e) {
+            e.preventDefault();
+            var searchQuery = $('#search-input').val();
+            updateTable(searchQuery);
+        });
+
+        // Initialize the table on page load
+        var initialSearchQuery = '{{ search_query }}';
+        updateTable(initialSearchQuery);
+    });
+</script>
+{% endblock js %} {% endcomment %}
+
+
+{% comment %} {% extends 'school/base_template.html' %}
+
+{% block main_content %}
+
+{% load static %}
+
+<section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">Report</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <form method="get">
+                                    <div class="input-group">
+                                        <input type="text" name="search" class="form-control" placeholder="Search by name or ID" value="{{ request.GET.search }}">
+                                        <div class="input-group-append">
+                                            <button type="submit" class="btn btn-primary">Search</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            {% if students %}
+
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead class="thead-light">
+                                    <tr>
+                                        <th>Grade</th>
+                                        <th>Count</th>
+                                        <th>Get Report</th>
+                                    </tr>
+                                    </thead>
+                                    {% for grade,students,count in students_gradewise %}
+                                    <tr>
+                                        <td>{{grade}}</td>
+                                        <td>{{count}}</td>  
+                                        <td><a href="{% url 'users:student_report_gradewise' grade %}"type="button" class="btn btn-primary"> Get Report </a></td>
+                                    </tr>
+                                    {% endfor %}
+                                </table>
+                            </div>
+                            {% else %}
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead class="thead-light">
+                                    <tr>
+                                        <th>Grade</th>
+                                        <th>Count</th>
+                                        <th>Get Report</th>
+                                    </tr>
+                                    </thead>
+                                    {% for grade,students,count in students_gradewise %}
+                                    <tr>
+                                        <td>{{grade}}</td>
+                                        <td>{{count}}</td>  
+                                        <td><a href="{% url 'users:student_report_gradewise' grade %}"type="button" class="btn btn-primary"> Get Report </a></td>
+                                    </tr>
+                                    {% endfor %}
+                                </table>
+                            </div>
+                            {% endif %}
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+      </section>
+  {% endblock main_content %}
+
+{% block js %}
+
+{% endblock js %} {% endcomment %}

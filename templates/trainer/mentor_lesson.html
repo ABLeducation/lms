@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} {{subjects.name}} {% endblock %}
+
+    {% block body %}
+    <section id="best-features" class="text-center">
+      <h2 class="mb-5 mt-5 font-weight-bold" style="color:#ff5722;"></h2>
+      <!-- class row2 for cards -->
+      <div class="row d-flex justify-content-center mb-3">
+        {% for lesson in lessons %}
+        <div class="col-sm-4 mb-4">
+          <div class="card box-shadow-hover">
+            <div class="card-body">
+              <h5 class="card-title">Chapter-{{lesson.position}}:
+                {{lesson.name}}</h5>
+              <a href="{% url 'curriculum:mentor_lesson_detail' slug=lesson.slug %}">
+                <button type="button" class="button-les"><span>Get Lectures</span></button>
+              </a>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+
+    </section>
+  {% endblock %}

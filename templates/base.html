@@ -1,0 +1,82 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ABL Skool- LMS for students to Learn STEM at their own pace</title>
+    <link rel="shortcut icon" type="image/x-icon" href="/static/Images/log.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/standard_list.css' %}">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/contact.css' %}">
+    <link rel="stylesheet" href="{% static 'css/student.css' %}">
+    <link rel="stylesheet" href="{% static 'css/teacher.css' %}">
+    <link rel="stylesheet" href="{% static 'css/parent.css' %}">
+    <link rel="stylesheet" href="{% static 'css/school.css' %}">
+    <link rel="stylesheet" href="{% static 'css/principal.css' %}">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <link rel="stylesheet" href="{% static 'css/reset_password.css' %}">
+    <link rel="stylesheet" href="{% static 'css/grade.css' %}">
+    <link rel="stylesheet" href="{% static 'css/lesson_detail.css' %}">
+    <link rel="stylesheet" href="{% static 'css/lesson_list.css' %}">
+    <link rel="stylesheet" href="{% static 'css/register.css' %}">
+    <link rel="stylesheet" href="{% static 'css/subjectlist.css' %}">
+    <link rel="stylesheet" href="{% static 'css/common.css' %}">
+    <link rel="stylesheet" href="{% static 'css/quiz/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/student_project.css' %}">
+    <link rel="stylesheet" href="{% static 'css/advocacy.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-52KFJSDK');</script>
+    <!-- End Google Tag Manager -->
+    <style>
+        html {
+            user-select: none;
+        }
+    </style>
+  </head>
+  <body>
+      <!-- Google Tag Manager (noscript) -->
+        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-52KFJSDK"
+        height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    {% include 'users/navbar.html' %}
+      
+      <div class = 'col-md-12'>  
+        {% if messages %}  
+        {% include 'components/message.html' %}  
+       {% endif %}   
+      </div>
+      
+      {% block image_block %}
+      {% endblock %}
+      {% block body %}{% endblock %}
+      <script
+       src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.2/jquery.min.js"></script>
+       <script
+       src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+       <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+       <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+       <script src="{% static 'js/quiz/main.js' %}"></script>
+       <script src="{% static 'js/quiz/quiz.js' %}"></script>
+       <script src="{% static 'js/lesson_detail.js' %}"></script>
+       <!--<script src="{% static 'js/e_lesson.js' %}"></script>-->
+       <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+       <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+       <!--<script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>-->
+
+    {% block js %}{% endblock %}
+  </body>
+</html>

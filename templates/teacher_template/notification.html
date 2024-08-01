@@ -1,0 +1,13 @@
+{% extends 'teacher_template/base_template.html' %}
+{% block page_title %}
+Notification
+{% endblock page_title %}
+{% block main_content %}
+    {% for notification in notifications %}
+    {% if not notification.read %}
+        <ul>
+            <li><a href="{% url 'users:teacher_notification_read' notification.id %}">{{ notification.message }}</a></li>
+        </ul>
+    {% endif %}
+    {% endfor %}
+{% endblock main_content %}

@@ -1,0 +1,252 @@
+{% load static %}
+
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <!-- Sidebar user panel (optional) -->
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+          <div class="image">
+              {% if school.logo %}
+            <!--<img src="{{school.logo.url}}" class="img-circle elevation-2" alt="User Image">-->
+            {% else %}
+            <p>No logo associated with this school</p>
+            {% endif %}
+          </div>
+          <div class="info">
+            <a href="" class="d-block" style="font-size:12px;">{{ school.school_name }}</a>
+          </div>
+        </div>
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
+          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <!-- Add icons to the links using the .nav-icon class
+                with font-awesome or any other icon font library -->
+            
+            <li class="nav-item">
+              {% url 'users:school_home' as school_home %}
+              <a href="{{ school_home }}" class="nav-link {% if request.path == school_home %} active {% endif %}">
+                <i class="nav-icon fas fa-solid fa-home"></i>
+                <p>
+                  Home
+                </p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              {% url 'users:school_macroplanner' as macroplanner %}
+              <a href="{{ macroplanner }}" class="nav-link {% if request.path == macroplanner %} active {% endif %}">
+                <i class="nav-icon fa fa-solid fa-tablet"></i>
+                <p>
+                  Macro Planner
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              {% url 'users:school_microplanner' as microplanner %}
+              <a href="{{ microplanner }}" class="nav-link {% if request.path == microplanner %} active {% endif %}">
+                <i class="nav-icon fa fa-solid fa-tablet"></i>
+                <p>
+                  Micro Planner
+                </p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              {% url 'users:school_timetable' as timetable %}
+              <a href="{{ timetable }}" class="nav-link {% if request.path == timetable %} active {% endif %}">
+                <i class="nav-icon fa fa-solid fa-table"></i>
+                <p>
+                  STEM Timetable
+                </p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              {% url 'users:advocacy_list_school' as advocacy %}
+              <a href="{{ advocacy }}" class="nav-link {% if request.path == advocacy %} active {% endif %}">
+                <i class="nav-icon fa fa-solid fa-scroll"></i>
+                <p>
+                  Advocacy
+                </p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              {% url 'users:kreativityshow' as kreativityshow %}
+              <a href="{{ kreativityshow }}" class="nav-link {% if request.path == kreativityshow %} active {% endif %}">
+                <i class="nav-icon fa fa-file"></i>
+                <p>
+                  Kreativity Show
+                </p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a href="{{gallery_school.gallery}}" class="nav-link" target="_blank">
+                <i class="nav-icon fa fa-regular fa-image"></i>
+                <p>
+                  Gallery
+                </p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              {% url 'users:guestsession' as guestsession %}
+              <a href="{{ guestsession }}" class="nav-link {% if request.path == guestsession %} active {% endif %}">
+                <i class="nav-icon fa fa-regular fa-user-plus"></i>
+                <p>
+                  Guest Session
+                </p>
+              </a>
+            </li>
+
+            <!--<li class="nav-item">-->
+            <!--  <a href="#" onclick="openLMS('{{ school_sheet_url }}')" class="nav-link">-->
+            <!--    <i class="nav-icon fa fa-regular fa-file-excel"></i>-->
+            <!--    <p>-->
+            <!--      Class Progress Sheet-->
+            <!--    </p>-->
+            <!--  </a>-->
+            <!--</li>-->
+            <li class="nav-item">
+              <a href="{{ school_sheet_url }}" class="nav-link" target="_blank">
+                <i class="nav-icon fa fa-regular fa-file-excel"></i>
+                <p>
+                  Class Progress Sheet
+                </p>
+              </a>
+            </li>
+            
+            <li class="nav-item">
+              <a href="{{observation_sheet.observation_sheet}}" class="nav-link" target="_blank">
+                <i class="nav-icon fa fa-regular fa-file-excel"></i>
+                <p>
+                  Observation Report
+                </p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a href="{{curriculum_sheets.curriculum_sheet}}" class="nav-link" target="_blank">
+                <i class="nav-icon fa fa-solid fa-file-pdf"></i>
+                <p>
+                  Curriculum
+                </p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a href="https://drive.google.com/file/d/1KbKK5DsuxjTn5-iXtHpsf5A7uccaONiy/view?usp=drive_link" class="nav-link" target="_blank">
+                <i class="nav-icon fa fa-solid fa-file-pdf"></i>
+                <p>
+                  Assessment Rubrics
+                </p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              {% url 'users:school_feedback' as school_feedback %}
+              <a href="{{ school_feedback }}" class="nav-link {% if request.path == school_feedback %} active {% endif %}">
+                <i class="nav-icon fas fa-comments"></i>
+                <p>
+                  Feedback/Support
+                </p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              {% url 'users:teachers_list' as teacher %}
+              <a href="{{ teacher }}" class="nav-link {% if request.path == teacher %} active {% endif %}">
+                <i class="nav-icon fa fa-solid fa-user-tie"></i>
+                <p>
+                  Teachers
+                </p>
+              </a>
+            </li>
+            
+          </ul>
+        </nav>
+      </div>
+</aside>
+
+<script>
+//   function openLMS(url) {
+//     // Open the provided URL within the LMS
+//     // For demonstration, let's assume it opens in an iframe
+//     var iframeId = "lmsIframe";
+
+//     var existingIframe = document.getElementById(iframeId);
+
+//     if (!existingIframe) {
+//         var iframe = document.createElement('iframe');
+
+//         iframe.setAttribute('id', iframeId);
+//         iframe.setAttribute('src', url);
+//         iframe.setAttribute('width', '100%'); // Adjust width as needed
+//         iframe.setAttribute('height', '100%'); // Adjust height as needed
+//         iframe.style.border = "none"; // Remove default iframe border
+//         iframe.style.boxShadow = "0 0 10px rgba(0, 0, 0, 0.1)"; // Add box shadow
+//         iframe.style.borderRadius = "10px"; // Add border radius
+//         iframe.style.backgroundColor = "#fff"; // Set background color
+//         iframe.style.position = "fixed"; // Fixed position to cover the entire window
+//         iframe.style.top = "0";
+//         iframe.style.left = "0";
+//         iframe.style.bottom = "0";
+//         iframe.style.right = "0";
+//         iframe.style.zIndex = "9999"; // Ensure the iframe is above other elements
+//         document.body.appendChild(iframe);
+//     } else {
+//         // If the iframe already exists, reload it to reset its content
+//         existingIframe.src = url;
+//     }
+//   }
+  function openLMS(url) {
+    // Redirect to the provided URL
+    window.location.href = url;
+    }
+
+  function openLMS1(url) {
+    if (!url || url === "") {
+        alert("Gallery URL not available.");
+        return;
+    }
+
+    var iframeId = "lmsIframe";
+    var existingIframe = document.getElementById(iframeId);
+
+    if (!existingIframe) {
+        var iframe = document.createElement('iframe');
+        iframe.setAttribute('id', iframeId);
+        iframe.setAttribute('src', url);
+        iframe.setAttribute('width', '100%');
+        iframe.setAttribute('height', '100%');
+        iframe.style.border = "none";
+        iframe.style.boxShadow = "0 0 10px rgba(0, 0, 0, 0.1)";
+        iframe.style.borderRadius = "10px";
+        iframe.style.backgroundColor = "#fff";
+        iframe.style.position = "fixed";
+        iframe.style.top = "0";
+        iframe.style.left = "0";
+        iframe.style.bottom = "0";
+        iframe.style.right = "0";
+        iframe.style.zIndex = "9999";
+
+        document.body.appendChild(iframe);
+
+        var closeButton = document.createElement('button');
+        closeButton.innerHTML = "Close";
+        closeButton.style.position = "fixed";
+        closeButton.style.top = "10px";
+        closeButton.style.right = "10px";
+        closeButton.style.zIndex = "10000";
+        closeButton.onclick = function() {
+            document.body.removeChild(iframe);
+            document.body.removeChild(closeButton);
+        };
+
+        document.body.appendChild(closeButton);
+    } else {
+        existingIframe.src = url;
+    }
+  }
+</script>

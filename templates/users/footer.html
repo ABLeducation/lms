@@ -1,0 +1,105 @@
+{% load static %}
+
+<section id="footer">
+    <div class="footer-dark bg-footer">
+            <div class="container" style="min-height:35vh;">
+                <div class="row">
+                    <div class="col-sm-6 col-md-3 item">
+                        <h3 class="mx-3">LMS</h3>
+                        <ul>
+                            <li><a href="/">Home</a></li>
+                            <li><a href="https://ablskool.com/curriculum/">Courses</a></li>
+                            <li><a href="https://drive.google.com/file/d/1Czd7cDmayl4Q2jlO6nzcVuFrlX59wcB-/view?usp=sharing" target="_blank">STEM Progressive Curriculum</a></li>
+                            <li><a href="https://drive.google.com/file/d/1mfH8TRP6k49n_v7ndb2oStwwb6wSZcv4/view?usp=sharing" target="_blank">ROFL Progressive Curriculum</a></li>
+                            <li><a href="{% url 'mechanzo:mechanzo_kits' %}">Mechanzo</a></li>
+                            <li><a href="{% url 'users:create_student_project' %}">Innovative Project</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-6 col-md-3 item">
+                        <h3 class="mx-3">About</h3>
+                        <ul>
+                            <li><a href="https://ableducation.com/">ABL Education</a></li>
+                            <li><a href="https://ablkart.com/">ABL kart</a></li>
+                            <li><a href="#">Team</a></li>
+                            <li><a href="https://ableducation.com/career.php">Career</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-6 col-md-3 item">
+                        <div class="footer-top-menu">
+                            <h3 class="widget-title mx-3">School Program</h3>
+                            <div class="fo-course-container">
+                                <ul>
+                                    <li><a href="https://ableducation.com/stem-lab.php" target="_blank">STEM Program</a></li>
+                                    <li><a href="https://ableducation.com/scienceprogram.php" target="_blank">Science Program</a></li>
+                                    <li><a href="https://ableducation.com/atl.php" target="_blank">Atal Tinkering Lab</a></li>
+                                    <li><a href="https://ableducation.com/robotics_lab.php" target="_blank">Robotics Lab</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-md-3 item">
+                        <h3 class="mx-3">DIY Tinkering Kit</h3>
+                        <ul>
+                            <li><a href="https://ablkart.com/sub-category/mechanzo-kits" target="_blank">Robotics Kit</a></li>
+                            <li><a href="https://ablkart.com/sub-category/electronics-kits" target="_blank">Tinkering Kits</a></li>
+                            <li><a href="https://ablkart.com/category/science-activities" target="_blank">Science Activities</a></li>
+                            <li><a href="https://ablkart.com/category/tinker-with-arduino" target="_blank">Arduino</a></li>
+                            <li><a href="https://ablkart.com/sub-category/raspberry-pi-kits" target="_blank">Raspberry Pi</a></li> 
+                            <li><a href="https://ablkart.com/category/iot-kits" target="_blank">IoT</a></li> 
+                            <li><a href="https://ablkart.com/sub-category/arduino-add-ons" target="_blank">Modules and Accessories</a></li> 
+                        </ul>
+                    </div>
+
+                    <div class="col-sm-6 col-md-3 item">
+                        <h3 class="mx-3">Kreativity League</h3>
+                        <ul>
+                            <li><a href="https://kreativityleague.com/" target="_blank">Gallery</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-sm-6 col-md-3 item">
+                        <div class="footer-top-menu">
+                            <h3 class="widget-title mx-3">Contact Us</h3>
+                            <div class="fo-course-container">
+                                <ul>
+                                    <li>
+                                        <button class="open-button btn btn-light" onclick="openForm()" style="margin-left:15px;">Enquire</button>
+                                        <div class="form-popup" id="myForm">
+                                        <form action="{% url 'users:enquiry' %}" class="form-container" method="post">
+                                            {% csrf_token %}
+                                            {% comment %} <label for="name"><b>Name</b></label> {% endcomment %}
+                                            <input type="text" placeholder="Name" name="name" id="form_content" required>
+            
+                                            {% comment %} <label for="contact"><b>Contact</b></label> {% endcomment %}
+                                            <input type="text" placeholder="Contact" name="contact" required>
+            
+                                            {% comment %} <label for="email"><b>Email</b></label> {% endcomment %}
+                                            <input type="email" placeholder="Email" name="email" required>
+            
+                                            {% comment %} <label for="query"><b>Query</b></label> {% endcomment %}
+                                            <input type="text" placeholder="Query" name="query" required>
+                                            <button type="submit" class="btn" id="enquiry-button">Submit</button>
+                                            <button type="button" class="btn cancel" onclick="closeForm()" id="enquiry-button">Close</button>
+                                        </form>
+                                        </div>
+                                    </li>
+                                    {% comment %} <li><a href="{% url 'users:book_demo'%}"><button id="bookDemoButton" class="btn btn-light" style="margin-bottom:20px; margin-top:5px;">Book a Demo</button></a></li> {% endcomment %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    {% if request.user.email in allowed_emails %}
+                    <div class="col-sm-6 col-md-3 item">
+                        <h3 class="mx-3">Advocacy</h3>
+                        <ul>
+                            <li><a href="{% url 'users:advocacy' %}">Advocacy Form</a></li>
+                        </ul>
+                    </div>
+                    {% endif %}
+
+                </div>
+            </div>
+    </div>
+</section>

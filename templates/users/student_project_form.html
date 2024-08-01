@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+<div id="student_project" class="form-container">
+    <form method="post" enctype="multipart/form-data" class="your-form-class">
+        {% csrf_token %}
+        {% comment %} {{ form.as_p }} {% endcomment %}
+        <div class="form-row">
+            <div class="form-control">
+                <label for="{{ form.title.id_for_label }}">Title</label>
+                {{ form.title }}
+            </div>
+            <div class="form-control">
+                <label for="{{ form.description.id_for_label }}">Description</label>
+                {{ form.description }}
+            </div>
+        </div>
+        
+        <div class="form-row">
+            <div class="form-control">
+                <label for="{{ form.student_name.id_for_label }}">Student Name</label>
+                {{ form.student_name }}
+            </div>
+            <div class="form-control">
+                <label for="{{ form.project_date.id_for_label }}">Project Date</label>
+                {{ form.project_date }}
+            </div>
+        </div>
+        
+        <div class="form-row">
+            <div class="form-control">
+                <label for="{{ form.document.id_for_label }}">Document</label>
+                {{ form.document }}
+            </div>
+            <div class="form-control">
+                <label for="{{ form.video_link.id_for_label }}">YouTube Video Link</label>
+                {{ form.video_link }}
+            </div>
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+</div>
+{% endblock %}
+
+{% block js %}
+<script>
+    $(function() {
+        $(".datepicker").datepicker();
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends "base1.html" %}
+{% load i18n %}
+{% load static %}
+{% block extra_css %}
+    <style xmlns="http://www.w3.org/1999/html">
+    </style>
+{% endblock %}
+{% block page_title %}
+ Standard
+{% endblock %}
+{% block content %}
+<!-- section 1 for standards-->
+
+<div class="container-fluid">
+  <div class="row">
+      <div class="col-12">
+          <div class="card">
+              <div class="card-body">
+                  <h5 class="card-title m-b-0">Standards</h5>
+              </div>
+              <table class="table">
+                  <thead>
+                  <tr>
+                      <th scope="col">S.No</th>
+                      <th scope="col">Name</th>
+                      <th scope="col">Action</th>
+                  </tr>
+                  </thead>
+                  {% for grade in obj %}
+                  <tbody>
+                  <tr>
+                      <th scope="row">{{forloop.counter}}</th>
+                      <td>{{grade.name}}</td>
+                      <td><a class="waves-effect waves-light btn modal-trigger" href="#modal-{{forloop.counter}}"><i class="material-icons dp48">create</i></a>
+                        <div id="modal-{{forloop.counter}}" class="modal">
+                          <div class="modal-content">
+                            <h4>Modal Header</h4>
+                            <p>A bunch of text</p>
+                          </div>
+                          <div class="modal-footer">
+                            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+                          </div>
+                        </div>
+                        <a class="waves-effect waves-light btn"></a>
+                        <a class="waves-effect red waves-light btn"><i class="material-icons dp48">delete</i></a>
+                      </td>
+                  </tr>
+                  </tbody>
+                  {% endfor %}
+              </table>
+          </div>
+      </div>
+  </div>
+</div>
+{%endblock%}

@@ -1,0 +1,89 @@
+{% extends 'school/base_template.html' %}
+
+{% block custom_css %}
+
+{% endblock custom_css %}
+{% load static %}
+
+{% block page_title %}
+    View Report
+{% endblock page_title %}
+
+{% block main_content %}
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- general form elements -->
+                <div class="card card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">View Gradewise Report</h3>
+                </div>
+                <!-- /.card-header -->
+
+                            {% comment %} Display Messages {% endcomment %}
+                            {% if messages %}
+                            <div class="form-group">
+                            <div class="col-12">
+                                {% for message in messages %}
+                                {% if message.tags == "error" %}
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert" style="margin-top: 10px;">
+                                    {{ message }}
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    </div>
+                                {% elif message.tags == "success" %}
+                                    <div class="alert alert-success alert-dismissible fade show" role="alert" style="margin-top: 10px;">
+                                    {{ message }}
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    </div>
+                                {% endif %}
+                                {% endfor %}
+                            </div>
+                            </div>
+                            {% endif %}
+                        
+                    <form method="POST" action="{% url 'users:student_report_gradewise' %}">
+                    {% csrf_token %}
+
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label>Class </label>
+                            <select class="form-control" name="grade" id="grade">
+                                    <option value="1" name="grade1">Grade 1</option>
+                                    <option value="2" name="grade2">Grade 2</option>
+                                    <option value="3" name="grade3">Grade 3</option>
+                                    <option value="4" name="grade4">Grade 4</option>
+                                    <option value="5" name="grae5">Grade 5</option>
+                                    <option value="6" name="grade6">Grade 6</option>
+                                    <option value="7" name="grade7">Grade 7</option>
+                                    <option value="8" name="grade8">Grade 8</option>
+                                    <option value="9" name="grade9">Grade 9</option>
+                                    <option value="10" name="grade10">Grade 10</option>
+                                    <option value="11" name="grade11">Grade 11</option>
+                                    <option value="12" name="grde12">Grade 12</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                    <div class="card-footer">
+                    <button type="submit" class="btn btn-primary" id="fetch_student">Get data</button>
+                    </div>
+                    <div class="card-footer" id="student_data">
+                    </div> 
+                </div>
+                </form>
+                <!-- /.card -->
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+  </section>
+
+{% endblock main_content %}
+
+{% block custom_js %}
+
+{% endblock custom_js %}

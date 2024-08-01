@@ -1,0 +1,32 @@
+/* Center the form on the page */
+#student_project{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top:20px;
+    margin-left:400px;
+}
+
+/* Style the form */
+/* #student_project > form {
+    max-width: 400px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+} */
+
+/* Style form fields */
+#student_project  .form-control {
+    margin: 2px 0;
+}
+
+/* Style the submit button */
+#student_project > button[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}

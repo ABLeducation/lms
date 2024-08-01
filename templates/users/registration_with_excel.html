@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Student Form{% endblock %}
+
+{% block body %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Upload Student Excel File</h5>
+                </div>
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data" action="{% url 'users:students_registration' %}">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="excel_file">Select Excel File:</label>
+                            <input type="file" name="excel_file" id="excel_file" class="form-control-file">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Upload</button>
+                    </form>
+                </div>
+                <div class="card-footer">
+                    <p>Download Excel template:</p>
+                    <a href="{% url 'users:download_excel_template' %}" class="btn btn-secondary">Download Template</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

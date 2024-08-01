@@ -1,0 +1,72 @@
+{% extends 'school/base_template.html' %}
+
+{% block page_title %}
+    Advocacy
+{% endblock page_title %}
+
+<style>
+    .table td, .table th {
+        text-align: center; /* Center-aligns text horizontally */
+        vertical-align: middle; /* Center-aligns text vertically */
+    }
+</style>
+
+{% block main_content %}
+
+{% load static %}
+
+<section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">Advocacy Report</h3>
+                        </div>
+                        <div class="card-body">
+                           <div class="table-responsive">
+                                <table class="table">
+                                    <thead class="thead-light">
+                                    <tr>
+                                        <th>Date of Advocacy</th>
+                                        <th>Class & Sec</th>
+                                        <!--<th>Verify</th>-->
+                                        <th>Get Report</th>
+                                    </tr>
+                                    </thead>
+                                    {% for adv in advocacy  %}
+                                    <tr>
+                                        <td>{{adv.date}}</td>
+                                        <td>{{adv.grade}} {{adv.section}}</td>
+                                        <!--<td><input type="checkbox" class="verify-checkbox" {% if adv.verified_by %} checked {% endif %}></td>-->
+                                        <td><a href="{% url 'users:get_report_school' adv.id %}"type="button" class="btn btn-primary get-report-button"> Get Report </a></td>
+                                    </tr>
+                                    {% endfor %}
+                                </table>
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+      </section>
+{% endblock main_content %}
+
+{% block custom_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const getReportButtons = document.querySelectorAll('.get-report-button');
+
+        getReportButtons.forEach((button) => {
+            button.addEventListener('click', function(event) {
+                const verifyCheckbox = this.closest('tr').querySelector('.verify-checkbox');
+                if (!verifyCheckbox.checked) {
+                    verifyCheckbox.checked = true;
+                }
+            });
+        });
+    });
+  </script>
+
+{% endblock custom_js %}

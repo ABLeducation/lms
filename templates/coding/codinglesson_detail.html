@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} {{lessons.name}} {% endblock %}
+
+{% block image_block %}
+<header class="info-header">
+  <div id="page-intro" class="container-fluid d-flex align-items-center justify-content-center ">
+    <div class="row d-flex justify-content-center text-center">
+      <div class="col-md-10 text-white">
+        <!-- heading -->
+        <h3 class="display-4 font-weight-bold  p-5 " style="color:#ff5722;" >Chapter-{{lessons.position}}: {{lessons.name}}</h3>
+        <div class="row d-flex justify-content-center text-center">
+          <ul class="breadcrumb">
+            <li><a href="{% url 'users:index' %}">Home</a></li>
+            <li><a href="{% url 'curriculum:coding'%}">Coding</a></li>
+            <li class="disabled-text" >{{lessons.name}}</li>
+          </ul>
+        </div>
+
+        <!-- divider -->
+        <hr style="color:#ff5722;">
+
+        <!-- description -->
+        <h4 class="white-text my-4">ABL Education leverages its intelligently curated technology tools & learning
+          resources to foster 21st-century skills.</h4>
+  </div>
+</header>
+{% endblock %}
+
+{% block body %}
+
+<section class="text-center">
+    <h2 class="mb-3 mt-5 font-weight-bold" style="color:#ff5722;">Lecture Details</h2>
+    <div class="row d-flex justify-content-center mb-3">
+      <blockquote class="blockquote mt-0">
+        <footer class="blockquote-footer">Created by <cite title="Source Title">{{lessons.created_by}}</cite></footer>
+        </blockquote>
+    </div>
+    <!-- video -->
+    <div class="row d-flex justify-content-center mb-3">
+      <div id="player-overlay">
+            <video controls>
+                <source src="{{lessons.video.url}}"  type="video/mp4">
+              </video>
+      </div>
+    </div>
+</section>
+
+<hr class="my-5" style="color:#ff5722;">
+
+{%endblock%}

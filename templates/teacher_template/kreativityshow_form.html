@@ -1,0 +1,75 @@
+{% extends 'teacher_template/base_template.html' %}
+
+{% block page_title %}
+    KreativityShow
+{% endblock page_title %}
+
+{% block main_content %}
+
+    {% load static %}
+
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Fill Club Details</h3>
+                        </div>
+                        <div class="card-body">
+                            <form method="post">
+                                {% csrf_token %}
+                                <div class="form-group row">
+                                    <label for="id_date" class="col-sm-2 col-form-label">Date</label>
+                                    <div class="col-sm-10">
+                                        {{ form.date }}
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="id_project_name" class="col-sm-2 col-form-label">Student's Name</label>
+                                    <div class="col-sm-10">
+                                        {{ form.child_name }}
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="id_school" class="col-sm-2 col-form-label">Grade</label>
+                                    <div class="col-sm-10">
+                                        {{ form.grade }}
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="id_name" class="col-sm-2 col-form-label">Parent's Name</label>
+                                    <div class="col-sm-10">
+                                        {{ form.parent_name}}
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="id_grade" class="col-sm-2 col-form-label">School</label>
+                                    <div class="col-sm-10">
+                                        {{ form.school }}
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="id_progress" class="col-sm-2 col-form-label">Testimoial</label>
+                                    <div class="col-sm-10">
+                                        {{ form.testimonial }}
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-10 offset-sm-2">
+                                        <button type="submit" class="btn btn-primary">Save</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+{% endblock main_content %}
+
+{% block custom_js %}
+
+{% endblock custom_js %}

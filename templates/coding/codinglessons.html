@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} {{subjects.name}} {% endblock %}
+
+{% block image_block %}
+<header class="info-header">
+  <div id="page-intro" class="container-fluid d-flex align-items-center
+    justify-content-center ">
+    <div class="row d-flex justify-content-center text-center">
+      <div class="col-md-10 text-white">
+        <!-- heading -->
+        <h2 class="display-4 font-weight-bold p-5 " style="color:#ff5722;">
+          {{subjects.name}} </h2>
+        <div class="row d-flex justify-content-center text-center">
+          <ul class="breadcrumb">
+            <li><a href="{% url 'users:index' %}">Home</a></li>
+            <li><a href="{% url 'curriculum:coding' %}">Coding</a></li>
+            <li class="disabled-text">{{subjects.name}}</li>
+          </ul>
+        </div>
+
+        <!-- divider -->
+        <hr style="color:#ff5722;">
+
+        <!-- description -->
+        <h6 class="white-text my-4">Scratch is a visual programming language that allows students to create their own interactive stories, games and animations. As students design Scratch projects, they learn to think creatively, reason systematically, and work collaboratively.</h6>
+      </div>
+    </header>
+    {% endblock %}
+
+
+    {% block body %}
+    <section id="best-features" class="text-center">
+      <h2 class="mb-3 mt-3 font-weight-bold" style="color:#ff5722;">Dive Deeper</h2>
+      <h5>Is Scratch safe for kids?</h5>
+      <!-- class row for description-->
+      <div class="row d-flex justify-content-center mb-4">
+        <!-- class column -->
+        <div class="col-md-8 mb-5">
+          <p class="dark-text"><b>Scratch is a safe and playful learning environment</b> that engages all children in thinking creatively, reasoning systematically, and working collaboratively—essential skills for everyone in today's society. Read an article on the Creative Learning Approach.</p>
+        </div>
+      </div>
+      <!-- class row2 for cards -->
+      <div class="row d-flex justify-content-center mb-3">
+        {% for lesson in lessons %}
+        <div class="col-sm-4 mb-4">
+          <div class="card box-shadow-hover">
+            <div class="card-body">
+              <h5 class="card-title">Chapter-{{lesson.position}}:
+                {{lesson.name}}</h5>
+              <a href="{% url 'curriculum:codinglesson_detail' slug=lesson.slug %}">
+                <button type="button" class="button-les"><span>Get Lectures</span></button>
+              </a>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+
+    </section>
+  {% endblock %}

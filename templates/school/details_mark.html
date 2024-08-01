@@ -1,0 +1,34 @@
+{% extends 'school/base_template.html' %}
+
+{% load static %}
+
+{% block page_title %}
+    View Result
+{% endblock page_title %}
+
+{% block main_content %}
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Subject</th>
+                <th>Topic</th>
+                <th>Marks(Out of 100)</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for mark in marks %}
+                <tr>
+                    <td>{{mark.quiz.name}}</td>
+                    <td>{{mark.quiz.topic}}</td>
+                    <td>{{mark.score|floatformat:2}}</td>
+                    <td>{% if mark.score >= 80 %}
+                        <span class="alert alert-success">Pass</span>
+                    {% else %}
+                        <span class="alert alert-danger">Fail</span>
+                    {% endif %}</td>
+                </tr> 
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock main_content %}

@@ -1,0 +1,76 @@
+{% extends 'principal_template/base_template.html' %}
+
+{% block main_content %}
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">Overall Leader</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped">
+                                    <thead class="thead-light">
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Grade</th>
+                                        <th>Score</th>
+                                    </tr>
+                                    </thead>
+                                    {% for student1 in overall_students %}
+                                    <tr>
+                                        <td>{{ student1.user.user_profile_student.first_name  }}</td>
+                                        <td>{{ student1.user.user_profile_student.grade}}</td>
+                                        <td>{{ student1.score|floatformat:2 }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </table>
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">Report by Grade</h3>
+                        </div>
+                        <div class="card-body">
+                            {% for grade, top_students in top_students_by_grade.items %}
+                            <h4>Grade: {{ grade }}</h4>
+                            <div class="table-responsive mx-auto ">
+                                <table class="table table-bordered table-striped">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th class="name-column">Name</th>
+                                            <th class="pr-3   grade-column">Result</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for student in top_students %}
+                                        <tr>
+                                            <td class="name-column">{{ student.user.user_profile_student.first_name }}</td>
+                                            <td class="pr-3 grade-column" >{{ student.score|floatformat:2 }}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+{% endblock main_content %}

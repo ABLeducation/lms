@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title%}    
+    {{quiz.name}}
+{% endblock %}
+
+{% block body %}
+<section id="quizview">
+    <div class="container my-2">
+        <div class="row">
+            <div class="col my-2">
+                <div class="my-2">
+                    <b>Assessment on {{quiz.name}}</b>
+                </div>
+                {% comment %} <p>Score to pass:{{quiz.required_score_to_pass}}</p> {% endcomment %}
+            </div>
+            <div class="col text-right my-2" id="timer-box">Countdown</div>    
+        </div>
+        {% if quiz.time > 0 %}
+        <a href="#" class="btn btn-danger">Go back</a>
+        {% else %} 
+        <a href="{% url 'assessment:main_view' %}" class="btn btn-danger">Go back</a>
+        {% endif %}
+        <hr>
+        <form id="quiz-form" class="mb-3 mt-3">
+            {% csrf_token %}
+            <div id="quiz-box" class="my-2"></div>
+            <button type="submit" class="btn btn-primary my-2" id="submit_btn">Submit</button>        
+        </form>
+        <div id="score-box"></div>
+        <div id="result-box"></div>
+    </div>
+<section>
+{% endblock %}
+
+{% block js %}
+    <script>
+        window.history.pushState(null, null, window.location.href);
+        window.addEventListener('popstate', function () {
+            window.history.pushState(null, null, window.location.href);
+        });
+    
+        // Display a confirmation message when the user tries to refresh or close the page
+        window.onbeforeunload = function () {
+            return 'Are you sure you want to leave this page? Your progress will be lost.';
+        };
+    
+        // You can also disable right-click to prevent the context menu
+        window.oncontextmenu = function () {
+            return false;
+        };
+    </script>
+{% endblock %}

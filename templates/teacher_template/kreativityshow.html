@@ -1,0 +1,60 @@
+{% extends 'teacher_template/base_template.html' %}
+
+{% block page_title %}
+    Kreativity Show
+{% endblock page_title %}
+
+{% block main_content %}
+
+{% load static %}
+
+<section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">Kreativity Show</h3>
+                        </div>
+                        <div class="card-body">
+                           <div class="table-responsive">
+                                <table class="table">
+                                    <thead class="thead-light">
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Parent's Name</th>
+                                        <th>Child Name</th>
+                                        <th>Class</th>
+                                        <th>Testimonial</th>
+                                    </tr>
+                                    </thead>
+                                    {% for show in kreativityshow  %}
+                                    <tr>
+                                        <td>{{show.date}}</td>
+                                        <td>{{show.parent_name}}</td>
+                                        <td>{{show.child_name}}</td>
+                                        <td>{{show.grade}}</td>
+                                        <td><a href="{{show.testimonial}}"type="button" class="btn btn-primary" target="_blank">Testimonial</a></td>
+                                    </tr>
+                                    {% endfor %}
+                                </table>
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+        
+        <div class="row d-flex justify-content-center mb-3">
+            {% if user.is_teacher %}
+            <a href="{% url 'users:kreativityshow_form' %}"><button
+                type="button" class="btn btn-success btn-lg btn-bloc"> Add Data </button> </a>
+            {% endif %}
+        </div>
+      </section>
+  {% endblock main_content %}
+
+{% block custom_js %}
+
+{% endblock custom_js %}

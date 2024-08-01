@@ -1,0 +1,47 @@
+{% extends 'principal_template/base_template.html' %}
+
+{% block page_title %}
+    Subject List
+{% endblock page_title %}
+
+{% block main_content %}
+
+{% load static %}
+
+<section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">Subjects</h3>
+                        </div>
+                        <div class="card-body">
+                           <div class="table-responsive">
+                                <table class="table">
+                                    <thead class="thead-light">
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Class</th>
+                                    </tr>
+                                    </thead>
+                                    {% for subject, classes in subjects.items %}
+                                    <tr>
+                                        <td>{{ subject }}</td>
+                                        <td>{{ classes }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </table>
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+      </section>
+  {% endblock main_content %}
+
+{% block custom_js %}
+
+{% endblock custom_js %}

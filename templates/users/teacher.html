@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block title %}Student Form{% endblock %}
+{% block body %}
+<section id="teacher-body">
+    <div class="teacher-form">
+        <img alt="" class="avatar" src="/static/Images/user_avatar.png">
+        <h2>Registration Form</h2>
+        <form action="{% url 'users:user_teacher' %}" method="post">
+        {% csrf_token %}
+        {{form.as_p}}
+            <!--<div class="fieldWrapper">-->
+            <!--    {{ form.username.errors }}-->
+            <!--    {{ form.username.label_tag }}-->
+            <!--    {{ form.username }}-->
+            <!--</div>-->
+            <!--<div class="fieldWrapper">-->
+            <!--    {{ form.password1.errors }}-->
+            <!--    {{ form.password1.label_tag }}-->
+            <!--    {{ form.password1 }}-->
+            <!--</div>-->
+            <!--<div class="fieldWrapper">-->
+            <!--    {{ form.password2.errors }}-->
+            <!--    {{ form.password2.label_tag }}-->
+            <!--    {{ form.password2 }}-->
+            <!--</div>-->
+            <!--<div class="fieldWrapper">-->
+            <!--    {{ form.email.errors }}-->
+            <!--    {{ form.email.label_tag }}-->
+            <!--    {{ form.email }}-->
+            <!--</div>-->
+            <!--<div class="fieldWrapper">-->
+            <!--    {{ form.First_Name.errors }}-->
+            <!--    {{ form.First_Name.label_tag }}-->
+            <!--    {{ form.First_Name }}-->
+            <!--</div>-->
+            <!--<div class="fieldWrapper">-->
+            <!--    {{ form.Middle_Name.errors }}-->
+            <!--    {{ form.Middle_Name.label_tag }}-->
+            <!--    {{ form.Middle_Name }}-->
+            <!--</div>-->
+            <!--<div class="fieldWrapper">-->
+            <!--    {{ form.Last_Name.errors }}-->
+            <!--    {{ form.Last_Name.label_tag }}-->
+            <!--    {{ form.Last_Name }}-->
+            <!--</div>-->
+            <!--<div class="fieldWrapper">-->
+            <!--    {{ form.Mobile.errors }}-->
+            <!--    {{ form.Mobile.label_tag }}-->
+            <!--    {{ form.Mobile }}-->
+            <!--</div>-->
+            <!--<div class="fieldWrapper">-->
+            <!--    {{ form.grade.errors }}-->
+            <!--    {{ form.grade.label_tag }}-->
+            <!--    {{ form.grade }}-->
+            <!--</div>-->
+            <!--<div class="fieldWrapper">-->
+            <!--    {{ form.school.errors }}-->
+            <!--    {{ form.school.label_tag }}-->
+            <!--    {{ form.school }}-->
+            <!--</div>-->
+
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+</section>
+{% endblock %}

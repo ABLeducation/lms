@@ -1,0 +1,106 @@
+{% load static %}
+
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+      <!-- Brand Logo -->
+      <a href="{% url 'users:student_home' %}" class="brand-link">
+        <i class="fa fa-home fa-fw" aria-hidden="true" style="color:#007bff; margin-left:20px;"></i>
+        <span class="brand-text font-weight-light">{{user}}</span>
+      </a>
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <!-- Sidebar user panel (optional) -->
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+          <div class="image">
+              {% if profile.profile_pic %}
+            <img src="{{ profile.profile_pic.url }}" class="img-circle elevation-2" alt="User Image">
+            {% else %}
+            <img src="/static/Images/1.png" class="img-circle elevation-2" alt="User Image">
+            {% endif %}
+          </div>
+          <div class="info">
+            <a href="{% url 'users:student_profile' %}" class="d-block">{{ user.first_name }} {{ user.last_name }}</a>
+          </div>
+        </div>
+
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
+          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <!-- Add icons to the links using the .nav-icon class
+                with font-awesome or any other icon font library -->
+            
+            <li class="nav-item">
+              {% url 'users:student_home' as student_home %}
+              <a href="{{ student_home }}" class="nav-link {% if request.path == student_home %} active {% endif %}">
+                <i class="nav-icon fa fa-home fa-fw"></i>
+                <p>
+                  Home
+                  {% comment %} <span class="right badge badge-danger">New</span> {% endcomment %}
+                </p>
+              </a>
+            </li>
+
+            <!--<li class="nav-item">-->
+            <!--  {% url 'users:student_view_attendance' as student_view_attendance %}-->
+            <!--  <a href="{{ student_view_attendance }}" class="nav-link {% if request.path == student_view_attendance %} active {% endif %}">-->
+            <!--    <i class="nav-icon fas fa-calendar-alt"></i>-->
+            <!--    <p>-->
+            <!--      View Attendance-->
+            <!--    </p>-->
+            <!--  </a>-->
+            <!--</li>-->
+
+            <li class="nav-item">
+              {% url 'users:student_view_result' as student_view_result %}
+              <a href="{{ student_view_result }}" class="nav-link {% if request.path == student_view_result %} active {% endif %}">
+                <i class="nav-icon fas fa-tachometer-alt"></i>
+                <p>
+                  My Assessments
+                  {% comment %} <span class="right badge badge-danger">New</span> {% endcomment %}
+                </p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              {% url 'users:student_feedback' as student_feedback %}
+              <a href="{{ student_feedback }}" class="nav-link {% if request.path == student_feedback %} active {% endif %}">
+                <i class="nav-icon fas fa-comments"></i>
+                <p>
+                  Communication
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <!--{% url 'assessment:main_view' as start_assessment %}-->
+              {% if profile.grade == '8' %}
+              <a href="https://quizizz.com/join?gc=741014" class="nav-link" target="_blank">
+                <i class="nav-icon fas fa-solid fa-tablet"></i>
+                <p>
+                  Take Assessment
+                  {% comment %} <span class="right badge badge-danger">New</span> {% endcomment %}
+                </p>
+              </a>
+              {% elif profile.grade == '7' %}
+              <a href="https://quizizz.com/join?gc=748871" class="nav-link" target="_blank">
+                <i class="nav-icon fas fa-solid fa-tablet"></i>
+                <p>
+                  Take Assessment
+                  {% comment %} <span class="right badge badge-danger">New</span> {% endcomment %}
+                </p>
+              </a>
+              {% elif profile.grade == '6' %}
+              <a href="https://quizizz.com/join?gc=340677" class="nav-link" target="_blank">
+                <i class="nav-icon fas fa-solid fa-tablet"></i>
+                <p>
+                  Take Assessment
+                  {% comment %} <span class="right badge badge-danger">New</span> {% endcomment %}
+                </p>
+              </a>
+              {% endif %}
+            </li>
+
+          </ul>
+        </nav>
+        <!-- /.sidebar-menu -->
+      </div>
+      <!-- /.sidebar -->
+    </aside>

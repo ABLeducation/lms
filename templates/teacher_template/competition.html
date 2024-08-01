@@ -1,0 +1,72 @@
+{% extends 'teacher_template/base_template.html' %}
+
+{% block page_title %}
+    Competition
+{% endblock page_title %}
+
+{% block main_content %}
+
+{% load static %}
+
+<section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">Competition</h3>
+                        </div>
+                        <div class="card-body">
+                           <div class="table-responsive">
+                                <table class="table">
+                                    <thead class="thead-light">
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Competition Name</th>
+                                        <th>Status</th>
+                                        <th>Venue</th>
+                                        <th>Student's Name</th>
+                                        <th>Grade</th>
+                                        <th>Section</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for date, records in competition_by_date.items %}
+                                            {% for record in records %}
+                                                <tr>
+                                                    {% if forloop.first %}
+                                                        <td rowspan="{{ records|length }}">{{ date }}</td>
+                                                    {% endif %}
+                                                    {% if forloop.first %}
+                                                        <td rowspan="{{ records|length }}">{{ record.competition_name }}</td>
+                                                        <td rowspan="{{ records|length }}">{{ record.status }}</td>
+                                                    {% endif %}
+                                                    <td>{{ record.venue }}</td>
+                                                    <td>{{ record.student.first_name }} {{ record.student.last_name }}</td>
+                                                    <td>{{ record.grade }}</td>
+                                                    <td>{{ record.section }}</td>
+                                                </tr>
+                                            {% endfor %}
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+
+        <div class="row d-flex justify-content-center mb-3">
+            {% if user.is_teacher %}
+            <a href="{% url 'users:competition_form' %}"><button
+                type="button" class="btn btn-success btn-lg btn-bloc"> Add Data </button> </a>
+            {% endif %}
+        </div>
+      </section>
+  {% endblock main_content %}
+
+{% block custom_js %}
+
+{% endblock custom_js %}

@@ -1,0 +1,51 @@
+#advocacy .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+#advocacy h2 {
+    margin-top: 0;
+    text-align: center;
+    color: #333;
+}
+#advocacy form {
+    margin-top: 20px;
+}
+#advocacy label {
+    font-weight: bold;
+}
+#advocacy input[type="text"],
+#advocacy input[type="date"],
+#advocacy textarea {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+#advocacy select {
+    width: 100%;
+    padding: 2px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+#advocacy button[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+#advocacy button[type="submit"]:hover {
+    background-color: #45a049;
+}

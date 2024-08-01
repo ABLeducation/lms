@@ -1,0 +1,109 @@
+{% extends 'principal_template/base_template.html' %}
+
+{% block main_content %}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Students in Grade {{ grade }}</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <form id="search-form1" method="get">
+                                <div class="input-group">
+                                    <input id="q" type="text" name="q" class="form-control" placeholder="Search by name" value="{{ search_query }}">
+                                    <div class="input-group-append">
+                                        <button type="submit" class="btn btn-primary">Search</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                        {% if search_query %}
+                        <div class="table-responsive">
+                            <table class="table" id="student-grade">
+                                <thead class="thead-light">
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Get Report</th>
+                                </tr>
+                                </thead>
+                                {% for student in students %}
+                                <tr>
+                                    <td>{{student.first_name}}</td>
+                                    <td><a href="{% url 'users:pstudent_detail_report' student.user_id %}"type="button" class="btn btn-primary"> Get Report </a></td>
+                                </tr>
+                                {% endfor %}
+                            </table>
+                        </div>
+
+                        {% else %}
+                        <div class="table-responsive">
+                            <table class="table" id="student-grade">
+                                <thead class="thead-light">
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Get Report</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for student in students %}
+                                <tr>
+                                    <td>{{student.first_name}}</td> 
+                                    <td><a href="{% url 'users:pstudent_detail_report' student.user_id %}"type="button" class="btn btn-primary"> Get Report </a></td>
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+{% endblock main_content %}
+
+{% comment %} {% block js %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // Function to update the table with search results
+        function updateTable(searchQuery) {
+            $.ajax({
+                url: window.location.pathname,
+                type: 'GET',
+                data: { search: searchQuery },
+                dataType: 'json',
+                success: function (data) {
+                    var tableBody = $('#student-grade tbody');
+                    tableBody.empty();
+
+                    if (data.students.length === 0) {
+                        tableBody.append('<tr><td colspan="3">No results found</td></tr>');
+                    } else {
+                        $.each(data.students, function (index, student) {
+                            tableBody.append('<tr><td>' + student.grade + '</td><td>' + student.first_name + '</td><td>' + student.user_id + '</td></tr>');
+                        });
+                    }
+                }
+            });
+        }
+
+        // Handle form submission
+        $('#search-form1').on('submit', function (e) {
+            e.preventDefault();
+            var searchQuery = $('#q').val();
+            updateTable(searchQuery);
+        });
+
+        // Initialize the table on page load
+        var initialSearchQuery = '{{ search_query }}';
+        updateTable(initialSearchQuery);
+    });
+</script>
+{% endblock js %} {% endcomment %}

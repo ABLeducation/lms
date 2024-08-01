@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block title %}Contact Us{% endblock %}
+{% block body %}
+<section id="contact-body">
+    <div class="contact-form">
+        <img alt="" class="avatar" src="/static/Images/user_avatar.png">
+        <h2>Contact Us</h2>
+        <form action="{% url 'users:contact' %}" method="post">
+        {% csrf_token %}
+            <p>Name</p><input placeholder="Enter your name" id="name" name="name" type="text">
+            <p>Contact number</p><input placeholder="Enter your contact number" id="contact" name="contact" type="tel">
+            <p>Email</p><input placeholder="Enter your email" id="email" type="email" name="email">
+            <p>Your Message</p><input placeholder="Leave your message" id="message" type="text" name="message">
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+</section>
+{% endblock %}

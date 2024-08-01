@@ -1,0 +1,45 @@
+#subject_body{
+    margin-top: 30px;
+    padding-top: 20px;
+}
+
+#main-button{
+    height: 80%;
+    background-color: rgba(0, 0, 255, 0.553);
+    border-radius: 15px;
+}
+
+#subject_card_ass .card{
+    margin-left: 150px;
+}
+
+#quizview{
+    border:3px solid rgb(34, 11, 133);
+    margin:20px;
+    border-radius: 15px;
+    background-color:  rgba(180, 180, 228, 0.553);
+    padding: 20px;
+}
+
+.result-item {
+    background-color: green;
+    color: white;
+    padding: 10px;
+    margin: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    border: 2px solid black;
+    border-radius: 15px;
+}
+
+#quiz_body{
+    background:linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("/static/Images/background/web_blue.jpg") no-repeat center center fixed;
+    /*background-image: linear-gradient(to top right,#382424eb 5% ,#00008B );*/
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    
+    padding:350px 0px 350px 0px;
+    
+}

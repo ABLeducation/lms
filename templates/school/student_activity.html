@@ -1,0 +1,68 @@
+{% extends 'school/base_template.html' %}
+
+{% block main_content %}
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card card-primary shadow-sm">
+          <div class="card-header bg-primary text-white">
+            <h3 class="card-title">
+              <i class="fas fa-user-clock"></i> User Activity for {{ user_id }}
+            </h3>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-hover table-bordered table-striped">
+                <thead class="thead-dark">
+                  <tr>
+                    <th>Date</th>
+                    <th>Lesson Name</th>
+                    <th>Time Spent</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for activity in activities %}
+                  <tr>
+                    <td>{{ activity.date|date:"Y-m-d H:i:s" }}</td>
+                    <td>
+                      <span class="badge badge-info">{{ activity.page_visited }}</span>
+                    </td>
+                    <td>{{ activity.curriculum_time_spent }}</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .card-primary {
+    border-color: #007bff;
+  }
+  .card-header.bg-primary {
+    background-color: #007bff !important;
+  }
+  .card-title i {
+    margin-right: 0.5rem;
+  }
+  .badge-info {
+    background-color: #17a2b8;
+  }
+  .table thead th {
+    vertical-align: middle;
+    text-align: center;
+  }
+  .table tbody td {
+    vertical-align: middle;
+  }
+  .table td, .table th {
+    text-align: center;
+  }
+</style>
+{% endblock main_content %}

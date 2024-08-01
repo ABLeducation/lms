@@ -1,0 +1,381 @@
+{% load static %}
+
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <!-- Sidebar user panel (optional) -->
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+          <div class="image">
+            <!-- {% if school.profile_pic %} -->
+            <img src="/static/Images/teacher.jpg" class="img-circle elevation-2" alt="User Image">
+            <!-- {% else %}
+            <p>No logo is uploaded</p>
+            {% endif %} -->
+          </div>
+          <div class="info">
+            <a href="" class="d-block">{{ school.first_name }}</a>
+          </div>
+        </div>
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
+          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <!-- Add icons to the links using the .nav-icon class
+                with font-awesome or any other icon font library -->
+            
+            <li class="nav-item">
+              {% url 'users:teacher_home' as teacher_home %}
+              <a href="{{ teacher_home }}" class="nav-link {% if request.path == teacher_home %} active {% endif %}">
+                <i class="nav-icon fas fa-solid fa-home"></i>
+                <p>
+                  Home
+                </p>
+              </a>
+            </li>
+            
+            {% if user.email in allowed_emails %}
+            <li class="nav-item">
+              <a href="javascript:void(0);" onclick="openInLMS();" class="nav-link">
+                <i class="nav-icon fa fa-file-excel"></i>
+                <p>
+                  STEM Curriculum
+                </p>
+              </a>
+            </li>
+            {% endif %}
+            
+            {% if user.email in rofl_access %}
+            <li class="nav-item">
+              <a href="javascript:void(0);" onclick="openroflInLMS();" class="nav-link">
+                <i class="nav-icon fa fa-file-excel"></i>
+                <p>
+                  ROFL Curriculum
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              {% url 'curriculum:training_level' as training%}
+              <a href="{{training }}" class="nav-link {% if request.path == training %} active {% endif %}">
+                <i class="nav-icon fa fa-file"></i>
+                <p>
+                  Teacher's Training Module
+                </p>
+              </a>
+            </li>
+            {% endif %}
+            
+            {% if user.email in st_mary %}
+            <li class="nav-item">
+              <a href="javascript:void(0);" onclick="openroflAIInLMS();" class="nav-link">
+                <i class="nav-icon fa fa-file-excel"></i>
+                <p>
+                  ROFL Curriculum
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fa fa-solid fa-tablet"></i>
+                        <p>
+                            Macro Planner
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{% url 'users:lesson_plan_upload' %}" class="nav-link">
+                                <i class="nav-icon fas fa-upload"></i>
+                                <p>Upload Planner</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'users:view_macroplanner' %}" class="nav-link">
+                                <i class="nav-icon fas fa-eye"></i>
+                                <p>View Planner</p>
+                            </a>
+                        </li>
+                    </ul>
+            </li>
+            <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fa fa-solid fa-tablet"></i>
+                        <p>
+                            Micro Planner
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{% url 'users:upload_micro_plan' %}" class="nav-link">
+                                <i class="nav-icon fas fa-upload"></i>
+                                <p>Upload Planner</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'users:view_microplanner' %}" class="nav-link">
+                                <i class="nav-icon fas fa-eye"></i>
+                                <p>View Planner</p>
+                            </a>
+                        </li>
+                    </ul>
+            </li>
+            {% endif %}
+            
+            {% if user.email in allowed_emails %}
+            <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fa fa-solid fa-solid fa-tablet"></i>
+                        <p>
+                            Macro Planner
+                            <i class="right fas fa-solid fa-calendar-days"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{% url 'users:lesson_plan_upload' %}" class="nav-link">
+                                <i class="nav-icon fas fa-upload"></i>
+                                <p>Upload Planner</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'users:view_macroplanner' %}" class="nav-link">
+                                <i class="nav-icon fas fa-eye"></i>
+                                <p>View Planner</p>
+                            </a>
+                        </li>
+                    </ul>
+            </li>
+            <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fa fa-solid fa-tablet"></i>
+                        <p>
+                            Micro Planner
+                            <i class="right fas fa-solid fa-calendar-days"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{% url 'users:upload_micro_plan' %}" class="nav-link">
+                                <i class="nav-icon fas fa-upload"></i>
+                                <p>Upload Planner</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'users:view_microplanner' %}" class="nav-link">
+                                <i class="nav-icon fas fa-eye"></i>
+                                <p>View Planner</p>
+                            </a>
+                        </li>
+                    </ul>
+            </li>
+            <li class="nav-item">
+                <a href="#" onclick="openLMS('https://docs.google.com/forms/d/e/1FAIpQLSemCqz4ManMYY9ORrmfVH-y3Z9fmtSviqBgHyUkwZxp16ZuTQ/viewform')" class="nav-link">
+                    <i class="nav-icon fa fa-file-excel"></i>
+                    <p>
+                        Daily Report
+                    </p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" onclick=openLMS('https://drive.google.com/file/d/1SdhXsqO9rpqVlTb6ghgSu8e8_xyYR_-d/preview') class="nav-link">
+                    <i class="nav-icon fa fa-solid fa-file-pdf"></i>
+                    <p>
+                        View SOP
+                    </p>
+                </a>
+            </li>
+            {% if teacher_sheet_url %}
+            <li class="nav-item">
+              <a href="#" onclick="openLMS('{{ teacher_sheet_url }}')" class="nav-link">
+                  <i class="nav-icon fa fa-file-excel"></i>
+                  <p>
+                      Class Progress Sheet
+                  </p>
+              </a>
+            </li>
+            {% endif %}
+            
+            <li class="nav-item">
+              <a href="{{observation_sheet.observation_sheet}}" class="nav-link" target="_blank">
+                <i class="nav-icon fa fa-regular fa-file-excel"></i>
+                <p>
+                  Observation Sheet
+                </p>
+              </a>
+            </li>
+            
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                  <i class="nav-icon fa fa-solid fa-table"></i>
+                  <p>
+                      Time Table
+                      <!--<i class="right fas fa-angle-left"></i>-->
+                  </p>
+              </a>
+              <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                      <a href="{% url 'users:timetable' %}" class="nav-link">
+                          <i class="nav-icon fas fa-upload"></i>
+                          <p>Upload Timetable</p>
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a href="{% url 'users:view_timetable' %}" class="nav-link">
+                          <i class="nav-icon fas fa-eye"></i>
+                          <p>View Timetable</p>
+                      </a>
+                  </li>
+              </ul>
+            </li>
+            
+            <li class="nav-item">
+              <a href="{{gallery_school.gallery}}" class="nav-link" target="_blank">
+                  <i class="nav-icon fa fa-regular fa-image"></i>
+                  <p>
+                     Gallery
+                  </p>
+              </a>
+            </li>
+            
+            <li class="nav-item">
+              {% url 'users:teacher_home' as teacher_home %}
+              <a href="{% url 'users:advocacy_list' %}" class="nav-link">
+                <i class="nav-icon fas fa-solid fa-scroll"></i>
+                <p>
+                  Advocacy
+                </p>
+              </a>
+            </li>
+            
+            <li class="nav-item">
+              <a href="{% url "curriculum:mentor_training_level"%}" class="nav-link">
+                <i class="nav-icon fas fa-solid fa-play"></i>
+                <p>
+                  Self Learning
+                </p>
+              </a>
+            </li>
+            
+            {% endif %}
+          </ul>
+        </nav>
+        <!-- /.sidebar-menu -->
+    </div>
+      <!-- /.sidebar -->
+</aside>
+
+<script>
+    function openInLMS() {
+        var googleSheetsUrl = "https://docs.google.com/spreadsheets/d/1gcG8NAUHTphN5OGreKcm1SdVC-AXWw3-/edit?usp=sharing&ouid=116095350769846707656&rtpof=true&sd=true";
+        
+        
+        var iframeId = "googleSheetsIframe";
+
+        var existingIframe = document.getElementById(iframeId);
+
+        if (!existingIframe) {
+            var iframe = document.createElement('iframe');
+
+            iframe.setAttribute('id', iframeId);
+            iframe.setAttribute('src', googleSheetsUrl);
+            iframe.setAttribute('width', '100%'); // Adjust width as needed
+            iframe.setAttribute('height', '500px'); // Adjust height as needed
+            iframe.style.border = "none"; // Remove default iframe border
+            iframe.style.boxShadow = "0 0 10px rgba(0, 0, 0, 0.1)"; // Add box shadow
+            iframe.style.borderRadius = "10px"; // Add border radius
+            iframe.style.backgroundColor = "#fff"; // Set background color
+            iframe.style.margin = "auto"; // Center the iframe horizontally
+            iframe.style.marginLeft = "250px"; // Add margin on the left side
+            document.body.appendChild(iframe);
+        }
+        else {
+            // If the iframe already exists, reload it to reset its content
+            existingIframe.src = existingIframe.src;
+        }
+    }
+    function openLMS(url) {
+        // Open the provided URL within the LMS
+        // For demonstration, let's assume it opens in an iframe
+        var iframeId = "lmsIframe";
+
+        var existingIframe = document.getElementById(iframeId);
+
+        if (!existingIframe) {
+            var iframe = document.createElement('iframe');
+
+            iframe.setAttribute('id', iframeId);
+            iframe.setAttribute('src', url);
+            iframe.setAttribute('width', '100%'); // Adjust width as needed
+            iframe.setAttribute('height', '100%'); // Adjust height as needed
+            iframe.style.border = "none"; // Remove default iframe border
+            iframe.style.boxShadow = "0 0 10px rgba(0, 0, 0, 0.1)"; // Add box shadow
+            iframe.style.borderRadius = "10px"; // Add border radius
+            iframe.style.backgroundColor = "#fff"; // Set background color
+            iframe.style.position = "fixed"; // Fixed position to cover the entire window
+            iframe.style.top = "0";
+            iframe.style.left = "0";
+            iframe.style.bottom = "0";
+            iframe.style.right = "0";
+            iframe.style.zIndex = "9999"; // Ensure the iframe is above other elements
+            document.body.appendChild(iframe);
+        } else {
+            // If the iframe already exists, reload it to reset its content
+            existingIframe.src = url;
+        }
+    }
+    
+    function openroflInLMS() {
+        var googleSheetsUrl = "https://docs.google.com/spreadsheets/d/1mIypNQtLxAiZnlbcKxZue946S-a4_SEo/edit?usp=sharing&ouid=102076205922179245998&rtpof=true&sd=true";
+        
+        var iframeId = "googleSheetsIframe";
+
+        var existingIframe = document.getElementById(iframeId);
+
+        if (!existingIframe) {
+            var iframe = document.createElement('iframe');
+
+            iframe.setAttribute('id', iframeId);
+            iframe.setAttribute('src', googleSheetsUrl);
+            iframe.setAttribute('width', '100%'); // Adjust width as needed
+            iframe.setAttribute('height', '500px'); // Adjust height as needed
+            iframe.style.border = "none"; // Remove default iframe border
+            iframe.style.boxShadow = "0 0 10px rgba(0, 0, 0, 0.1)"; // Add box shadow
+            iframe.style.borderRadius = "10px"; // Add border radius
+            iframe.style.backgroundColor = "#fff"; // Set background color
+            iframe.style.margin = "auto"; // Center the iframe horizontally
+            iframe.style.marginLeft = "250px"; // Add margin on the left side
+            document.body.appendChild(iframe);
+        }
+        else {
+            // If the iframe already exists, reload it to reset its content
+            existingIframe.src = existingIframe.src;
+        }
+    }
+    
+    function openroflAIInLMS() {
+        var googleSheetsUrl = "https://docs.google.com/spreadsheets/d/138lrlBian26Vc6HcRZLs4UZ0T4BVy6tl/edit?usp=sharing&ouid=116095350769846707656&rtpof=true&sd=true";
+        
+        var iframeId = "googleSheetsIframe";
+
+        var existingIframe = document.getElementById(iframeId);
+
+        if (!existingIframe) {
+            var iframe = document.createElement('iframe');
+
+            iframe.setAttribute('id', iframeId);
+            iframe.setAttribute('src', googleSheetsUrl);
+            iframe.setAttribute('width', '100%'); // Adjust width as needed
+            iframe.setAttribute('height', '500px'); // Adjust height as needed
+            iframe.style.border = "none"; // Remove default iframe border
+            iframe.style.boxShadow = "0 0 10px rgba(0, 0, 0, 0.1)"; // Add box shadow
+            iframe.style.borderRadius = "10px"; // Add border radius
+            iframe.style.backgroundColor = "#fff"; // Set background color
+            iframe.style.margin = "auto"; // Center the iframe horizontally
+            iframe.style.marginLeft = "250px"; // Add margin on the left side
+            document.body.appendChild(iframe);
+        }
+        else {
+            // If the iframe already exists, reload it to reset its content
+            existingIframe.src = existingIframe.src;
+        }
+    }
+</script>

@@ -1,0 +1,1 @@
+alert("Do not take screenshot of this page");

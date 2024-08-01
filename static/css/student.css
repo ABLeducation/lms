@@ -1,0 +1,108 @@
+body {
+	margin: 0;
+	padding: 0;
+	font-family: 'Poppins', sans-serif;
+}
+#student-body:before {
+	content: '';
+	position: fixed;
+	width: 100vw;
+	height: 100vh;
+	background:url("/static/Images/client login.png") no-repeat center center fixed;
+	-webkit-background-size: cover;
+	background-size: cover;
+	-webkit-filter: blur(2px);
+	-moz-filter: blur(2px);
+	filter: blur(2px);
+}
+.student-form {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -15%);
+	width: 400px;
+	height: 1380px;
+	padding: 40px 40px;
+	background: rgba(0, 0, 0, 0.5);
+    border-radius: 20px;
+}
+.avatar {
+	position: absolute;
+	width: 80px;
+	height: 80px;
+	border-radius: 50%;
+	overflow: hidden;
+	top: calc(-80px/2);
+	left: 170px;
+}
+.student-form h2 {
+	margin: 0;
+	padding: 0 0 20px;
+	color: #fff;
+	text-align: center;
+}
+.student-form p, .student-form label{
+	margin: 0;
+	padding: 0;
+	font-weight: bold;
+	color: #fff;
+}
+.student-form input,.student-form select {
+	width: 100%;
+	margin-bottom: 20px;
+}
+.student-form input[type=email], .student-form input[type=text], .student-form input[type=date],.student-form input[type=password], .fieldWrapper{
+	border: none;
+	border-bottom: 1px solid #fff;
+	background: transparent;
+	outline: none;
+	height: 30px;
+	color: #fff;
+	font-size: 16px;
+}
+
+#id_grade, #id_section{
+    border: none;
+	border-bottom: 1px solid #fff;
+	background: transparent;
+	outline: none;
+	height: 30px;
+	/*color: #fff;*/
+	font-size: 16px;   
+}
+
+#id_school{
+    border: none;
+	border-bottom: 1px solid #fff;
+	background: transparent;
+	outline: none;
+	height: 30px;
+	/*color: #fff;*/
+	font-size: 16px;   
+}
+
+#country,#state,#city{
+	border: none;
+	border-bottom: 1px solid #fff;
+	background: transparent;
+	outline: none;
+	height: 30px;
+	/* color: rgb(15, 15, 15); */
+	font-size: 16px;
+}
+
+.student-form input[type=submit]{
+	height: 35px;
+	color: #fff;
+	font-size: 15px;
+	background: red;
+	cursor: pointer;
+	border-radius: 20px;
+	border: none;
+	outline: none;
+	margin-top: 10%;
+}
+
+.form-control{
+	margin-top: 5px;
+}

@@ -1,0 +1,10 @@
+/* *{
+    font-family: Mulish,Mulish,Helvetica,Arial,sans-serif;
+} */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif:wght@300&display=swap');
+
+#subject_card{
+    max-width: 500px;
+    /* border-radius: 50%; */
+    background-image: linear-gradient(to top right,#382424eb 5% ,#00008B );
+}

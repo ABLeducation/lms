@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Courses{% endblock %}
+
+{% block body %}
+<section id="best-features" class="text-center">
+  <h2 class="mb-3 mt-3 font-weight-bold" style="color:#ff5722;">Level of Training</h2>
+  <!-- class row2 for cards -->
+  <div class="row d-flex justify-content-center mb-3">
+    <div class="card mb-5 mr-4 ml-4 box-shadow-hover" style="max-width: 500px;">
+      <div class="row no-gutters">
+          <div class="col-md-4">
+            <img src="{% static 'Images/2.jpg' %}" class="card-img" alt="No image found" height="200px"
+              width="200px">
+          </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h4 class="card-title" style="color:#ff5722;">Beginner Level</h4>
+            <p class="card-text"><small class="text-muted"></small>Be willing to be a beginner every single morning</p>
+            <a href="{% url 'curriculum:mentor_trainer_subject_1' %}"><button
+                class="button-les"> <span> Start Training</span></button></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card mb-5 mr-4 ml-4 box-shadow-hover" style="max-width: 500px;">
+        <div class="row no-gutters">
+            <div class="col-md-4">
+            <img src="{% static 'Images/3.jpg' %}" class="card-img" alt="No image found" height="200px"
+              width="200px">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h4 class="card-title" style="color:#ff5722;">Intermediate Level</h4>
+              <p class="card-text"><small class="text-muted"></small>The mind is not a vessel to be filled but a fire to be ignited</p>
+              <a href="{% url 'curriculum:mentor_trainer_subject_2' %}"><button
+                  class="button-les"> <span>Start Training</span></button></a>
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="card mb-5 mr-4 ml-4 box-shadow-hover" style="max-width: 500px;">
+        <div class="row no-gutters">
+            <div class="col-md-4">
+            <img src="{% static 'Images/4.jpg' %}" class="card-img" alt="No image found" height="200px"
+              width="200px">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h4 class="card-title" style="color:#ff5722;">Advance Level</h4>
+              <p class="card-text"><small class="text-muted"></small>More grace, more light, more generosity, more compassion, more to shed, more to grow</p>
+              <a href="{% url 'curriculum:mentor_trainer_subject_3' %}"><button
+                  class="button-les"> <span>Start Training</span></button></a>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+</section>
+{%endblock%}

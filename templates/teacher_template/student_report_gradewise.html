@@ -1,0 +1,110 @@
+{% extends 'teacher_template/base_template.html' %}
+
+{% block main_content %}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Students in Grade {{ grade }}</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <form id="search-form1" method="get">
+                                <div class="input-group">
+                                    <input id="q" type="text" name="q" class="form-control" placeholder="Search by name" value="{{ search_query }}">
+                                    <div class="input-group-append">
+                                        <button type="submit" class="btn btn-primary">Search</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="table table-hover" id="student-grade">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th>S.No.</th>
+                                        <th>Name of Student</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for student in students %}
+                                    <tr>
+                                        <th>{{ forloop.counter }}</th>
+                                        <td>
+                                            <a href="{% url 'users:tstudent_detail_report' student.user_id %}" class="student-link">
+                                                {{ student.first_name }} {{ student.last_name }}
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+{% endblock main_content %}
+
+{% block custom_css %}
+<style>
+    .student-link, .activity-link {
+        text-decoration: underline;
+    }
+
+    .student-link:hover, .activity-link:hover {
+        color: darkblue;
+    }
+
+    .table-hover tbody tr:hover {
+        background-color: #f2f2f2;
+    }
+
+    .thead-light {
+        background-color: #f8f9fa;
+    }
+</style>
+{% endblock custom_css %}
+
+{% block js %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        function updateTable(searchQuery) {
+            $.ajax({
+                url: window.location.pathname,
+                type: 'GET',
+                data: { search: searchQuery },
+                dataType: 'json',
+                success: function (data) {
+                    var tableBody = $('#student-grade tbody');
+                    tableBody.empty();
+
+                    if (data.students.length === 0) {
+                        tableBody.append('<tr><td colspan="3">No results found</td></tr>');
+                    } else {
+                        $.each(data.students, function (index, student) {
+                            tableBody.append('<tr><td>' + (index + 1) + '</td><td><a href="' + data.detail_report_url + student.user_id + '" class="student-link">' + student.first_name + ' ' + student.last_name + '</a></td><td><a href="' + data.activity_url + student.user_id + '" class="activity-link">View Activity</a></td></tr>');
+                        });
+                    }
+                }
+            });
+        }
+
+        $('#search-form1').on('submit', function (e) {
+            e.preventDefault();
+            var searchQuery = $('#q').val();
+            updateTable(searchQuery);
+        });
+
+        var initialSearchQuery = '{{ search_query }}';
+        updateTable(initialSearchQuery);
+    });
+</script>
+{% endblock js %}

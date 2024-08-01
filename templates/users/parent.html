@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% comment %} {% load crispy_forms_tags %} {% endcomment %}
+{% block title %}Parent Form{% endblock %}
+{% block body %}
+<section id="parent-body">
+    <div class="parent-form">
+        <img alt="" class="avatar" src="/static/Images/user_avatar.png">
+        <h2>Registration Form</h2>
+        <form action="{% url 'users:user_parent' %}" method="post">
+        {% csrf_token %}
+        {{form.as_p}}
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+</body>
+{% endblock %}

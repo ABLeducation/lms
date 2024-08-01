@@ -1,0 +1,89 @@
+body {
+	margin: 0;
+	padding: 0;
+	font-family: 'Poppins', sans-serif;
+}
+#login:before {
+	content: '';
+	position: fixed;
+	width: 100vw;
+	height: 100vh;
+	background:url("/static/Images/client login.jpg") no-repeat center center fixed;
+	-webkit-background-size: cover;
+	background-size: cover;
+	-webkit-filter: blur(2px);
+	-moz-filter: blur(2px);
+	filter: blur(2px);
+}
+.login-form {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -40%);
+	width: 470px;
+	height: 470px;
+	padding: 40px 40px;
+	background: rgba(0, 0, 0, 0.5);
+    border-radius: 20px;
+}
+.avatar {
+	position: absolute;
+	width: 80px;
+	height: 80px;
+	border-radius: 50%;
+	overflow: hidden;
+	top: calc(-80px/2);
+	left: 170px;
+}
+.login-form h2 {
+	margin: 0;
+	padding: 0 0 20px;
+	color: #fff;
+	text-align: center;
+}
+.login-form p {
+	margin: 0;
+	padding: 0;
+	font-weight: bold;
+	color: #fff;
+}
+.login-form input[type=text], .login-form input[type=password]{
+	width: 100%;
+}
+.login-form input[type=text], .login-form input[type=password]{
+	border: none;
+	border-bottom: 1px solid #fff;
+	background: transparent;
+	outline: none;
+	height: 30px;
+	color: #fff;
+	font-size: 16px;
+	margin-bottom: 20px;
+}
+
+.login-form input[type=submit]{
+    width: 50%;
+	height: 37px;
+	color: #fff;
+	font-size: 15px;
+	background: red;
+	cursor: pointer;
+	border-radius: 5px;
+	border: none;
+	outline: none;
+	margin-top: 5%;
+}
+
+#google{
+	text-decoration: none;
+	width: 100%;
+	height: 34px;
+	color: #fff;
+	font-size: 15px;
+	background: #0d6efd;
+	cursor: pointer;
+	border-radius: 5px;
+	border: none;
+	outline: none;
+}
+

@@ -1,0 +1,148 @@
+{% extends 'teacher_template/base_template.html' %}
+
+{% block page_title %}
+    Advocacy
+{% endblock page_title %}
+
+{% block custom_css %}
+<style>
+    .card {
+        margin-bottom: 20px;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+    }
+
+    .card-header {
+        background-color: #007bff;
+        color: #fff;
+        padding: 10px;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+    }
+
+    .card-body {
+        padding: 15px;
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .field-column,
+    .value-column {
+        width: 50%;
+        padding: 10px;
+        border-right: 1px solid #ddd;
+    }
+
+    .field-column:last-child,
+    .value-column:last-child {
+        border-right: none;
+    }
+
+    .field {
+        font-weight: bold;
+        color: #007bff;
+    }
+
+    @media (max-width: 768px) {
+        .field-column,
+        .value-column {
+            width: 100%;
+            border-right: none;
+        }
+    }
+</style>
+{% endblock custom_css %}
+
+{% block main_content %}
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                {% for visit in advocacy_visit %}
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Advocacy Date - {{ visit.date }}</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="field-column">
+                            <p class="field">Mentor's Name</p>
+                            <p class="field">Grade</p>
+                            <p class="field">Section</p>
+                            <p class="field">School</p>
+                            <p class="field">Duration</p>
+                            <p class="field">Topic</p>
+                            <p class="field">Planner Topic</p>
+                            <p class="field">Classroom Management</p>
+                            <p class="field">Content Delivery</p>
+                            <p class="field">Student-Teacher Relation</p>
+                            <p class="field">Dress Code</p>
+                            <p class="field">School Communication</p>
+                            <p class="field">Office Communication</p>
+                            <p class="field">Regularity-Punctuality</p>
+                            <p class="field">Daily Report</p>
+                            <p class="field">Daily Progress Sheet</p>
+                            <p class="field">Overall Behaviour</p>
+                            <p class="field">Next Month Planner</p>
+                            <p class="field">Kreativity Show</p>
+                            <p class="field">Compiled Report</p>
+                            <p class="field">Daily Win Share</p>
+                            <p class="field">Photo Video Recording</p>
+                            <p class="field">Pedagogical Poweress</p>
+                            <p class="field">Project Taken</p>
+                            <p class="field">Learning Outcomes</p>
+                            <p class="field">Competition</p>
+                            <p class="field">Feedback</p>
+                            <p class="field">Improvement Tips</p>
+                            <p class="field">Remarks</p>
+                        </div>
+                        <div class="value-column">
+                            <p>{{ visit.name }}</p>
+                            <p>{{ visit.grade }}</p>
+                            <p>{{ visit.section }}</p>
+                            <p>{{ visit.school }}</p>
+                            <p>{{ visit.duration }}</p>
+                            <p>{{ visit.topics }}</p>
+                            <p>{{ visit.topics_microplanner }}</p>
+                            <p>{{ visit.classroom_management }}</p>
+                            <p>{{ visit.content_delivery }}</p>
+                            <p>{{ visit.student_teacher_relation }}</p>
+                            <p>{{ visit.dresscode }}</p>
+                            <p>{{ visit.handling_comm }}</p>
+                            <p>{{ visit.handling_comm_2 }}</p>
+                            <p>{{ visit.regularity_punctuality }}</p>
+                            <p>{{ visit.daily_report }}</p>
+                            <p>{{ visit.daily_progress_sheet }}</p>
+                            <p>{{ visit.overall_behaviour }}</p>
+                            <p>{{ visit.next_month_microplanner }}</p>
+                            <p>{{ visit.kreativityshow }}</p>
+                            <p>{{ visit.compiled_report }}</p>
+                            <p>{{ visit.daily_win_sharing }}</p>
+                            <p>{{ visit.photo_video_recording }}</p>
+                            <p>{{ visit.pedagogical_poweress }}</p>
+                            <p>{{ visit.project_taken_club }}</p>
+                            <p>{{ visit.learning_outcomes }}</p>
+                            <p>{{ visit.competition }}</p>
+                            <p>{{ visit.feedback }}</p>
+                            <p>{{ visit.improvement_tips }}</p>
+                            <p>{{ visit.remarks }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+{% endblock main_content %}
+
+{% block custom_js %}
+
+{% endblock custom_js %}

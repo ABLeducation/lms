@@ -1,0 +1,19 @@
+#best-features .card{
+    height: 200px;
+    width:80%;
+}
+
+.info-header4{
+  height: 55%;
+  background:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("/static/Images/background/cover6.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+@media only screen and (max-width: 767px) {
+    #best-features .card {
+        height: 388px;
+    }
+}

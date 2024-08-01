@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Ablskool{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Gradewise Books</h2>
+    <div class="row">
+        {% for grade in grades %}
+            <div class="col-md-3 mb-3 text-center">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Grade - {{ grade.name }}</h5>
+                        <a href="{% url 'ebook:ebook_list' grade.id %}" class="btn btn-primary">View Books</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

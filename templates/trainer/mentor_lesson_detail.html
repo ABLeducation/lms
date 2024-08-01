@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} {{lessons.name}} {% endblock %}
+
+{% block body %}
+
+<section class="text-center">
+    <h2 class="mb-3 mt-5 font-weight-bold" style="color:#ff5722;"></h2>
+    <!-- video -->
+    <div class="row d-flex justify-content-center mb-3">
+        <div class="col-md-3">
+            <div class="card card-std text-center w-100 ">
+                  <div class="card-header cardgrad1 text-white ">
+                      <div class="row">
+                          <div class="col-3" >
+                              <i class="fa fa-book-reader fa-4x mt-2"></i>
+                          </div>
+                          <div class="col-9">
+                              <h4 class="my-4">Video</h4>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="card-footer">
+                                     <center>
+                        <a href="{{lessons.video}} " target="_blank"> <button type="button" class="btn btncolor" id="btn1"><span class="fw-bolder cardtext1">Watch Lesson</span> &nbsp; <i
+                                    class="fas fa-arrow-right cardtext1" style="margin-top:5px ;"> </i> </button></a>
+                    </center>
+                  </div>
+            </div>
+        </div>
+        
+        <div class="col-md-3">
+            <div class="card card-std text-center w-100 ">
+                <div class="card-header cardgrad1 text-white ">
+                    <div class="row">
+                        <div class="col-3" >
+                          <i class="fa fa-play-circle fa-4x mt-2" aria-hidden="true"></i>
+                        </div>
+                        <div class="col-9">
+                            <h4 class="my-4">Practise Quiz</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <center>
+                        {% if lessons.assessment %}
+                          <a href="{{lessons.assessment}}" target="_blank"> <button type="button" class="btn btncolor" id="btn1"><span class="fw-bolder cardtext1">Assess yourself</span> &nbsp; <i
+                                      class="fas fa-arrow-right cardtext1" style="margin-top:5px ;"> </i> </button></a>
+                        {% else %}
+                        <p class="card-text" > No assessment available</p>
+                        {% endif %}
+                      </center>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<hr class="my-5" style="color:#ff5722;">
+
+{%endblock%}

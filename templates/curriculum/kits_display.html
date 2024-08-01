@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Ablskool{% endblock %}
+
+{% block body %}
+    {% comment %} <div class="container text-center my-5">
+        {% for kit in kits %}
+        <h3>{{kit.kit_name}}</h3>
+            <a href="{% url 'curriculum:models_list' slug=kit.slug%}"> <button type="button" class="btn btncolor" id="btn1"><span class="fw-bolder cardtext1">Get Lessons</span></button></a>
+        {% endfor %}
+    </div> {% endcomment %}
+    <div  class=" container-fluid mt-5 mx-5 my-5">
+        <h1 class="text-center my-5  headingtxt">Dive Into Learning</h1>
+        <div class="row d-flex justify-content-evenly">
+            {% for kit in kits %}
+            <div class="col-md-4">
+                <div class="card card-std text-center w-75 my-2">
+                    <div class="card-header cardgrade text-white ">
+                        <div class="row">
+                            <div class="col-3" >
+                                <!--<i class="fa fa-book-reader fa-4x mt-2"></i>-->
+                                <img src="/static/Images/big/mech.png" alt="" style="width:50px;height:50px;">
+                            </div>
+                            <div class="col-9">
+                                <h6 class="display-3 fw-bolder" style="font-size:20px;">{{kit.kit_name}}</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <center>
+                            <a href="{% url 'mechanzo:models_list' slug=kit.slug%}"> <button type="button" class="btn btncolor" id="btn1"><span class="fw-bolder cardtext1">Let's Get Started</span> &nbsp; <i
+                                        class="fas fa-arrow-right cardtext1" style="margin-top:5px ;"> </i> </button> </a> 
+                        </center>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+      </div>
+{% endblock %}

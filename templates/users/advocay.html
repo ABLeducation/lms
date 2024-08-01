@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block body %}
+<section id="advocacy">
+<div class="container">
+    <h2>Advocacy Form</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+</div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends "base1.html" %}
+{% load i18n %}
+{% load static %}
+{% block extra_css %}
+    <style xmlns="http://www.w3.org/1999/html">
+    </style>
+{% endblock %}
+{% block page_title %}
+ Standard
+{% endblock %}
+{% block content %}
+<!-- section 1 for standards-->
+
+<div class="container-fluid">
+  <div class="row">
+      <div class="col-12">
+          <div class="card">
+              <div class="card-body">
+                  <h5 class="card-title m-b-0">school Registration Form</h5>
+              </div>
+              <table class="table">
+                  <thead>
+                  <tr>
+                      <th scope="col">S.No</th>
+                      <th scope="col">School Name</th>
+                      <th scope="col">Mobile</th>
+                      <th scope="col">Email</th>
+                      <th scope="col">Established</th>
+                      <th scope="col">Country</th>
+                      <th scope="col">State</th>
+                      <th scope="col">City</th>
+                      <th scope="col">Street</th>
+                      <th scope="col">Pincode</th>
+                  </tr>
+                  </thead>
+                  {% for school in school_obj %}
+                  <tbody>
+                  <tr>
+                      <th scope="row">{{forloop.counter}}</th>
+                      <td>{{school.school_name}}</td>
+                      <td>{{school.phone}}</td>
+                      <td>{{school.mobile}}</td>
+                      <td>{{school.email}}</td>
+                      <td>{{school.established}}</td>
+                      <td>{{school.country}}</td>
+                      <td>{{school.state}}</td>
+                      <td>{{school.city}}</td>
+                      <td>{{school.street}}</td>
+                      <td>{{school.pin}}</td>
+                  </tr>
+                  </tbody>
+                  {% endfor %}
+              </table>
+          </div>
+      </div>
+  </div>
+</div>
+{%endblock%}
