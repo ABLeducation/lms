@@ -62,11 +62,12 @@ SITE_ID = 1
 SOCIALACCOUNT_LOGIN_ON_GET=True
 CSRF_TRUSTED_ORIGINS = [
     'https://ablskool.com',
-    # 'https://www.ablskool.com',
+    'https://www.ablskool.com',
 ]
 
 SECURE_SSL_REDIRECT = True
 CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
 
 
 
