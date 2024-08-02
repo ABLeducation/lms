@@ -712,6 +712,7 @@ def student_login_activity(request):
             student_profiles = student_profiles.filter(section=section)
 
     login_usernames = [student.user.username for student in student_profiles]
+    # students_count=students_count = student_profiles.distinct().count()
     
     # Subquery to get the latest login datetime for each user
     latest_login_subquery = UserLoginActivity.objects.filter(login_username=OuterRef('login_username')).order_by('-login_datetime').values('login_datetime')[:1]
@@ -735,6 +736,7 @@ def student_login_activity(request):
         "activities_with_user_id": activities_with_user_id,
         "school_profile": teacher_profile,
         "form": form,
+        # "students_count":students_count
     }
 
     return render(request, "teacher_template/school_login_activity.html", context)
