@@ -24,7 +24,7 @@ STATIC_ROOT = os.path.join(BASE_DIR,'assets')
 SECRET_KEY = 'django-insecure-b5pqs^vbx)^7c+ssz7!ml8@kc@kjhg8vroi&kz2v0qn@ohm3vo'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['ablskool.com','www.ablskool.com','localhost','127.0.0.1']
 
@@ -60,7 +60,11 @@ INSTALLED_APPS = [
 
 SITE_ID = 1
 SOCIALACCOUNT_LOGIN_ON_GET=True
-CSRF_TRUSTED_ORIGINS = ['https://ablskool.com']
+CSRF_TRUSTED_ORIGINS = [
+    'https://ablskool.com',
+    'https://www.ablskool.com',
+]
+
 SECURE_SSL_REDIRECT = True
 CSRF_COOKIE_SECURE = True
 
