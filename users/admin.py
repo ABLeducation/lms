@@ -127,10 +127,10 @@ class SectionFilter(admin.SimpleListFilter):
 
 @admin.register(UserLoginActivity)
 class UserLoginActivityAdmin(admin.ModelAdmin):
-    search_fields=('login_username',)
     list_display = ('login_username', 'get_student_name','get_grade','get_section','login_datetime','login_num')
     list_filter = (SchoolFilter, ClassFilter, SectionFilter)
     actions = ['export_as_excel']
+    search_fields=('login_username',)
 
     def get_student_name(self, obj):
         try:
