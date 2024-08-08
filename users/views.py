@@ -26,7 +26,7 @@ def index(request):
         'training13@thinnkware.com',
         'developer2@thinnkware.com',
         'manager.lnd@thinnkware.com',
-        'msraafas30@gmail.com'
+        'msraafas30@gmail.com',
     ]
     context = {
         'grouped_schools': grouped_schools,
