@@ -32,7 +32,11 @@ AUTH_USER_MODEL ='users.User'
 # Application definition
 
 INSTALLED_APPS = [
+<<<<<<< HEAD
     'upfold',
+=======
+    "unfold",
+>>>>>>> e589ddfe733a6d5a0ec0f30e98241a10a6f6dda1
     'adminlte3',
     'admin_interface',
     'colorfield',
