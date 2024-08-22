@@ -1,20 +1,21 @@
 from django.contrib import admin
 from users.models import *
-from django_admin_listfilter_dropdown.filters import DropdownFilter, RelatedDropdownFilter, ChoiceDropdownFilter
+from django_admin_listfilter_dropdown.filters import DropdownFilter, RelatedDropdownFilter, ChoiceDropdownFilter # type: ignore
 from django.utils.translation import gettext_lazy as _
 from django.http import HttpResponse
-import openpyxl
+import openpyxl # type: ignore
+from unfold.admin import ModelAdmin
 
-class studentadmin(admin.ModelAdmin):
+class studentadmin(ModelAdmin):
     list_display=('first_name','last_name','school')
     list_filter=(('school',DropdownFilter),('grade',DropdownFilter),('section',DropdownFilter))
     
-class teacheradmin(admin.ModelAdmin):
+class teacheradmin(ModelAdmin):
     list_display=('first_name', 'school')
     list_filter=(('school',DropdownFilter),('grade',DropdownFilter))
 # Register your models here.
 
-class useradmin(admin.ModelAdmin):
+class useradmin(ModelAdmin):
     search_fields=('username',)
     list_filter=(('is_student',DropdownFilter),('is_teacher',DropdownFilter),)
     

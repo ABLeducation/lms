@@ -14,7 +14,7 @@ from assessment.models import *
 from django.db.models import Q,Max
 from django.core.exceptions import ObjectDoesNotExist
 from users.forms import *
-import openpyxl
+import openpyxl # type: ignore
 import logging
 from django.db.models import Count
 from collections import defaultdict

@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import *
-from django_admin_listfilter_dropdown.filters import DropdownFilter, RelatedDropdownFilter, ChoiceDropdownFilter
+from django_admin_listfilter_dropdown.filters import DropdownFilter, RelatedDropdownFilter, ChoiceDropdownFilter # type: ignore
 
 # Register your models here.
 class ebooklessonadmin(admin.ModelAdmin):
