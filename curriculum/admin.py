@@ -63,6 +63,7 @@ admin.site.register(StudentResult)
 admin.site.register(Mechanzo_kit_name)
 admin.site.register(Mechanzo_model_name,mechanzolessonadmin)
 admin.site.register(Topicwise_Marks)
+admin.site.register(School)
 
 def make_subject_displayable(modeladmin, request, queryset):
     queryset.update(display_on_frontend=True)

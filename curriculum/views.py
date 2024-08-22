@@ -65,12 +65,65 @@ class SubjectListView(DetailView):
     model = Standard
     template_name = 'curriculum/subject_list_view.html'
     
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        try:
+            # Retrieve the user's profile
+            user_profile = user_profile_student.objects.get(user=self.request.user)
+            
+            # Retrieve the actual School object, not just the name (ensure the school field is a foreign key to School)
+            school = School.objects.get(name=user_profile.school)
+            
+            # Ensure you're filtering using the school object
+            filtered_subjects = Subject.objects.filter(schools=school)
+
+            # Add the filtered subjects to the context
+            context['filtered_subjects'] = filtered_subjects
+
+        except user_profile_student.DoesNotExist:
+            # Handle case where the user profile does not exist
+            context['error_message'] = "User profile does not exist."
+
+        except School.DoesNotExist:
+            # Handle case where the school does not exist
+            context['error_message'] = "School does not exist."
+
+        return context
+    
 
 # @method_decorator(cache_page(60 * 60*24), name='dispatch')
 class LessonListView(DetailView):
     context_object_name = 'subjects'
     model = Subject
     template_name = 'curriculum/lesson_list_view.html'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        try:
+            # Retrieve the user's profile
+            user_profile = user_profile_student.objects.get(user=self.request.user)
+            
+            # Retrieve the actual School object, not just the name (ensure the school field is a foreign key to School)
+            school = School.objects.get(name=user_profile.school)
+            subject = self.get_object()
+            
+            # Ensure you're filtering using the school object
+            filtered_lessons = Lesson.objects.filter(schools=school,subject=subject)
+
+            # Add the filtered subjects to the context
+            context['filtered_lessons'] = filtered_lessons
+
+        except user_profile_student.DoesNotExist:
+            # Handle case where the user profile does not exist
+            context['error_message'] = "User profile does not exist."
+
+        except School.DoesNotExist:
+            # Handle case where the school does not exist
+            context['error_message'] = "School does not exist."
+
+        return context
 
 # @method_decorator(cache_page(60 * 60*24), name='dispatch')
 class LessonDetailView(DetailView,FormView):

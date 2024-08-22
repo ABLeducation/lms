@@ -44,7 +44,7 @@
       <!-- class row2 for cards -->
     <div class="row d-flex justify-content-center mb-3">
         <div class="row d-flex justify-content-evenly">
-        {% for lesson in subjects.lessons.all %}
+          {% for lesson in filtered_lessons %}
         {% if lesson.display_on_frontend %}
         <div class="col-md-4">
             <div class="card card-std text-center w-100 my-2">

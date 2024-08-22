@@ -38,32 +38,23 @@
   </div>
   <!-- class row2 for cards -->
   <div class="row d-flex justify-content-center mb-3" id="subject">
-    {% for subject in standards.subjects.all %}
+    {% for subject in filtered_subjects %}
     {% if subject.display_on_frontend %}
     <div class="card card-std mb-5 mr-4 ml-4 mx-2 box-shadow-hover border-success" id="subject_card">
       <div class="row no-gutters">
         <div class="col-md-4">
-          <img src="{{subject.image.url|default_if_none:'#'}}" class="card-img bd-placeholder-img rounded-circle my-4" alt="No image found" height="150px"
-            width="150px">
+          <img src="{{subject.image.url|default_if_none:'#'}}" class="card-img bd-placeholder-img rounded-circle my-4" alt="No image found" height="150px" width="150px">
         </div>
         <div class="col-md-8">
           <div class="card-body">
             <h4 class="card-title" style="color:#ff5722;">{{subject.name}}</h4>
             <p class="card-text text-white">{{subject.description|truncatechars:50}}</p>
             <p class="card-text"><small class="text-muted"></small></p>
-            <a href="{% url 'curriculum:lesson_list' slug=subject.slug standard=standards.slug %}" id="subject_list_btn"><button
-                class="button-les" style="background-color:#c34922;"> <span> Get Lessons</span></button></a>
+            <a href="{% url 'curriculum:lesson_list' slug=subject.slug standard=standards.slug %}" id="subject_list_btn"><button class="button-les" style="background-color:#c34922;"> <span> Get Lessons</span></button></a>
           </div>
         </div>
       </div>
     </div>
-        {% comment %} <div class="col col-md-4">
-          <img src="{{subject.image.url|default_if_none:'#'}}" class="bd-placeholder-img rounded-circle" alt="No image found" height="200px" width="200px">
-
-          <h2>{{subject.name}}</h2>
-          <p>{{subject.description|truncatechars:50}}</p>
-          <p><a class="btn btn-success" href="{% url 'curriculum:lesson_list' slug=subject.slug standard=standards.slug %}">Get Lessons »</a></p>
-        </div> {% endcomment %}
     {% endif %}
     {% endfor %}
   </div>
