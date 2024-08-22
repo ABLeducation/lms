@@ -74,9 +74,10 @@ class SubjectListView(DetailView):
             
             # Retrieve the actual School object, not just the name (ensure the school field is a foreign key to School)
             school = School.objects.get(name=user_profile.school)
+            grade = user_profile.grade
             
             # Ensure you're filtering using the school object
-            filtered_subjects = Subject.objects.filter(schools=school)
+            filtered_subjects = Subject.objects.filter(schools=school,standard=grade)
 
             # Add the filtered subjects to the context
             context['filtered_subjects'] = filtered_subjects
@@ -108,6 +109,7 @@ class LessonListView(DetailView):
             # Retrieve the actual School object, not just the name (ensure the school field is a foreign key to School)
             school = School.objects.get(name=user_profile.school)
             subject = self.get_object()
+            grade = user_profile.grade
             
             # Ensure you're filtering using the school object
             filtered_lessons = Lesson.objects.filter(schools=school,subject=subject)
