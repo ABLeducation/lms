@@ -1,6 +1,6 @@
 from django.db import models
 from django.template.defaultfilters import slugify
-from autoslug import AutoSlugField
+from autoslug import AutoSlugField # type: ignore
 # from django.contrib.auth.models import User
 from users.models import User,user_profile_student
 import os

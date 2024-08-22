@@ -1,7 +1,7 @@
 from django.contrib import admin
 from .models import *
 from django_admin_listfilter_dropdown.filters import DropdownFilter, RelatedDropdownFilter, ChoiceDropdownFilter # type: ignore
-from unfold.admin import ModelAdmin
+from unfold.admin import ModelAdmin # type: ignore
 
 # Register your models here.
 class standardadmin(ModelAdmin):
