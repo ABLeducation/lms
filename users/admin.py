@@ -127,7 +127,7 @@ class SectionFilter(admin.SimpleListFilter):
         return queryset
 
 @admin.register(UserLoginActivity)
-class UserLoginActivityAdmin(admin.ModelAdmin):
+class UserLoginActivityAdmin(ModelAdmin):
     list_display = ('login_username', 'get_student_name','get_grade','get_section','login_datetime','login_num')
     list_filter = (SchoolFilter, ClassFilter, SectionFilter)
     actions = ['export_as_excel']
