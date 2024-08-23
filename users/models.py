@@ -40,6 +40,9 @@ class user_profile_student(models.Model):
     mobile_number=models.CharField(max_length=20,validators=[mobile_number_validator],blank=True,null=True)
     marks_obtained=models.IntegerField(default=0)
     profile_pic=models.ImageField(upload_to=save_profile_image, blank=True, verbose_name='Profile Image')
+    
+    class Meta:
+        verbose_name = 'User Profile Student'
 
     def __str__(self):
         return self.user.username
@@ -50,6 +53,9 @@ class user_profile_parent(models.Model):
     middle_name=models.CharField(max_length=50)
     last_name=models.CharField(max_length=50)
     mobile=models.CharField(max_length=15)
+    
+    class Meta:
+        verbose_name = 'User Profile Parent'
 
     def __str__(self):
         return self.user.username
@@ -76,6 +82,9 @@ class user_profile_teacher(models.Model):
             return "Sr. STEM Mentor"
         else:
             return "STEM Mentor"
+        
+    class Meta:
+        verbose_name = 'User Profile Teacher'
 
     def __str__(self):
         return self.user.username
@@ -88,6 +97,9 @@ class user_profile_principal(models.Model):
     mobile=models.CharField(max_length=15)
     school=models.CharField(max_length=200,default="")
     profile_pic=models.ImageField(upload_to=save_profile_image, blank=True, verbose_name='Profile Image')
+    
+    class Meta:
+        verbose_name = 'User Profile Principal'
 
     def __str__(self):
         return self.user.username
@@ -106,6 +118,9 @@ class user_profile_school(models.Model):
     mentor=models.CharField(max_length=100,default="")
     district=models.CharField(max_length=100,default="")
     logo=models.ImageField(upload_to="logo/",default="")
+    
+    class Meta:
+        verbose_name = 'User Profile School'
 
     def __str__(self):
         return self.user.username
@@ -189,8 +204,8 @@ class UserLoginActivity(models.Model):
     login_num=models.CharField(max_length=1000,default=0)
 
     class Meta:
-        verbose_name = 'user_login_activity'
-        verbose_name_plural = 'user_login_activities'
+        verbose_name = 'user Login Activity'
+        verbose_name_plural = 'user Login Activities'
         
     def get_student_name(self):
         try:
@@ -226,6 +241,10 @@ class UserActivity1(models.Model):
     page_visited = models.CharField(max_length=255)
     curriculum_time_spent = models.DurationField(null=True, blank=True)
     time_spent = models.DurationField(null=True, blank=True)
+    
+    class Meta:
+        verbose_name = 'user Acess Report'
+        verbose_name_plural = 'user Acess Reports'
 
     def __str__(self):
         return f"{self.user.username} - {self.page_visited} on {self.date}"
@@ -307,9 +326,15 @@ class StudentInnovativeProject(models.Model):
     document = models.FileField(upload_to='documents/')
     video_link = models.URLField()
     
+    class Meta:
+        verbose_name = 'Student Innovative Project'
+    
 class School(models.Model):
     name = models.CharField(max_length=100)
     logo = models.ImageField(upload_to='school_logos/')
+    
+    class Meta:
+        verbose_name = "School's Logo"
     
 class Macroplanner(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE)
@@ -495,6 +520,9 @@ class Inventory(models.Model):
     challan_number = models.CharField(max_length=100)
     kits = models.JSONField(default=list)  # Store kits as a JSON list
     bill_of_materials = models.FileField(upload_to='bills/', blank=True, null=True)
+    
+    class Meta:
+        verbose_name_plural = 'Inventories'
 
     def __str__(self):
         return f'{self.school} - {self.date} - {self.challan_number}'
@@ -595,6 +623,9 @@ class SchoolGallery(models.Model):
             ('Satya Prakash Public School, Jabalpur','Satya Prakash Public School, Jabalpur'))
         )
     gallery = models.URLField()
+    
+    class Meta:
+        verbose_name_plural = "School's Galleries"
 
     def __str__(self):
         return self.school

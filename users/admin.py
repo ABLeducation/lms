@@ -4,7 +4,7 @@ from django_admin_listfilter_dropdown.filters import DropdownFilter, RelatedDrop
 from django.utils.translation import gettext_lazy as _
 from django.http import HttpResponse
 import openpyxl # type: ignore
-from unfold.admin import ModelAdmin
+from unfold.admin import ModelAdmin # type: ignore
 
 class studentadmin(ModelAdmin):
     list_display=('first_name','last_name','school')
@@ -35,8 +35,8 @@ admin.site.register(user_profile_school)
 admin.site.register(user_profile_parent)
 admin.site.register(Enquiry)
 # admin.site.register(UserLoginActivity)
-admin.site.register(Attendance)
-admin.site.register(AttendanceReport)
+# admin.site.register(Attendance)
+# admin.site.register(AttendanceReport)
 admin.site.register(FeedBackStudent)
 admin.site.register(NotificationStudent)
 admin.site.register(FeedBackSchool)

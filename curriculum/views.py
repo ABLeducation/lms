@@ -22,8 +22,6 @@ class StandardListView(LoginRequiredMixin, ListView):
         # Get the user profile if it exists
         try:
             user_profile = user_profile_student.objects.get(user=self.request.user)
-
-            # If user profile exists, continue with the rest of the context data
             grade = user_profile.grade
             school = user_profile.school
 
@@ -71,8 +69,6 @@ class SubjectListView(DetailView):
         try:
             # Retrieve the user's profile
             user_profile = user_profile_student.objects.get(user=self.request.user)
-            
-            # Retrieve the actual School object, not just the name (ensure the school field is a foreign key to School)
             school = School.objects.get(name=user_profile.school)
             grade = user_profile.grade
             
