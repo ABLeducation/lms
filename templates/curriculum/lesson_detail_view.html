@@ -84,8 +84,56 @@
               </div>
           </div>
         </div>
-        
+
         <div class="col-md-3">
+          <div class="card card-std text-center w-100">
+              <div class="card-header cardgrad1 text-white">
+                  <div class="row">
+                      <div class="col-3">
+                          <i class="fa fa-play-circle fa-4x mt-2" aria-hidden="true"></i>
+                      </div>
+                      <div class="col-9">
+                          <h4 class="my-4">Assignment</h4>
+                      </div>
+                  </div>
+              </div>
+              <div class="card-footer">
+                  <center>
+                      {% if lessons.assessment %}
+                          <!-- Button to Open the Modal -->
+                          <button type="button" class="btn btncolor" data-bs-toggle="modal" data-bs-target="#quizModal">
+                              <span class="fw-bolder cardtext1">Assess yourself</span> &nbsp;
+                              <i class="fas fa-arrow-right cardtext1" style="margin-top: 5px;"></i>
+                          </button>
+                      {% else %}
+                          <p class="card-text">No assessment available</p>
+                      {% endif %}
+                  </center>
+              </div>
+          </div>
+      </div>
+      
+      <!-- Modal -->
+      <div class="modal fade" id="quizModal" tabindex="-1" aria-labelledby="quizModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <h5 class="modal-title" id="quizModalLabel">Quiz</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                      <!-- Embed the Quizizz quiz in an iFrame -->
+                      <iframe src="{{ lessons.assessment }}" width="100%" height="500" frameborder="0" allow="fullscreen"></iframe>
+                  </div>
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  </div>
+              </div>
+          </div>
+      </div>
+      
+        
+        {% comment %} <div class="col-md-3">
             <div class="card card-std text-center w-100 ">
                 <div class="card-header cardgrad1 text-white ">
                     <div class="row">
@@ -108,7 +156,7 @@
                       </center>
                 </div>
             </div>
-        </div>
+        </div> {% endcomment %}
         <div class="row" >
             <div class="col col-md-6" >
               {% post_to_whatsapp object_or_url %}
