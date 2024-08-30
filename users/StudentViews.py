@@ -262,30 +262,41 @@ def mark_notification_as_read(request, id):
     return redirect('users:student_feedback')
     
 def leaderboard(request):
-    student=user_profile_student.objects.get(user=request.user)
-    school=student.school
-    user_grade=student.grade
+    student = user_profile_student.objects.get(user=request.user)
+    school = student.school
+    user_grade = student.grade
     
-     # Get the user's score
-    user_score = Result.objects.filter(
-        user=request.user
-    ).values('score').first()['score']
+    # Get the user's score safely
+    user_result = Result.objects.filter(user=request.user).values('score').first()
+    user_score = user_result['score'] if user_result else 0
 
-    # Query to find the rank of the logged-in user within their grade
-    user_rank = Result.objects.filter(
-        user__user_profile_student__grade=user_grade,
-        score__gt=user_score  # Count students with higher scores
-    ).count() + 1  # Add 1 to get the user's rank
-    
+    # Query to find the rank of the logged-in user within their grade safely
+    if user_score > 0:
+        user_rank = Result.objects.filter(
+            user__user_profile_student__grade=user_grade,
+            score__gt=user_score  # Count students with higher scores
+        ).count() + 1  # Add 1 to get the user's rank
+    else:
+        user_rank = None
+
+    # Handle max results if available
     max_results = Result.objects.values('user__user_profile_student__grade').annotate(max_score=Max('score'))
-    overall_students=Result.objects.all().order_by('-score')[:5]
 
-    # Find the top 3 leaders of the student's grade
+    # Get the top 5 students overall, safely handle empty results
+    overall_students = Result.objects.all().order_by('-score')[:5] or None
+
+    # Find the top 3 leaders of the student's grade safely
     grade_leaders = Result.objects.filter(
         user__user_profile_student__grade=user_grade
-    ).order_by('-score')[:3]
+    ).order_by('-score')[:3] or None
 
-    return render(request, 'student_template/leadership.html', {'top_students_by_grade': grade_leaders,"overall_students":overall_students,"school":school,"user_rank":user_rank,"user_grade":user_grade})
+    return render(request, 'student_template/leadership.html', {
+        'top_students_by_grade': grade_leaders,
+        "overall_students": overall_students,
+        "school": school,
+        "user_rank": user_rank,
+        "user_grade": user_grade
+    })
     
 def subjects(request):
     student=user_profile_student.objects.get(user=request.user)

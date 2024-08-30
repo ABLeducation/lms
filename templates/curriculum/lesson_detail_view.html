@@ -131,6 +131,32 @@
               </div>
           </div>
       </div>
+
+
+      <div class="col-md-3">
+        <div class="card card-std text-center w-100 ">
+            <div class="card-header cardgrad1 text-white">
+                <div class="row">
+                    <div class="col-3" >
+                      <i class="fa fa-file-text fa-4x mt-2" aria-hidden="true"></i>
+                    </div>
+                    <div class="col-9">
+                        <h4 class="my-4">Learning Aids</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <center>
+                    {% if lessons.materials %}
+                    <a href="{{lessons.materials}}" target="_blank"> <button type="button" class="btn btncolor" id="btn1"><span class="fw-bolder cardtext1">Get Files</span> &nbsp; <i
+                                class="fas fa-arrow-right cardtext1" style="margin-top:5px ;"> </i> </button></a>
+                    {% else %}
+                    <p class="card-text" > No resource available</p>
+                    {% endif %}
+                </center>
+            </div>
+        </div>
+    </div>
       
         
         {% comment %} <div class="col-md-3">

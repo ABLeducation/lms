@@ -108,6 +108,7 @@ class Lesson(models.Model):
     assessment=models.URLField(verbose_name="Assessment", max_length=300,default="",null=True,blank=True)
     display_on_frontend = models.BooleanField(default=True, verbose_name="Display on Frontend")
     schools = models.ManyToManyField(School)
+    materials=models.URLField(verbose_name="Learning Aids", max_length=300,default="",null=True,blank=True)
 
     class Meta:
         ordering = ['position']
