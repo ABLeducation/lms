@@ -69,14 +69,24 @@
                 </p>
               </a>
             </li>
+
             <li class="nav-item">
-              <!--{% url 'assessment:main_view' as start_assessment %}-->
+              {% if quizzes %}
+                  {% url 'assessment:main_view' as start_assessment %}
+                  <a href="{{ start_assessment }}" class="nav-link {% if request.path == start_assessment %} active {% endif %}">
+                      <i class="nav-icon fas fa-comments"></i>
+                      <p>
+                          Start Test
+                      </p>
+                  </a>
+              {% endif %}
+            </li>
+            {% comment %} <li class="nav-item">
               {% if profile.grade == '8' %}
               <a href="https://quizizz.com/join?gc=741014" class="nav-link" target="_blank">
                 <i class="nav-icon fas fa-solid fa-tablet"></i>
                 <p>
                   Take Assessment
-                  {% comment %} <span class="right badge badge-danger">New</span> {% endcomment %}
                 </p>
               </a>
               {% elif profile.grade == '7' %}
@@ -84,7 +94,6 @@
                 <i class="nav-icon fas fa-solid fa-tablet"></i>
                 <p>
                   Take Assessment
-                  {% comment %} <span class="right badge badge-danger">New</span> {% endcomment %}
                 </p>
               </a>
               {% elif profile.grade == '6' %}
@@ -92,11 +101,10 @@
                 <i class="nav-icon fas fa-solid fa-tablet"></i>
                 <p>
                   Take Assessment
-                  {% comment %} <span class="right badge badge-danger">New</span> {% endcomment %}
                 </p>
               </a>
               {% endif %}
-            </li>
+            </li> {% endcomment %}
 
           </ul>
         </nav>

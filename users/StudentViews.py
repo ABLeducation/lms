@@ -6,7 +6,7 @@ from django.urls import reverse
 import datetime 
 from django.contrib.auth.decorators import login_required
 from assessment.models import *
-
+from django.utils import timezone
 from curriculum.models import *
 from users.models import *
 from django.core.cache import cache
@@ -82,7 +82,7 @@ def student_home(request,subject_id=None):
     else:
         average_percentage = 0
     
-
+    quizzes = Quiz.objects.filter(start_date__lte=timezone.now(), end_date__gte=timezone.now())
     context={
         "total_attendance": total_subjects,
         "attendance_present": average_percentage,
@@ -94,7 +94,8 @@ def student_home(request,subject_id=None):
         "profile":student_obj,
         # "recent_visit":actionTime,
         "unread_notifications":unread_notifications,
-        "logs":logs
+        "logs":logs,
+        "quizzes":quizzes
     }
     return render(request, "student_template/student_home_template.html", context)
 
@@ -220,7 +221,7 @@ def student_profile_update(request):
 def student_report(request):
     student=user_profile_student.objects.get(user=request.user)
     students=StudentResult.objects.filter(student_id=student)
-    results=Result.objects.filter(user=request.user)
+    results=Result.objects.filter(user=request.user).order_by("-date_attempted")
     return render(request, 'student_template/studentreport.html', {'students': students,'results':results,"profile":student})
     
 def student_feedback(request):

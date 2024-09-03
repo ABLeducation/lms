@@ -22,7 +22,7 @@
                 <tr>
                     <td>{{result.quiz.name}}</td>
                     <td>{{result.quiz.topic}}</td>
-                    <td></td>
+                    <td>{{result.date_attempted|date:"Y-m-d H:i" }}</td>
                     <td>{{result.score|floatformat:2}}</td>
                     <td>{% if result.score >= 90 %}
                         <span class="alert alert-success">Excellent</span>

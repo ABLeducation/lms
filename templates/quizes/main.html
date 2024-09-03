@@ -7,12 +7,16 @@
 
 {% block body %}
 <div class="container-fluid" id="quiz_body">
-    <div class="h1 text-center text-white mb-4">Quiz List</div>
+    <div class="text-center text-white mb-4">
+        <h1 class="display-4">Quiz List</h1>
+    </div>
     <div class="row justify-content-center">
         {% for obj in object_list %}
         <div class="col-md-4 mb-4">
-            <div class="border-primary">
-                <div class="text-center">
+            <div class="card border-primary shadow-sm">
+                <div class="card-body text-center">
+                    <h5 class="card-title">{{ obj.name }}</h5>
+                    <p class="card-text">Grade: {{ obj.grade }}</p>
                     <button
                         id="subject_btn" 
                         class="btn btn-outline-primary btn-lg modal-button p-3"
@@ -24,9 +28,8 @@
                         data-bs-toggle="modal"
                         data-bs-target="#quizModal"
                     >
-                        {{ obj.name }}
+                        Start Quiz
                     </button>
-                    <p class="h3 mt-2 text-white">Grade: {{ obj.grade }}</p>
                 </div>
             </div>
         </div>
@@ -54,4 +57,37 @@
 </div>
 {% endblock %}
 
-
+{% block extra_css %}
+<style>
+    #quiz_body {
+        background-color: #f8f9fa;
+        padding: 2rem;
+    }
+    .card {
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    .card-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+    }
+    .card-text {
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+    }
+    .modal-body {
+        font-size: 1.1rem;
+    }
+    .modal-footer {
+        padding: 1rem;
+    }
+    .btn-outline-primary {
+        border: 2px solid #007bff;
+        color: #007bff;
+    }
+    .btn-outline-primary:hover {
+        background-color: #007bff;
+        color: #fff;
+    }
+</style>
+{% endblock %}

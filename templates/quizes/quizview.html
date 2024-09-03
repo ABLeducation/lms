@@ -50,5 +50,49 @@
         window.oncontextmenu = function () {
             return false;
         };
+
+         // AJAX to handle form submission
+         $(document).on('submit', '#quiz-form', function(e){
+            e.preventDefault();
+        
+            $.ajax({
+                type: 'POST',
+                url: window.location.href,  // Assumes you are posting to the same URL
+                data: $(this).serialize(),
+                success: function(response){
+                    // Hide the quiz elements
+                    $('#quiz-box').hide();
+                    $('#submit_btn').hide();
+                    $('#timer-box').hide();
+        
+                    // Show the score
+                    $('#score-box').html(`<h3>Your score: ${response.score}%</h3>`);
+                    
+                    // Display results
+                    let resultHtml = '<ul>';
+                    response.results.forEach(function(result){
+                        resultHtml += `<li>${result.question} - Answered: ${result.answered} - Correct: ${result.correct_answer}</li>`;
+                    });
+                    resultHtml += '</ul>';
+                    $('#result-box').html(resultHtml);
+        
+                    // Display a message and then redirect
+                    if(response.passed) {
+                        alert('Congratulations! You passed the quiz.');
+                    } else {
+                        alert('Sorry, you did not pass the quiz.');
+                    }
+        
+                    // Redirect to student's home page after 3 seconds (adjust as needed)
+                    setTimeout(function() {
+                        window.location.href = "{% url 'users:student_home' %}";  // Replace 'students_home' with your URL name
+                    }, 3000); // 3000 ms = 3 seconds delay
+                },
+                error: function(response){
+                    alert('An error occurred. Please try again.');
+                }
+            });
+        });
+        
     </script>
 {% endblock %}

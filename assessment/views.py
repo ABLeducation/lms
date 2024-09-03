@@ -3,7 +3,8 @@ from django.views.generic import ListView
 from .models import *
 from django.http import JsonResponse
 import math
-# Create your views here.
+from django.views.decorators.csrf import csrf_exempt
+import logging
 
 class QuizView(ListView):
     model=Quiz
@@ -14,9 +15,11 @@ class QuizView(ListView):
         user=self.request.user
         student =user_profile_student.objects.get(user=user)
         student_grade=student.grade
+        student_school=student.school
+        school=School.objects.get(name__icontains=student_school)
 
         # Filter quizzes based on the student's grade
-        queryset = Quiz.objects.filter(grade=student_grade)
+        queryset = Quiz.objects.filter(grade=student_grade, schools=school)
         return queryset
 
 def quiz_view(request,pk):
@@ -31,53 +34,50 @@ def quiz_data_view(request,pk):
         for a in q.get_answers():
             answers.append(a.text)
         question.append({str(q):answers})
-    return JsonResponse({'data':question,
-                         'time':quiz.time})
-                         
+    return JsonResponse({'data':question,'time':quiz.time})
 
-def quiz_data_save(request,pk):
-    if request.is_ajax():
-        questions=[]
-        data=request.POST
-        data_=dict(data.lists())
+@csrf_exempt
+def quiz_data_save(request, pk):
+    # Check if the request is an AJAX request
+    if request.method == 'POST' and request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        data = request.POST
+        user = request.user
+        quiz = Quiz.objects.get(pk=pk)
+
+        questions = []
+        data_ = dict(data.lists())
         data_.pop('csrfmiddlewaretoken')
 
-        for k in data_.keys():
-            print('key', k)
-            question=Question.objects.get(text=k)
+        score = 0
+        multiplier = 100 / quiz.no_of_question
+        results = []
+        correct_answer = None
+
+        for k, v in data_.items():
+            question = Question.objects.get(text=k)
             questions.append(question)
+            a_selected = v[0]  # Get the first answer
 
-        user=request.user
-        quiz=Quiz.objects.get(pk=pk)
-
-        score=0
-        multiplier=100/quiz.no_of_question
-        results=[]
-        correct_answer=None
-
-        for q in questions:
-            a_selected=request.POST.get(q.text)
-
-            if a_selected != "":
-                question_answers=Answer.objects.filter(question=q)
+            if a_selected:
+                question_answers = Answer.objects.filter(question=question)
                 for a in question_answers:
                     if a_selected == a.text:
                         if a.correct:
-                            score +=1
-                            correct_answer=a.text
+                            score += 1
+                            correct_answer = a.text
                     else:
                         if a.correct:
-                            correct_answer=a.text
-                results.append({str(q):{"correct_answer":correct_answer, "answered":a_selected}})
+                            correct_answer = a.text
+                results.append({str(question): {"correct_answer": correct_answer, "answered": a_selected}})
             else:
-                results.append({str(q):'not answered'})
-        score_=score*multiplier
-        Result.objects.create(quiz=quiz,user=user,score=score_)
+                results.append({str(question): 'not answered'})
+
+        score_ = score * multiplier
+        Result.objects.create(quiz=quiz, user=user, score=score_)
 
         if score_ >= quiz.required_score_to_pass:
-            return JsonResponse({"passed":True, "score":score_, "results":results})
+            return JsonResponse({"passed": True, "score": score_, "results": results})
         else:
-            return JsonResponse({"passed":False, "score":score_,"results":results})
-
-
-        
+            return JsonResponse({"passed": False, "score": score_, "results": results})
+    else:
+        return JsonResponse({"error": "Invalid request"}, status=400)
