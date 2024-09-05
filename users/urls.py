@@ -47,6 +47,7 @@ urlpatterns = [
     path("subjects/",StudentViews.subjects, name="subjects"),
     path('sstudent_login_activity/', StudentViews.student_login_activity, name='sstudent_login_activity'),
     path('sstudent_activity/<str:user_id>/', StudentViews.student_activity_view, name='sstudent_activity'),
+    path('projectsample/', StudentViews.SampleProjectReport, name='projectsample'),
     
     # URLS for School
     path('school_home/', SchoolView.school_home, name="school_home"),

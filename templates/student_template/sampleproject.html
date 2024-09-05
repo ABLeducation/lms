@@ -1,0 +1,43 @@
+{% extends 'student_template/base_template.html' %}
+
+{% block main_content %}
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card card-primary">
+          <div class="card-header">
+            <h3 class="card-title">Sample Project Reports</h3>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <thead class="thead-light">
+                  <tr>
+                    <th>Project Report Format</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for project in sampleproject %}
+                  <tr>
+                    <td>
+                      <a href="{{ project.sample_pdf.url }}" target="_blank">Download PDF</a><br><br>
+                      <a href="{{ project.sample_ppt.url }}" target="_blank">Download PPT</a><br><br>
+                      <a href="{{ project.format.url }}" target="_blank">Download Sample</a>
+                    </td>
+                  </tr>                      
+                  {% empty %}
+                  <tr>
+                    <td colspan="2">No projects available.</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock main_content %}

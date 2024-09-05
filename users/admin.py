@@ -193,3 +193,5 @@ class UserLoginActivityAdmin(ModelAdmin):
         return response
 
     export_as_excel.short_description = "Export Selected as Excel"
+    
+admin.site.register(ProjectSample)

@@ -349,3 +349,9 @@ def student_activity_view(request, user_id):
     }
     return render(request, 'student_template/student_activity.html', context)
 
+def SampleProjectReport(request):
+    student=user_profile_student.objects.get(user=request.user)
+    school=student.school
+    sampleproject=ProjectSample.objects.filter(school__icontains=school)
+    print(f'project Sample-{sampleproject}')
+    return render(request, "student_template/sampleproject.html",{'sampleproject': sampleproject})

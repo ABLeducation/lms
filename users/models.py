@@ -657,3 +657,18 @@ class CurriculumView(models.Model):
 
     def __str__(self):
         return self.school
+    
+class ProjectSample(models.Model):
+    sample_pdf=models.FileField(upload_to='Project Report Sample/', blank=True, null=True)
+    sample_ppt=models.FileField(upload_to='Project Report Sample/', blank=True, null=True)
+    format=models.FileField(upload_to='Project Report Sample/', blank=True, null=True)
+    school=models.CharField(max_length=100,choices=(
+            ('Sparsh Global School,Greater Noida', 'Sparsh Global SChool,Greater Noida'),
+            ('JP International School, Greater Noida', 'JP International School, Greater Noida'),
+            ('SPS,Sonipat', 'SPS,Sonipat'),
+            ('Vivekanand School,Delhi', 'Vivekanand School,Delhi'),
+            ('Blooming Dale School,Budaun', 'Blooming Dale School,Budaun'),
+            ('Satya Prakash Public School, Jabalpur','Satya Prakash Public School, Jabalpur'))
+        )
+    def __str__(self):
+        return f'Project Report Sample - {self.school}'
