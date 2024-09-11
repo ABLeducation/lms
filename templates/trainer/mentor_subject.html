@@ -1,26 +1,25 @@
 {% extends 'base.html' %}
-{% load static %}
-{% block title %} Courses{% endblock %}
 
 {% block body %}
 <section id="best-features" class="text-center">
-  <h2 class="mb-5 mt-5 font-weight-bold" style="color:#ff5722;"></h2>
-  <!-- class row2 for cards -->
-  <div class="row d-flex justify-content-center mb-3">
-    {% for subject in subjects %}
-    <div class="card mb-5 mr-4 ml-4 box-shadow-hover" style="max-width: 500px;">
+  <div class="row d-flex justify-content-center mb-3 mt-3">
+    {% for subject, modules in lessons_by_subject_and_module.items %}
+    <div class="card mb-5 mr-4 ml-4 box-shadow-hover p-2" style="max-width: 450px;">
       <div class="row no-gutters">
         <div class="col-md-4">
-          <img src="{{subject.image.url|default_if_none:'#'}}" class="card-img" alt="No image found" height="200px"
-            width="200px">
+          <img src="{{ subject.image.url|default_if_none:'#'}}" class="card-img" alt="No image found" height="150px" width="150px">
         </div>
         <div class="col-md-8">
           <div class="card-body">
-            <h4 class="card-title" style="color:#ff5722;">{{subject.name}}</h4>
-            <p class="card-text">{{subject.description|truncatechars:75}}</p>
-            <p class="card-text"><small class="text-muted"></small></p>
-            <a href="{% url "curriculum:mentor_lesson" slug=subject.slug %}"><button
-                class="button-les"> <span> Get Lessons</span></button></a>
+            <h4 class="card-title" style="color:#ff5722;">{{ subject.name }}</h4>
+            <p class="card-text">{{ subject.description|truncatechars:75 }}</p>
+
+            {% for module_key, module_info in modules.items %}
+            <div class="module-section">
+              <h5>{{ module_info.name }}</h5>
+              <a href="{% url 'curriculum:mentor_lesson_by_module' subject_slug=subject.slug module=module_key %}">View Lessons for {{ module_info.name }}</a>
+            </div>
+            {% endfor %}
           </div>
         </div>
       </div>
@@ -28,4 +27,4 @@
     {% endfor %}
   </div>
 </section>
-{%endblock%}
+{% endblock %}

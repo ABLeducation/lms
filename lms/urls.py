@@ -25,7 +25,8 @@ urlpatterns = [
     # path('accounts/', include('allauth.urls')),
     path('api/', include('api.urls')),
     path('assessment/', include(('assessment.urls', 'assessment'), namespace='assessment')),
-    path('ebook/', include(('ebook.urls', 'ebook'), namespace='ebook'))
+    path('ebook/', include(('ebook.urls', 'ebook'), namespace='ebook')),
+    path('', include('pwa.urls')),
 ]
 
 from django.conf import settings

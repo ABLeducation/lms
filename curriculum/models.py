@@ -284,12 +284,18 @@ class LectureRating(models.Model):
         
 
 class TeacherSubject(models.Model):
+    LEVEL_CHOICES = [
+        ('Phase-I', 'Phase I'),
+        ('Phase-II', 'Phase II'),
+        ('Phase-III', 'Phase III'),
+    ]
     subject_id = models.CharField(max_length=100, unique=True)
     name = models.CharField(max_length=100)
     slug = models.SlugField(null=True, blank=True)
     image = models.ImageField(upload_to=save_subject_image, blank=True, verbose_name='Subject Image')
     description = models.TextField(max_length=500,blank=True)
     display_on_frontend = models.BooleanField(default=True, verbose_name="Display on Frontend")
+    level = models.CharField(max_length=10, choices=LEVEL_CHOICES, verbose_name='Level',blank=True,null=True)
     
     class Meta:
         verbose_name_plural = '2. Teacher Subjects'
@@ -302,6 +308,11 @@ class TeacherSubject(models.Model):
         super().save(*args, **kwargs)
 
 class TeacherLesson(models.Model):
+    MODULE_CHOICES = [
+        ('Module 1', 'Module 1'),
+        ('Module 2', 'Module 2'),
+        ('Module 3', 'Module 3'),
+    ]
     lesson_id = models.CharField(max_length=100, unique=True)
     created_at = models.DateTimeField(auto_now_add=True)
     subject = models.ForeignKey(TeacherSubject, on_delete=models.CASCADE,related_name='Teacher_lessons')
@@ -311,6 +322,7 @@ class TeacherLesson(models.Model):
     video=models.URLField(verbose_name="Videos", max_length=300,default="",null=True,blank=True)
     assessment=models.URLField(verbose_name="Assessment", max_length=300,default="",null=True,blank=True)
     display_on_frontend = models.BooleanField(default=True, verbose_name="Display on Frontend")
+    module = models.CharField(max_length=10, choices=MODULE_CHOICES, verbose_name='Module',blank=True,null=True)
 
     class Meta:
         ordering = ['position']
@@ -322,4 +334,16 @@ class TeacherLesson(models.Model):
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
         super().save(*args, **kwargs)
-        
+
+class UserLessonProgress(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='lesson_progress')
+    lesson = models.ForeignKey(TeacherLesson, on_delete=models.CASCADE, related_name='user_progress')
+    completed = models.BooleanField(default=False)
+    completed_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        unique_together = ('user', 'lesson')
+        verbose_name_plural = '4. User Lesson Progress'
+
+    def __str__(self):
+        return f'{self.user.username} - {self.lesson.name}'         

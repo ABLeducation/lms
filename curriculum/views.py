@@ -1,4 +1,4 @@
-from django.shortcuts import render,HttpResponseRedirect
+from django.shortcuts import render,HttpResponseRedirect,redirect
 from django.views.generic import ListView,DetailView,CreateView,UpdateView,DeleteView,FormView
 from .models import *
 from django.urls import reverse_lazy
@@ -318,27 +318,75 @@ class LectureRatingCreateView(generics.CreateAPIView):
             serializer.save(user=user)
             
 def mentor_training_level(request):
-    return render(request, "trainer/mentor_training_level.html")
+    # Check if the user has completed all lessons in level 1
+    level_1_lessons = TeacherLesson.objects.filter(subject__level='Phase-I')
+    completed_lessons_level_1 = UserLessonProgress.objects.filter(user=request.user, lesson__in=level_1_lessons, completed=True).count()
+    
+    if completed_lessons_level_1 == level_1_lessons.count():
+        unlock_level_2 = True  # Unlock level 2
+    else:
+        unlock_level_2 = False
+
+    # Check if the user has completed all lessons in level 2
+    level_2_lessons = TeacherLesson.objects.filter(subject__level='Phase-II')
+    completed_lessons_level_2 = UserLessonProgress.objects.filter(user=request.user, lesson__in=level_2_lessons, completed=True).count()
+
+    if completed_lessons_level_2 == level_2_lessons.count():
+        unlock_level_3 = True  # Unlock level 3
+    else:
+        unlock_level_3 = False
+
+    return render(request, "trainer/mentor_training_level.html", {
+        'unlock_level_2': unlock_level_2,
+        'unlock_level_3': unlock_level_3,
+    })
 
 
-def mentor_subject_1(request):
-    subjects=TeacherSubject.objects.filter(Q(subject_id='jr_scratch') | Q(subject_id='scratch_mentor') | Q(subject_id='ablox') | Q(subject_id='electronics') | Q(subject_id='mechanzo'))
-    return render(request, "trainer/mentor_subject.html",{"subjects":subjects})
+def mentor_subjects_by_level(request, level):
+    subjects = TeacherSubject.objects.filter(level=level)
+    
+    lessons_by_subject_and_module = {}
 
-def mentor_subject_2(request):
-    subjects=TeacherSubject.objects.filter(Q(subject_id='python') | Q(subject_id='arduino') | Q(subject_id='3d_designing') | Q(subject_id='robotics_senior'))
-    return render(request, "trainer/mentor_subject.html",{"subjects":subjects})
+    for subject in subjects:
+        lessons = TeacherLesson.objects.filter(subject=subject).order_by('module', 'position')
+        lessons_by_modules = {}
+        for module_key, module_name in TeacherLesson.MODULE_CHOICES:
+            module_lessons = lessons.filter(module=module_key)
+            if module_lessons.exists():
+                lessons_by_modules[module_key] = {
+                    'name': module_name,
+                    'lessons': module_lessons
+                }
+        lessons_by_subject_and_module[subject] = lessons_by_modules
 
-def mentor_subject_3(request):
-    subjects=TeacherSubject.objects.filter(Q(subject_id='data_science') | Q(subject_id='ai_junior') | Q(subject_id='ai_senior') | Q(subject_id='iot'))
-    return render(request, "trainer/mentor_subject.html",{"subjects":subjects})
+    return render(request, "trainer/mentor_subject.html", {
+        "lessons_by_subject_and_module": lessons_by_subject_and_module,
+    })
 
-def mentor_lesson(request,slug):
-    subjects=TeacherSubject.objects.get(slug=slug)
-    lessons=TeacherLesson.objects.filter(subject=subjects)
-    return render(request, "trainer/mentor_lesson.html", {"subjects":subjects, "lessons":lessons})
 
-def mentor_lesson_detail(request,slug):
-    subjects=TeacherSubject.objects.all()
-    lessons=TeacherLesson.objects.get(slug=slug)
-    return render(request,"trainer/mentor_lesson_detail.html",{"subject":subjects,"lessons":lessons})
+def mentor_lesson_by_module(request, subject_slug, module):
+    # Get lessons for the specified subject and module
+    subject = TeacherSubject.objects.get(slug=subject_slug)
+    lessons = TeacherLesson.objects.filter(subject=subject, module=module).order_by('position')
+
+    return render(request, "trainer/mentor_lesson.html", {
+        "lessons": lessons,
+        "subject": subject,
+        "module": module
+    })
+
+
+def mentor_lesson_detail(request, slug):
+    # Get lesson by slug
+    lesson = TeacherLesson.objects.get(slug=slug)
+    
+    if request.method == "POST":
+        # Mark lesson as completed
+        UserLessonProgress.objects.update_or_create(
+            user=request.user,
+            lesson=lesson,
+            defaults={'completed': True}
+        )
+        return redirect('curriculum:mentor_training_level')
+
+    return render(request, "trainer/mentor_lesson_detail.html", {"lesson": lesson})

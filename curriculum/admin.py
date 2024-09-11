@@ -98,3 +98,4 @@ class teacherlessonadmin(ModelAdmin):
     actions = [make_displayable, make_not_displayable]
 admin.site.register(TeacherSubject,teachersubjectadmin)
 admin.site.register(TeacherLesson,teacherlessonadmin)
+admin.site.register(UserLessonProgress)
