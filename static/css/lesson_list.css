@@ -17,3 +17,13 @@
         height: 388px;
     }
 }
+
+#best-features-mentor .card{
+    height: 200px;
+    width:80%;
+}
+
+#best-features-mlesson .card{
+    height: 200px;
+    width:80%;
+}

@@ -380,6 +380,13 @@ def mentor_lesson_detail(request, slug):
     # Get lesson by slug
     lesson = TeacherLesson.objects.get(slug=slug)
     
+    # Check if the lesson is marked as completed by the current user
+    completed = UserLessonProgress.objects.filter(
+        user=request.user,
+        lesson=lesson,
+        completed=True
+    ).exists()
+    
     if request.method == "POST":
         # Mark lesson as completed
         UserLessonProgress.objects.update_or_create(
@@ -387,6 +394,7 @@ def mentor_lesson_detail(request, slug):
             lesson=lesson,
             defaults={'completed': True}
         )
-        return redirect('curriculum:mentor_training_level')
-
-    return render(request, "trainer/mentor_lesson_detail.html", {"lesson": lesson})
+        # Redirect to mentor_lesson_by_module after completion
+        return redirect('curriculum:mentor_lesson_by_module', subject_slug=lesson.subject.slug, module=lesson.module)
+    
+    return render(request, "trainer/mentor_lesson_detail.html", {"lesson": lesson, "completed": completed})

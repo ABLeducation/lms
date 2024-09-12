@@ -1,25 +1,135 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %} {{subjects.name}} {% endblock %}
 
-  {% block body %}
-    <section id="best-features" class="text-center">
-      <h2 class="mb-5 mt-5 font-weight-bold" style="color:#ff5722;"></h2>
-      <!-- class row2 for cards -->
-      <div class="row d-flex justify-content-center mb-3">
-        {% for lesson in lessons %}
-        <div class="col-sm-4 mb-4">
-          <div class="card box-shadow-hover">
-            <div class="card-body">
-              <h5 class="card-title">Chapter-{{lesson.position}}:
-                {{lesson.name}}</h5>
-              <a href="{% url 'curriculum:mentor_lesson_detail' slug=lesson.slug %}">
-                <button type="button" class="button-les"><span>Get Lectures</span></button>
-              </a>
+{% block title %} Lesson List {% endblock %}
+
+{% block body %}
+<section class="container mt-5">
+    <div class="row">
+        <!-- Left Column: List of Lessons -->
+        <div class="col-md-5">
+            <div class="accordion" id="lessonAccordion">
+                {% for lesson in lessons %}
+                <div class="card mb-3 shadow-sm border-0">
+                    <div class="card-header d-flex justify-content-between align-items-center bg-white" id="heading{{ lesson.id }}">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link text-dark font-weight-bold" type="button" onclick="toggleDropdown({{ lesson.id }})" aria-expanded="false" aria-controls="collapse{{ lesson.id }}">
+                                Chapter-{{ lesson.position }}: {{ lesson.name }}
+                            </button>
+                        </h5>
+                        <button class="btn btn-primary btn-sm" type="button" onclick="toggleDropdown({{ lesson.id }})">
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                    </div>
+
+                    <div id="collapse{{ lesson.id }}" class="collapse" aria-labelledby="heading{{ lesson.id }}">
+                        <div class="card-body">
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <a href="javascript:void(0);" onclick="loadContent('{{ lesson.video }}', 'video')">
+                                        Watch Video
+                                    </a>
+                                </li>
+                                <li class="list-group-item">
+                                    {% if lesson.assessment %}
+                                        <a href="javascript:void(0);" onclick="loadContent('{{ lesson.assessment }}', 'quiz')">
+                                            Take Quiz
+                                        </a>
+                                    {% else %}
+                                        <p class="text-muted">Quiz not available</p>
+                                    {% endif %}
+                                </li>
+                            </ul>
+
+                            <!-- Mark as Completed Button -->
+                            <div class="mt-2">
+                              {% if completed %}
+                              <button type="button" class="btn btn-success" disabled>Completed</button>
+                              {% else %}
+                                  <form method="POST" action="{% url 'curriculum:mentor_lesson_detail' slug=lesson.slug %}">
+                                      {% csrf_token %}
+                                      <button type="submit" class="btn btn-success">Mark as Completed</button>
+                                  </form>
+                              {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
             </div>
-          </div>
         </div>
-        {% endfor %}
-      </div>
-    </section>
-  {% endblock %}
+
+        <!-- Right Column: Display Video or Quiz -->
+        <div class="col-md-7">
+            <div id="lessonContent" class="p-3 shadow-sm border">
+                <h4>Select an option to view content</h4>
+                <div id="lessonDisplayContent" class="mt-4">
+                    <!-- Video or Quiz will be embedded here dynamically -->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Custom styles for the layout -->
+<style>
+    .btn-link {
+        text-decoration: none;
+        transition: all 0.2s ease-in-out;
+    }
+    .btn-link:hover {
+        color: #ff5722;
+    }
+    .card-body {
+        background-color: #f9f9f9;
+        border-top: 2px solid #ff5722;
+        border-radius: 0 0 8px 8px;
+        padding: 20px;
+    }
+    .accordion .card-header:hover {
+        box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+    }
+</style>
+
+<!-- Include Bootstrap and necessary scripts -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- JavaScript to handle the dynamic embedding and toggle -->
+<script>
+    // Toggle the dropdown visibility
+    function toggleDropdown(lessonId) {
+        let element = document.getElementById('collapse' + lessonId);
+        if (element.classList.contains('show')) {
+            element.classList.remove('show'); // Collapse it if already open
+        } else {
+            let allCollapses = document.querySelectorAll('.collapse');
+            allCollapses.forEach(collapse => collapse.classList.remove('show')); // Close others
+            element.classList.add('show'); // Expand this one
+        }
+    }
+
+    // Load video or quiz in the right section
+    function loadContent(url, type) {
+        let contentEmbed = '';
+        
+        if (type === 'video') {
+            // Embed video
+            contentEmbed = `
+                <h5>Lesson Video</h5>
+                <iframe width="100%" height="400" src="${url}" frameborder="0" allowfullscreen></iframe>
+            `;
+        } else if (type === 'quiz') {
+            // Embed quiz
+            contentEmbed = `
+                <h5>Quiz</h5>
+                <iframe width="100%" height="400" src="${url}" frameborder="0"></iframe>
+            `;
+        }
+
+        // Display the content in the right section
+        document.getElementById('lessonDisplayContent').innerHTML = contentEmbed;
+    }
+</script>
+
+{% endblock %}

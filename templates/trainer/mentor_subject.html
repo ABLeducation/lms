@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 
 {% block body %}
-<section id="best-features" class="text-center">
+<section id="best-features-mentor" class="text-center">
   <div class="row d-flex justify-content-center mb-3 mt-3">
     {% for subject, modules in lessons_by_subject_and_module.items %}
-    <div class="card mb-5 mr-4 ml-4 box-shadow-hover p-2" style="max-width: 450px;">
+    <div class="card mb-5 mr-4 ml-4 box-shadow-hover p-2 m-2" style="max-width: 400px;">
       <div class="row no-gutters">
         <div class="col-md-4">
           <img src="{{ subject.image.url|default_if_none:'#'}}" class="card-img" alt="No image found" height="150px" width="150px">
@@ -17,7 +17,9 @@
             {% for module_key, module_info in modules.items %}
             <div class="module-section">
               <h5>{{ module_info.name }}</h5>
-              <a href="{% url 'curriculum:mentor_lesson_by_module' subject_slug=subject.slug module=module_key %}">View Lessons for {{ module_info.name }}</a>
+              <a href="{% url 'curriculum:mentor_lesson_by_module' subject_slug=subject.slug module=module_key %}">
+                <button type="button" class="button-les"><span>View Lessons</span></button>
+              </a>
             </div>
             {% endfor %}
           </div>
