@@ -25,51 +25,37 @@
                     <div id="collapse{{ lesson.id }}" class="collapse" aria-labelledby="heading{{ lesson.id }}">
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-md-6">
-                                    <!-- Prerequisite and Video -->
-                                    <ul class="list-group">
-                                        <li class="list-group-item">
-                                            {% if lesson.ppt %}
-                                                <a href="javascript:void(0);" onclick="loadContent('{{ lesson.ppt.url }}', 'notes')">
-                                                    <span class="badge bg-success">Pre-requisite</span>
-                                                </a>
-                                            {% else %}
-                                                <p class="text-muted">Not Available</p>
-                                            {% endif %}
-                                        </li>
-                                        <li class="list-group-item">
-                                            {% if lesson.video1 %}
-                                                <a href="javascript:void(0);" onclick="loadContent('{{ lesson.video1 }}', 'video')">
-                                                    <span class="badge bg-primary">Watch Video</span>
-                                                </a>
-                                            {% else %}
-                                                <p class="text-muted">Not Available</p>
-                                            {% endif %}
-                                        </li>
-                                    </ul>
+                                <div class="col-md-6 mb-3">
+                                    <h6>Pre-requisite</h6>
+                                    {% if lesson.ppt %}
+                                        <a href="javascript:void(0);" onclick="loadContent('{{ lesson.ppt.url }}', 'notes')" class="btn btn-success btn-block">Get Files</a>
+                                    {% else %}
+                                        <p class="text-muted">Pre-requisite not available</p>
+                                    {% endif %}
                                 </div>
-                                <div class="col-md-6">
-                                    <!-- Assignment and Learning Aids -->
-                                    <ul class="list-group">
-                                        <li class="list-group-item">
-                                            {% if lesson.assessment %}
-                                                <a href="javascript:void(0);" onclick="loadContent('{{ lesson.assessment }}', 'quiz')">
-                                                    <span class="badge bg-warning">Assignment</span>
-                                                </a>
-                                            {% else %}
-                                                <p class="text-muted">Quiz not available</p>
-                                            {% endif %}
-                                        </li>
-                                        <li class="list-group-item">
-                                            {% if lesson.materials %}
-                                                <a href="javascript:void(0);" onclick="loadContent('{{ lesson.materials }}', 'materials')">
-                                                    <span class="badge bg-info">Learning Aids</span>
-                                                </a>
-                                            {% else %}
-                                                <p class="text-muted">Not Available</p>
-                                            {% endif %}
-                                        </li>
-                                    </ul>
+                                <div class="col-md-6 mb-3">
+                                    <h6>Video</h6>
+                                    {% if lesson.video1 %}
+                                        <a href="javascript:void(0);" onclick="loadContent('{{ lesson.video1 }}', 'video')" class="btn btn-primary btn-block">Watch Lesson</a>
+                                    {% else %}
+                                        <p class="text-muted">Video not available</p>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <h6>Assignment</h6>
+                                    {% if lesson.assessment %}
+                                        <a href="javascript:void(0);" onclick="loadContent('{{ lesson.assessment }}', 'quiz')" class="btn btn-warning btn-block">Take Quiz</a>
+                                    {% else %}
+                                        <p class="text-muted">Quiz not available</p>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <h6>Learning Aids</h6>
+                                    {% if lesson.materials %}
+                                        <a href="javascript:void(0);" onclick="loadContent('{{ lesson.materials }}', 'materials')" class="btn btn-info btn-block">View Materials</a>
+                                    {% else %}
+                                        <p class="text-muted">Learning aids not available</p>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
@@ -103,7 +89,7 @@
         text-decoration: underline;
     }
     .card-body {
-        background-color: #f1f1f1;
+        background-color: #f9f9f9;
         border-top: 2px solid #ff5722;
         border-radius: 0 0 10px 10px;
         padding: 20px;
@@ -124,6 +110,9 @@
         padding: 15px;
         background-color: #fff;
     }
+    .btn-block {
+        width: 100%;
+    }
     .badge {
         font-size: 1rem;
         padding: 0.5em 1em;
@@ -131,10 +120,6 @@
         color: #fff;
     }
 </style>
-
-<!-- Include Bootstrap and necessary scripts -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <!-- JavaScript to handle the dynamic embedding and toggle -->
 <script>
