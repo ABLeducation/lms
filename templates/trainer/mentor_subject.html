@@ -12,7 +12,7 @@
         <div class="col-md-8">
           <div class="card-body">
             <h4 class="card-title" style="color:#ff5722;">{{ subject.name }}</h4>
-            <p class="card-text">{{ subject.description|truncatechars:75 }}</p>
+            {% comment %} <p class="card-text">{{ subject.description|truncatechars:75 }}</p> {% endcomment %}
 
             {% for module_key, module_info in modules.items %}
             <div class="module-section">

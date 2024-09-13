@@ -24,36 +24,54 @@
 
                     <div id="collapse{{ lesson.id }}" class="collapse" aria-labelledby="heading{{ lesson.id }}">
                         <div class="card-body">
-                            <ul class="list-group">
-                                <li class="list-group-item">
-                                  {% if lesson.ppt %}
-                                  <a href="javascript:void(0);" onclick="loadContent('{{ lesson.ppt.url }}', 'notes')">
-                                      <span class="badge bg-success">Pre-requisite</span>
-                                  </a>
-                                  {% else %}
-                                        <p class="text-muted">Pre-requisite not available</p>
-                                  {% endif %}
-                                </li>
-                                <li class="list-group-item">
-                                    <a href="javascript:void(0);" onclick="loadContent('{{ lesson.video1 }}', 'video')">
-                                        <span class="badge bg-primary">Watch Video</span>
-                                    </a>
-                                </li>
-                                <li class="list-group-item">
-                                    {% if lesson.assessment %}
-                                        <a href="javascript:void(0);" onclick="loadContent('{{ lesson.assessment }}', 'quiz')">
-                                            <span class="badge bg-warning">Assignment</span>
-                                        </a>
-                                    {% else %}
-                                        <p class="text-muted">Quiz not available</p>
-                                    {% endif %}
-                                </li>
-                                <li class="list-group-item">
-                                  <a href="javascript:void(0);" onclick="loadContent('{{ lesson.materials }}', 'materials')">
-                                      <span class="badge bg-info">Learning Aids</span>
-                                  </a>
-                                </li>
-                            </ul>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <!-- Prerequisite and Video -->
+                                    <ul class="list-group">
+                                        <li class="list-group-item">
+                                            {% if lesson.ppt %}
+                                                <a href="javascript:void(0);" onclick="loadContent('{{ lesson.ppt.url }}', 'notes')">
+                                                    <span class="badge bg-success">Pre-requisite</span>
+                                                </a>
+                                            {% else %}
+                                                <p class="text-muted">Not Available</p>
+                                            {% endif %}
+                                        </li>
+                                        <li class="list-group-item">
+                                            {% if lesson.video1 %}
+                                                <a href="javascript:void(0);" onclick="loadContent('{{ lesson.video1 }}', 'video')">
+                                                    <span class="badge bg-primary">Watch Video</span>
+                                                </a>
+                                            {% else %}
+                                                <p class="text-muted">Not Available</p>
+                                            {% endif %}
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-6">
+                                    <!-- Assignment and Learning Aids -->
+                                    <ul class="list-group">
+                                        <li class="list-group-item">
+                                            {% if lesson.assessment %}
+                                                <a href="javascript:void(0);" onclick="loadContent('{{ lesson.assessment }}', 'quiz')">
+                                                    <span class="badge bg-warning">Assignment</span>
+                                                </a>
+                                            {% else %}
+                                                <p class="text-muted">Quiz not available</p>
+                                            {% endif %}
+                                        </li>
+                                        <li class="list-group-item">
+                                            {% if lesson.materials %}
+                                                <a href="javascript:void(0);" onclick="loadContent('{{ lesson.materials }}', 'materials')">
+                                                    <span class="badge bg-info">Learning Aids</span>
+                                                </a>
+                                            {% else %}
+                                                <p class="text-muted">Not Available</p>
+                                            {% endif %}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
