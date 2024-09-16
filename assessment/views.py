@@ -4,7 +4,13 @@ from .models import *
 from django.http import JsonResponse
 import math
 from django.views.decorators.csrf import csrf_exempt
-import logging
+from reportlab.lib.pagesizes import letter
+from reportlab.pdfgen import canvas
+from io import BytesIO
+from django.core.files.base import ContentFile
+import os
+from django.conf import settings
+from PyPDF2 import PdfReader, PdfWriter
 
 class QuizView(ListView):
     model=Quiz
@@ -36,15 +42,55 @@ def quiz_data_view(request,pk):
         question.append({str(q):answers})
     return JsonResponse({'data':question,'time':quiz.time})
 
+def generate_certificate(user, quiz, score, passed,date_attempted):
+    if passed:
+        template_filename = 'certificate_e.pdf'  # For scores greater than or equal to passing score
+    else:
+        template_filename = 'certificate_c.pdf'
+    # Create a temporary PDF with details to overlay on the template
+    buffer = BytesIO()
+    c = canvas.Canvas(buffer, pagesize=letter)
+    c.setFont("Helvetica", 22)
+    
+    # Draw text onto the temporary PDF
+    # c.drawString(100, 750, "Certificate of Achievement")
+    c.drawString(400, 410, f"{user.first_name} {user.last_name}")
+    c.drawString(390, 342, f"{quiz.grade}")
+    c.drawString(400, 290, f"{quiz.name}")
+    c.drawString(420, 236, f"{score:.2f}%")
+    c.drawString(405, 157, f"{date_attempted.strftime('%d-%m-%Y')}")
+    
+    c.save()
+    buffer.seek(0)
+    
+    # Load the template PDF
+    template_path = os.path.join(settings.MEDIA_ROOT, template_filename)
+    template_reader = PdfReader(template_path)
+    template_writer = PdfWriter()
+    
+    # Overlay the content on the template PDF
+    template_page = template_reader.pages[0]
+    overlay_pdf = PdfReader(buffer)
+    overlay_page = overlay_pdf.pages[0]
+    
+    template_page.merge_page(overlay_page)
+    template_writer.add_page(template_page)
+    
+    # Save the final PDF to a buffer
+    final_buffer = BytesIO()
+    template_writer.write(final_buffer)
+    final_buffer.seek(0)
+    
+    filename = f"{user.username}_{quiz.name}_certificate.pdf"
+    return ContentFile(final_buffer.getvalue(), filename)
+
 @csrf_exempt
 def quiz_data_save(request, pk):
-    # Check if the request is an AJAX request
     if request.method == 'POST' and request.headers.get('X-Requested-With') == 'XMLHttpRequest':
         data = request.POST
         user = request.user
         quiz = Quiz.objects.get(pk=pk)
 
-        questions = []
         data_ = dict(data.lists())
         data_.pop('csrfmiddlewaretoken')
 
@@ -55,29 +101,26 @@ def quiz_data_save(request, pk):
 
         for k, v in data_.items():
             question = Question.objects.get(text=k)
-            questions.append(question)
             a_selected = v[0]  # Get the first answer
 
             if a_selected:
                 question_answers = Answer.objects.filter(question=question)
                 for a in question_answers:
-                    if a_selected == a.text:
-                        if a.correct:
-                            score += 1
-                            correct_answer = a.text
-                    else:
-                        if a.correct:
-                            correct_answer = a.text
+                    if a_selected == a.text and a.correct:
+                        score += 1
+                        correct_answer = a.text
                 results.append({str(question): {"correct_answer": correct_answer, "answered": a_selected}})
             else:
                 results.append({str(question): 'not answered'})
 
         score_ = score * multiplier
-        Result.objects.create(quiz=quiz, user=user, score=score_)
+        result = Result.objects.create(quiz=quiz, user=user, score=score_)
 
-        if score_ >= quiz.required_score_to_pass:
-            return JsonResponse({"passed": True, "score": score_, "results": results})
-        else:
-            return JsonResponse({"passed": False, "score": score_, "results": results})
+        # Check if the user passed the quiz
+        passed = score_ >= quiz.required_score_to_pass
+        certificate_file = generate_certificate(user, quiz, score_, passed,result.date_attempted)
+        result.certificate.save(certificate_file.name, certificate_file)
+        
+        return JsonResponse({"passed": passed, "score": score_, "results": results})
     else:
         return JsonResponse({"error": "Invalid request"}, status=400)

@@ -83,6 +83,7 @@ def student_home(request,subject_id=None):
         average_percentage = 0
     
     quizzes = Quiz.objects.filter(start_date__lte=timezone.now(), end_date__gte=timezone.now())
+    results = Result.objects.filter(user=user, certificate__isnull=False)
     context={
         "total_attendance": total_subjects,
         "attendance_present": average_percentage,
@@ -95,7 +96,8 @@ def student_home(request,subject_id=None):
         # "recent_visit":actionTime,
         "unread_notifications":unread_notifications,
         "logs":logs,
-        "quizzes":quizzes
+        "quizzes":quizzes,
+        "results":results
     }
     return render(request, "student_template/student_home_template.html", context)
 

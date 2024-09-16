@@ -49,6 +49,7 @@ class Result(models.Model):
     user=models.ForeignKey(User, on_delete=models.CASCADE)
     score=models.FloatField()
     date_attempted = models.DateTimeField(auto_now_add=True, null=True,blank=True)
+    certificate = models.FileField(upload_to='certificates/', blank=True, null=True) 
 
     def __str__(self):
         return str(self.user)

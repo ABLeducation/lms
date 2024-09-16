@@ -15,6 +15,7 @@
                 <th>Date</th>
                 <th>Marks</th>
                 <th>Feedback</th>
+                <th>Certificate</th>
             </tr>
         </thead>
         <tbody>
@@ -33,6 +34,11 @@
                         {% else %}
                         <span class="alert alert-danger">Improve</span>
                     {% endif %}</td>
+                    {% if result.certificate %}
+                        <td><a href={{result.certificate.url}}>Download</a></td>
+                    {% else %}
+                    <td>No certificate<td/>
+                    {% endif %}
                 </tr> 
             {% endfor %}
         </tbody>
