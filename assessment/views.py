@@ -51,10 +51,15 @@ def generate_certificate(user, quiz, score, passed,date_attempted):
     buffer = BytesIO()
     c = canvas.Canvas(buffer, pagesize=letter)
     c.setFont("Helvetica", 22)
+    student_profile = user_profile_student.objects.get(user=user)
+
+    # Construct the full name from the profile model
+    student_name = f"{student_profile.first_name} {student_profile.last_name}"
+
     
     # Draw text onto the temporary PDF
     # c.drawString(100, 750, "Certificate of Achievement")
-    c.drawString(400, 410, f"{user.first_name} {user.last_name}")
+    c.drawString(400, 410, student_name)  # Adjust the coordinates as necessary
     c.drawString(390, 342, f"{quiz.grade}")
     c.drawString(400, 290, f"{quiz.name}")
     c.drawString(420, 236, f"{score:.2f}%")
@@ -100,19 +105,23 @@ def quiz_data_save(request, pk):
         correct_answer = None
 
         for k, v in data_.items():
-            question = Question.objects.get(text=k)
-            a_selected = v[0]  # Get the first answer
+            # Use filter() to allow multiple questions with the same text
+            questions = Question.objects.filter(text=k)
+            if questions.exists():
+                for question in questions:  # Iterate through all matching questions
+                    a_selected = v[0]  # Get the first answer from the user input
 
-            if a_selected:
-                question_answers = Answer.objects.filter(question=question)
-                for a in question_answers:
-                    if a_selected == a.text and a.correct:
-                        score += 1
-                        correct_answer = a.text
-                results.append({str(question): {"correct_answer": correct_answer, "answered": a_selected}})
+                    if a_selected:
+                        question_answers = Answer.objects.filter(question=question)
+                        for a in question_answers:
+                            if a_selected == a.text and a.correct:
+                                score += 1
+                                correct_answer = a.text
+                        results.append({str(question): {"correct_answer": correct_answer, "answered": a_selected}})
+                    else:
+                        results.append({str(question): 'not answered'})
             else:
-                results.append({str(question): 'not answered'})
-
+                results.append({k: 'Question not found'})
         score_ = score * multiplier
         result = Result.objects.create(quiz=quiz, user=user, score=score_)
 
