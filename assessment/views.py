@@ -4,13 +4,13 @@ from .models import *
 from django.http import JsonResponse
 import math
 from django.views.decorators.csrf import csrf_exempt
-from reportlab.lib.pagesizes import letter
-from reportlab.pdfgen import canvas
+from reportlab.lib.pagesizes import letter # type: ignore
+from reportlab.pdfgen import canvas # type: ignore
 from io import BytesIO
 from django.core.files.base import ContentFile
 import os
 from django.conf import settings
-from PyPDF2 import PdfReader, PdfWriter
+from PyPDF2 import PdfReader, PdfWriter # type: ignore
 
 class QuizView(ListView):
     model=Quiz
@@ -100,36 +100,44 @@ def quiz_data_save(request, pk):
         data_.pop('csrfmiddlewaretoken')
 
         score = 0
-        multiplier = 100 / quiz.no_of_question
+        multiplier = 100 / quiz.no_of_question  # Calculate the percentage multiplier based on the total number of questions
         results = []
         correct_answer = None
+        answered_questions = set()  # To keep track of the questions already processed
 
         for k, v in data_.items():
             # Use filter() to allow multiple questions with the same text
             questions = Question.objects.filter(text=k)
             if questions.exists():
-                for question in questions:  # Iterate through all matching questions
-                    a_selected = v[0]  # Get the first answer from the user input
+                for question in questions:
+                    # Ensure each question is only processed once
+                    if question.id not in answered_questions:
+                        answered_questions.add(question.id)
+                        a_selected = v[0]  # Get the first answer from the user input
 
-                    if a_selected:
-                        question_answers = Answer.objects.filter(question=question)
-                        for a in question_answers:
-                            if a_selected == a.text and a.correct:
-                                score += 1
-                                correct_answer = a.text
-                        results.append({str(question): {"correct_answer": correct_answer, "answered": a_selected}})
-                    else:
-                        results.append({str(question): 'not answered'})
+                        if a_selected:
+                            question_answers = Answer.objects.filter(question=question)
+                            for a in question_answers:
+                                if a_selected == a.text and a.correct:
+                                    score += 1
+                                    correct_answer = a.text
+                            results.append({str(question): {"correct_answer": correct_answer, "answered": a_selected}})
+                        else:
+                            results.append({str(question): 'not answered'})
             else:
                 results.append({k: 'Question not found'})
-        score_ = score * multiplier
+
+        # Ensure the score does not exceed 100%
+        score_ = min(score * multiplier, 100)  # Ensure score cannot exceed 100%
+
         result = Result.objects.create(quiz=quiz, user=user, score=score_)
 
         # Check if the user passed the quiz
         passed = score_ >= quiz.required_score_to_pass
-        certificate_file = generate_certificate(user, quiz, score_, passed,result.date_attempted)
+        certificate_file = generate_certificate(user, quiz, score_, passed, result.date_attempted)
         result.certificate.save(certificate_file.name, certificate_file)
-        
+
         return JsonResponse({"passed": passed, "score": score_, "results": results})
     else:
         return JsonResponse({"error": "Invalid request"}, status=400)
+

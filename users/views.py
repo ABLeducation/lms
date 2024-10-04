@@ -7,10 +7,10 @@ from users.forms import *
 from django.views.generic import CreateView
 from django.contrib import messages
 from users.Emailbackend import *
-import requests
+import requests # type: ignore
 import json
 from .utils import activateEmail
-import openpyxl
+import openpyxl # type: ignore
 
 # Create your views here.
 def index(request):
@@ -46,7 +46,7 @@ class StudentSignUpView(CreateView):
     def form_valid(self, form):
         user = form.save()
         to=user.email
-        activateEmail(self.request, user, to)
+        # activateEmail(self.request, user, to)
         return redirect('users:message')
 
 class ParentSignUpView(CreateView):
@@ -61,7 +61,7 @@ class ParentSignUpView(CreateView):
     def form_valid(self,form):
         user = form.save()
         to=user.email
-        activateEmail(self.request, user, to) 
+        # activateEmail(self.request, user, to) 
         return redirect('users:message')
 
 class TeacherSignUpView(CreateView):
@@ -76,7 +76,7 @@ class TeacherSignUpView(CreateView):
     def form_valid(self, form):
         user = form.save()
         to=user.email
-        activateEmail(self.request, user, to)
+        # activateEmail(self.request, user, to)
         return redirect('users:message')
 
 class PrincipalSignUpView(CreateView):
@@ -91,7 +91,7 @@ class PrincipalSignUpView(CreateView):
     def form_valid(self, form):
         user = form.save()
         to=user.email
-        activateEmail(self.request, user, to)
+        # activateEmail(self.request, user, to)
         return redirect('users:message')
 
 class SchoolSignUpView(CreateView):
@@ -106,7 +106,7 @@ class SchoolSignUpView(CreateView):
     def form_valid(self, form):
         user = form.save()
         to=user.email
-        activateEmail(self.request, user, to)
+        # activateEmail(self.request, user, to)
         return redirect('users:message')
         
 def register_student_from_excel(request):

@@ -60,7 +60,8 @@ INSTALLED_APPS = [
     'django_social_share',
     'assessment',
     'ebook',
-    'pwa'
+    'pwa',
+    'import_export',
 ]
 
 SITE_ID = 1
