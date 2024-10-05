@@ -182,10 +182,10 @@ class UserLoginActivityAdmin(ModelAdmin):
             row = [
                 obj.login_username,
                 self.get_student_name(obj),
+                self.get_grade(obj),
+                self.get_section(obj),
                 obj.login_num,
                 obj.login_datetime,
-                self.get_grade(obj),
-                self.get_section(obj)
             ]
             for col_num, cell_value in enumerate(row, 1):
                 cell = worksheet.cell(row=row_num, column=col_num)
