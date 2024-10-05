@@ -170,7 +170,7 @@ class UserLoginActivityAdmin(ModelAdmin):
         worksheet.title = 'User Login Activities'
 
         # Define the columns
-        columns = ['Username', 'Student Name', 'Login Number', 'Login DateTime']
+        columns = ['Username', 'Student Name','Grade','Section', 'Login Number', 'Login DateTime']
 
         # Write the header row
         for col_num, column_title in enumerate(columns, 1):
@@ -184,6 +184,8 @@ class UserLoginActivityAdmin(ModelAdmin):
                 self.get_student_name(obj),
                 obj.login_num,
                 obj.login_datetime,
+                self.get_grade(obj),
+                self.get_section(obj)
             ]
             for col_num, cell_value in enumerate(row, 1):
                 cell = worksheet.cell(row=row_num, column=col_num)
